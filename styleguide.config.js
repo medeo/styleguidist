@@ -6,6 +6,7 @@ module.exports = {
 	styleguideComponents: {
 		Wrapper: path.join(__dirname, 'src/ThemeWrapper.js'),
 	},
+	ignore: ['**/mixins/*.js'],
 	webpackConfig: {
 		module: {
 			rules: [

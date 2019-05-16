@@ -32,9 +32,9 @@ const palette = {
  */
 
 const fontSizes = {
-	large: modularScale(0, '1em', 'majorThird'),
-	medium: modularScale(-1, '1em', 'majorThird'),
-	small: modularScale(-2, '1em', 'majorThird'),
+	large: modularScale(1, '1em', 'majorThird'),
+	medium: modularScale(0, '1em', 'majorThird'),
+	small: modularScale(-1, '1em', 'majorThird'),
 };
 
 /**

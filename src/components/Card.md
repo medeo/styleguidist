@@ -36,15 +36,18 @@ import Span from './Span';
 		</main>
 	</Card>
 </div>;
+
 ```
 
 ```jsx
 import Button from './Button';
 import Span from './Span';
+
 import { CardHeader } from './Card';
 <div style={{ background: '#F5F7FA', padding: '1rem', margin: '-1rem' }}>
 	<Card>
 		<CardHeader>
+
 			<h1>mesures d'aujourd'hui</h1>
 			<Span> Les données prises à partir des appareils connectés s’ajouteront automatiquement</Span>
 		</CardHeader>
@@ -82,7 +85,7 @@ import Span from './Span';
 		</main>
 		<footer style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline' }}>
 			<Span style={{ marginRight: '.5rem' }}>Nullam nec porttitor lacus.</Span>
-			<Button>test</Button>{' '}
+			<Button>test</Button>
 		</footer>
 	</Card>
 </div>;

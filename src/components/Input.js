@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 const invalidMixin = css`
 	border-color: ${p => p.theme.scarlett};
+	color: ${p => p.theme.black};
 `;
 
 const defaultMixin = css`

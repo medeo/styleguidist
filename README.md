@@ -1,2 +1,0 @@
-# styleguidist
-Created with CodeSandbox

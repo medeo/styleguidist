@@ -38,6 +38,16 @@ const fontSizes = {
 };
 
 /**
+ *  les spacing devraient s'utiliser de la sorte:
+ * 	p => p.theme.spacing[p.spacing]
+ */
+const spacing = {
+	small: '0.5rem',
+	medium: '1rem',
+	large: '2rem',
+};
+
+/**
  * Les font-weights sont définis en se servant de la police Inter.
  * sur le fichier .css d'import on peut voir les equivalences numeriques et mot-clés.
  * i.e. bold === 600.
@@ -74,6 +84,7 @@ const theme = {
 	...palette,
 	...fontSizes,
 	...fontWeights,
+	spacing,
 };
 
 export default theme;

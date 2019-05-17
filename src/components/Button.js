@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { lighten, mix, readableColor } from 'polished';
+import clickableMixin from '../mixins/clickable';
 
 const outlineMixin = css`
 	background-color: transparent;
@@ -31,7 +32,7 @@ const plainMixin = css`
  * Par défaut, la taille des boutons est à `small`.
  * Comme les textes des boutons sont capitaliśes on obtient une bonne lisibilité.
  * Comme sur [Stripe](https://stripe.com) les boutons sont animés lors du clic.
- *
+ * @example ./Tooltip.md
  * @see See https://stripe.com
  * @author medeo
  */
@@ -43,8 +44,9 @@ const Button = styled.button`
 	border-radius: 0.25rem;
 	text-transform: uppercase;
 	outline: none;
-	transform: translateY(0px);
-	transition: ease-out transform 200ms, ease-out color 125ms;
+
+	${clickableMixin};
+
 	&:focus,
 	&:hover {
 		/* there is a special case for the white version of the button */
@@ -52,15 +54,12 @@ const Button = styled.button`
 		/* check with the non-hovered bg so the font color don't flicker.*/
 		color: ${p => readableColor(p.theme[p.color], p.theme.ebony)};
 	}
-	&:active {
-		transform: translateY(1px);
-	}
 `;
 
 Button.defaultProps = {
 	color: 'ocean',
 	variant: 'primary',
-	size: 'medium',
+	size: 'small',
 };
 
 Button.propTypes = {

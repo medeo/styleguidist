@@ -4,7 +4,7 @@ import { opacify, transparentize } from 'polished';
 export const CardHeader = styled.header`
 	& > h1 {
 		text-transform: uppercase;
-		letter-spacing: 0.1rem;
+		letter-spacing: 0.125rem;
 		color: ${p => p.theme.aqua};
 		font-size: ${p => p.theme.large};
 		margin: 0;

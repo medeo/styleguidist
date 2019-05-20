@@ -1,4 +1,4 @@
-import { modularScale } from 'polished';
+import { modularScale, darken } from 'polished';
 /**
  * la palette de couleur propose que les variantes de base des couleurs.
  * si il est nécessaire de rajouter des variantes plus claires ou plus sombres
@@ -13,6 +13,7 @@ const palette = {
 	ebony: '#1F2933',
 	nevada: '#616E7C',
 	cream: '#EBEBEB',
+	darkCream: darken(0.2, '#EBEBEB'),
 	// primary colors
 	aqua: '#1FB6FF',
 	ocean: '#0967D2',
@@ -20,6 +21,7 @@ const palette = {
 	// secondary colors
 	gray: '#9AA5B1',
 	white: '#fff',
+	black: '#040404',
 	// supporting colors
 	emerald: '#57DA92',
 	mustard: '#F7B029',
@@ -32,9 +34,9 @@ const palette = {
  */
 
 const fontSizes = {
-	large: modularScale(0, '1em', 'majorThird'),
-	medium: modularScale(-1, '1em', 'majorThird'),
-	small: modularScale(-2, '1em', 'majorThird'),
+	large: modularScale(1, '1em', 'majorThird'),
+	medium: modularScale(0, '1em', 'majorThird'),
+	small: modularScale(-1, '1em', 'majorThird'),
 };
 
 /**

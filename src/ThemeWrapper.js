@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import theme from './theme';
+import tooltipMixins from './mixins/tooltip';
 
 const GlobalStyle = createGlobalStyle`
 	@import url('https://rsms.me/inter/inter.css');
@@ -11,6 +12,8 @@ const GlobalStyle = createGlobalStyle`
 	@supports (font-variation-settings: normal) {
 		html { font-family: 'Inter var', sans-serif; }
 	}
+
+	${tooltipMixins}
 `;
 
 const ThemeWrapper = ({ children }) => (

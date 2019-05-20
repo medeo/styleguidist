@@ -14,6 +14,10 @@ const Span = styled.span`
 		background: ${p =>
 			readableColor(p.theme[p.color], p.theme.alabaster, transparentize(0.5, p.theme.aqua))};
 	}
+
+	&[role='tooltip'] {
+		opacity: 0;
+	}
 `;
 
 Span.defaultProps = {
@@ -32,4 +36,31 @@ const Span = styled.span`
 	font-size: ${p => p.theme[p.size]};
 	font-weight: ${p => p.theme[p.weight]};
 `;
+*/
+
+/*
+
+const Tooltip = styled.span.attrs({
+  role: 'tooltip',
+  ariaHidden: 'false',
+})`
+  opacity: 0;
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  background: red;
+  transition: none;
+`
+
+const Span = styled.span`
+  &:hover ~ ${Tooltip} {
+    opacity: 1;
+    display: block;
+    transition: 1s step-end opacity;
+  }
+  user-select: none;
+`
+const Div = styled.div`
+  position: relative;
+`
 */

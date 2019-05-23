@@ -1,4 +1,4 @@
-import { modularScale, darken } from 'polished';
+import { modularScale, darken } from 'polished/lib/index';
 /**
  * la palette de couleur propose que les variantes de base des couleurs.
  * si il est nécessaire de rajouter des variantes plus claires ou plus sombres

@@ -1,4 +1,4 @@
-import { modularScale, darken } from 'polished';
+import { modularScale } from 'polished';
 /**
  * la palette de couleur propose que les variantes de base des couleurs.
  * si il est nécessaire de rajouter des variantes plus claires ou plus sombres
@@ -13,7 +13,6 @@ const palette = {
 	ebony: '#1F2933',
 	nevada: '#616E7C',
 	cream: '#EBEBEB',
-	darkCream: darken(0.2, '#EBEBEB'),
 	// primary colors
 	aqua: '#1FB6FF',
 	ocean: '#0967D2',

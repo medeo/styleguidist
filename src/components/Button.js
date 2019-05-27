@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { lighten, mix, readableColor } from 'polished';
@@ -38,7 +37,7 @@ const plainMixin = css`
  */
 const Button = styled.button`
 	${p => (p.variant === 'outline' ? outlineMixin : plainMixin)};
-	font-family: ${p => p.theme.bold};
+	font-weight: ${p => p.theme.bold};
 	padding: 0.5rem 1rem;
 	font-size: ${p => p.theme[p.size]};
 	border-radius: 0.25rem;

@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { darken } from 'polished';
 
 const invalidMixin = css`
 	border-color: ${p => p.theme.scarlett};

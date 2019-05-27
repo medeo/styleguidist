@@ -1,41 +1,57 @@
 {
-  "name": "react-styleguidist-example",
-  "description": "React styleguidist example",
-  "version": "1.0.0",
-  "private": true,
-  "homepage": "https://github.com/sapegin/react-styleguidist-example",
-  "author": {
-    "name": "Artem Sapegin",
-    "url": "http://sapegin.me/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/sapegin/react-styleguidist-example.git"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">=4"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "1.2.18",
-    "@fortawesome/free-solid-svg-icons": "5.8.2",
-    "@fortawesome/react-fontawesome": "0.1.4",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "polished": "3.3.0",
-    "prop-types": "15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-styleguidist": "^9.0.8",
-    "styled-components": "4.2.0",
-    "webpack": "^4.30.0"
-  },
-  "scripts": {
-    "start": "styleguidist server",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
-  }
+	"name": "@medeo/component",
+	"description": "Styled-Components Library",
+	"version": "1.0.0",
+	"private": true,
+	"module": "es/dist.js",
+	"homepage": "https://github.com/sapegin/react-styleguidist-example",
+	"author": {
+		"name": "Artem Sapegin",
+		"url": "http://sapegin.me/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/sapegin/react-styleguidist-example.git"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": ">=4"
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "1.2.18",
+		"@fortawesome/free-solid-svg-icons": "5.8.2",
+		"@fortawesome/react-fontawesome": "0.1.4",
+		"babel-core": "^6.26.0",
+		"babel-loader": "^7.1.4",
+		"babel-preset-env": "^1.6.1",
+		"babel-preset-react": "^6.24.1",
+		"babel-preset-stage-0": "^6.24.1",
+		"react-styleguidist": "^9.0.8",
+		"webpack": "^4.30.0"
+	},
+	"peerDependencies": {
+		"font-awesome": "4.7.0",
+		"polished": "3.3.0",
+		"prop-types": "15.7.2",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"styled-components": "4.2.0"
+	},
+	"scripts": {
+		"start": "styleguidist server",
+		"build": "rollup -c",
+		"styleguide": "styleguidist server",
+		"styleguide:build": "styleguidist build"
+	},
+	"devDependencies": {
+		"polished": "^3.3.2",
+		"prop-types": "^15.7.2",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"rollup": "^1.12.3",
+		"rollup-plugin-jsx": "^1.0.3",
+		"rollup-plugin-multi-entry": "^2.1.0",
+		"rollup-plugin-peer-deps-external": "^2.2.0",
+		"styled-components": "^4.2.0"
+	}
 }

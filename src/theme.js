@@ -13,7 +13,6 @@ const palette = {
 	ebony: '#1F2933',
 	nevada: '#616E7C',
 	cream: '#EBEBEB',
-	darkCream: darken(0.2, '#EBEBEB'),
 	// primary colors
 	aqua: '#1FB6FF',
 	ocean: '#0967D2',

@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+/*
 let StyledList = styled.ul`
 	font-family: 'Inter', sans-serif;
 	padding-left: ${p => (p.variant === 'none' ? 0 : p.theme.spacing.medium)};
 	margin: 0;
 	list-style-type: ${p => p.variant};
-`;
+`;*/
 
-const List = ({ items, children, fallback, ...rest }) => {
+const List = styled(({ items, children, fallback, ...rest }) => {
 	if (fallback != null && items.length < 1) return fallback;
-	return <StyledList {...rest}>{items.map(children)}</StyledList>;
-};
+	return <ul {...rest}>{items.map(children)}</ul>;
+})`
+	font-family: 'Inter', sans-serif;
+	padding-left: ${p => (p.variant === 'none' ? 0 : p.theme.spacing.medium)};
+	margin: 0;
+	list-style-type: ${p => p.variant};
+`;
 
 List.defaultProps = {
 	items: [],

@@ -1,24 +1,35 @@
-# React Styleguidist example style guide
+# CODESANDBOX
 
-This example is supposed to be used to reproduce issues, if you want to learn how to use React Styleguidist see [examples in the main repository](https://github.com/styleguidist/react-styleguidist/tree/master/examples).
+// TODO
 
-![](http://wow.sapegin.me/3q0F1Y1P321k/Image%202016-04-12%20at%207.25.03%20PM.png)
+# ROLLUP
 
-## How to start locally
+Rollup permet la creation de la librairie, elle expose juste chaque composant ES.
 
+# YARN LINK
+
+Pendant la phase de developpement il faut utiliser la fonctionnalité de [**link**](https://yarnpkg.com/fr/docs/cli/link).
+
+```bash
+yarn link
 ```
-git clone https://github.com/styleguidist/example.git react-styleguidist-example
-cd react-styleguidist-example
-npm install
-npm start
+
+Puis dans le projet ou on importe les composants
+
+```bash
+yarn link @medeo/component
 ```
 
-Then open [http://localhost:6060](http://localhost:6060) in your browser.
+Ensuite il suffit d'importer les composants dans les fichiers .jsx
 
-## How to create a reproducible demo
+```jsx harmony
+import React from 'react';
+import { Button } from '@medeo/component';
 
-1. Fork this repository (please don’t use the main, styleguidist/react-styleguidist, repository).
-2. Modify it to reproduce the issue.
-3. Push your changes to GitHub and paste the link into a GitHub issue.
-
-Most likely you’ll find an issue yourself, while creating a demo.
+const test = () => (
+	<div>
+		<Button>coucou</Button>
+	</div>
+);
+/* ...etc */
+```

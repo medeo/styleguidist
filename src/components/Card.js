@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { opacify, transparentize } from 'polished';
+import styled   from 'styled-components';
+import { transparentize } from 'polished';
 
 export const CardHeader = styled.header`
 	& > h1 {

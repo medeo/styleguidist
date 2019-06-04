@@ -19,7 +19,6 @@ const plainMixin = css`
 	background: ${p => p.theme[p.color]};
 	border-color: transparent;
 	color: ${p => readableColor(p.theme[p.color])};
-
 	&:disabled {
 		cursor: not-allowed;
 		background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
@@ -43,9 +42,7 @@ const Button = styled.button`
 	border-radius: 0.25rem;
 	text-transform: uppercase;
 	outline: none;
-
 	${clickableMixin};
-
 	&:focus,
 	&:hover {
 		/* there is a special case for the white version of the button */

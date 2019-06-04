@@ -2,7 +2,7 @@
 import Span from './Span';
 
 <div style={{ background: '#F5F7FA', padding: '1rem', margin: '-1rem' }}>
-	<Card spacing="large">
+	<Card spacing="small">
 		<main>
 			<Span size="large" weight="bold">
 				Some stuff
@@ -36,7 +36,6 @@ import Span from './Span';
 		</main>
 	</Card>
 </div>;
-
 ```
 
 ```jsx
@@ -47,7 +46,6 @@ import { CardHeader } from './Card';
 <div style={{ background: '#F5F7FA', padding: '1rem', margin: '-1rem' }}>
 	<Card>
 		<CardHeader>
-
 			<h1>mesures d'aujourd'hui</h1>
 			<Span> Les données prises à partir des appareils connectés s’ajouteront automatiquement</Span>
 		</CardHeader>

@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
 	html { 
 		font-family: 'Inter', sans-serif; 
 		font-size: 16px;
+		box-sizing: border-box;
 	}
 	@supports (font-variation-settings: normal) {
 		html { font-family: 'Inter var', sans-serif; }

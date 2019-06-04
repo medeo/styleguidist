@@ -1,7 +1,7 @@
 {
   "name": "@medeo/component",
   "description": "Styled-Components Library",
-  "version": "5.0.0-1",
+  "version": "5.0.0-2",
   "private": false,
   "module": "es/dist.js",
   "homepage": "https://github.com/sapegin/react-styleguidist-example",

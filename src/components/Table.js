@@ -33,7 +33,8 @@ const Table = styled.table`
 			border: 1px solid transparent;
 			border-left: none;
 			border-right: none;
-			padding: 0.5rem 2rem;
+			// padding should be set by the implementation
+		//	padding: 0.5rem 2rem;
 			//	vertical-align: top;
 			text-align: left;
 

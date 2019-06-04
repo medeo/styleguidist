@@ -3,6 +3,9 @@ export { default as Card } from './components/Card'
 export { default as List } from './components/List'
 export { default as Span } from './components/Span'
 export { default as Table } from './components/Table'
+export { default as Modal } from './components/Modal'
+export { default as Callout } from './components/Callout'
+export { default as DropDown } from './components/DropDown'
 
 export { default as theme } from './theme'
 

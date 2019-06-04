@@ -43,6 +43,7 @@ const Button = styled.button`
 	text-transform: uppercase;
 	outline: none;
 	${clickableMixin};
+	cursor: pointer;
 	&:focus,
 	&:hover {
 		/* there is a special case for the white version of the button */

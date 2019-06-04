@@ -19,7 +19,8 @@ const Table = styled.table`
 		text-transform: uppercase;
 		font-weight: ${p => p.theme.bold};
 		letter-spacing: 0.125rem;
-		padding: 2rem 1rem 0 2rem;
+		// padding should be set by the implementation
+	//	padding: 2rem 1rem 0 2rem;
 	}
 	& > tbody tr {
 		&[role='button']:active {
@@ -33,7 +34,8 @@ const Table = styled.table`
 			border: 1px solid transparent;
 			border-left: none;
 			border-right: none;
-			padding: 0.5rem 2rem;
+			// padding should be set by the implementation
+		//	padding: 0.5rem 2rem;
 			//	vertical-align: top;
 			text-align: left;
 

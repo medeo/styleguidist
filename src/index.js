@@ -6,6 +6,7 @@ export { default as Table } from './components/Table'
 export { default as Modal } from './components/Modal'
 export { default as Callout } from './components/Callout'
 export { default as DropDown } from './components/DropDown'
+export { default as Input } from './components/Input'
 
 export { default as theme } from './theme'
 

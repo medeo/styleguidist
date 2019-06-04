@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { lighten, mix, readableColor } from 'polished';
@@ -20,7 +19,6 @@ const plainMixin = css`
 	background: ${p => p.theme[p.color]};
 	border-color: transparent;
 	color: ${p => readableColor(p.theme[p.color])};
-
 	&:disabled {
 		cursor: not-allowed;
 		background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
@@ -38,15 +36,13 @@ const plainMixin = css`
  */
 const Button = styled.button`
 	${p => (p.variant === 'outline' ? outlineMixin : plainMixin)};
-	font-family: ${p => p.theme.bold};
+	font-weight: ${p => p.theme.bold};
 	padding: 0.5rem 1rem;
 	font-size: ${p => p.theme[p.size]};
 	border-radius: 0.25rem;
 	text-transform: uppercase;
 	outline: none;
-
 	${clickableMixin};
-
 	&:focus,
 	&:hover {
 		/* there is a special case for the white version of the button */

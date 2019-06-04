@@ -21,6 +21,7 @@
     "@fortawesome/fontawesome-svg-core": "1.2.18",
     "@fortawesome/free-solid-svg-icons": "5.8.2",
     "@fortawesome/react-fontawesome": "0.1.4",
+    "@testing-library/react": "8.0.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
@@ -40,10 +41,12 @@
   "scripts": {
     "start": "styleguidist server",
     "build": "rollup -c",
+    "test": "jest",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
   },
   "devDependencies": {
+    "jest": "24.8.0",
     "polished": "^3.3.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",

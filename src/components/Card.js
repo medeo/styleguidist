@@ -9,7 +9,6 @@ export const CardHeader = styled.header`
 		font-size: ${p => p.theme.large};
 		margin: 0;
 		margin-bottom: 0.25rem;
-
 	}
 `;
 

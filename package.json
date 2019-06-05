@@ -22,13 +22,7 @@
     "@fortawesome/free-solid-svg-icons": "5.8.2",
     "@fortawesome/react-fontawesome": "0.1.4",
     "@testing-library/react": "8.0.1",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "react-styleguidist": "^9.0.8",
-    "webpack": "^4.30.0"
+    "react-styleguidist": "^9.0.8"
   },
   "peerDependencies": {
     "font-awesome": "4.7.0",
@@ -36,7 +30,13 @@
     "prop-types": "15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "styled-components": "4.2.0"
+    "styled-components": "4.2.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "webpack": "^4.30.0"
   },
   "scripts": {
     "start": "styleguidist server",

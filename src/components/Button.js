@@ -55,7 +55,7 @@ const Button = styled.button`
 
 Button.defaultProps = {
 	color: 'ocean',
-	variant: 'primary',
+	variant: 'plain',
 	size: 'small',
 };
 

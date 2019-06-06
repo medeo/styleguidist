@@ -61,7 +61,7 @@ Table.defaultProps = {
 	size: 'medium',
 };
 
-Table.PropTypes = {
+Table.propTypes = {
 	/**
 	 * the color theme for the button
 	 */

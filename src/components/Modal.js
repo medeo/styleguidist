@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Span from './Span';
+
 const Modal = styled.dialog`
 	::backdrop {
 		backdrop-filter: brightness(60%);

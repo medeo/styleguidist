@@ -57,7 +57,6 @@ const Table = styled.table`
 `;
 Table.defaultProps = {
 	color: 'ebony',
-	variant: 'clickable',
 	size: 'medium',
 };
 
@@ -66,10 +65,6 @@ Table.propTypes = {
 	 * the color theme for the button
 	 */
 	color: PropTypes.oneOf(['ocean', 'aqua', 'nevada', 'ebony', 'white']),
-	/**
-	 * the variant of the table
-	 */
-	variant: PropTypes.oneOf(['button', null]),
 	/**
 	 * The size of the table. It defines the font-size of the table.
 	 * @see See [font-size property](https://www.w3schools.com/cssref/pr_font_font-size.asp)

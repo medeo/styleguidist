@@ -34,4 +34,6 @@ const Input = styled.input`
 Input.defaultProps = {
 	invalid: false,
 };
+
+/** @component */
 export default Input;

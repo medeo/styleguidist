@@ -77,5 +77,5 @@ Table.propTypes = {
 	size: PropTypes.oneOf(['small', 'medium', 'large']),
 };
 
-/** @Component */
+/** @component */
 export default Table;

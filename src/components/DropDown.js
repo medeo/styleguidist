@@ -98,6 +98,6 @@ const DropDown = styled.div`
 	${p => (p.variant === 'dropDown' ? dropDownMixin : dropSideMixin)};
 `;
 
-/** @Component */
+/** @component */
 export default DropDown;
 /******/

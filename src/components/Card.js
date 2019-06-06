@@ -31,6 +31,6 @@ const Card = styled.div`
 	}
 `;
 
-/** @Component */
+/** @component */
 
 export default Card;

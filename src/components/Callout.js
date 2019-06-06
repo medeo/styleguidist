@@ -41,5 +41,5 @@ const Callout = styled.div`
 	background: ${p => transparentize(0.95, p.theme.aqua)};
 `;
 
-/** @Component */
+/** @component */
 export default Callout;

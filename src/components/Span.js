@@ -25,5 +25,5 @@ Span.defaultProps = {
 	weight: 'normal',
 };
 
-/** @Component */
+/** @component */
 export default Span;

@@ -46,5 +46,5 @@ List.propTypes = {
 	variant: PropTypes.oneOf(['none', 'circle', 'decimal', 'bullet']),
 };
 
-/** @Component */
+/** @component */
 export default List;

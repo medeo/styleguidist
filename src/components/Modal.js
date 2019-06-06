@@ -35,7 +35,7 @@ const Modal = styled.dialog`
 	}
 `;
 
-/** @Component */
+/** @component */
 export default Modal;
 
 /**

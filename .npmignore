@@ -1,3 +1,9 @@
 *.gif
 .idea/
 src/
+styleguide/
+rollup.config.js
+.babelrc
+jest.config.js
+styleguide.config.js
+.gitattributes

@@ -42,6 +42,7 @@
     "start": "styleguidist server",
     "build": "rollup -c",
     "test": "jest",
+    "prepublishOnly": "npm run build",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
   },

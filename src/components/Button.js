@@ -8,7 +8,7 @@ const outlineMixin = css`
 	border-style: solid;
 	/* there is a special case for the white version of the button */
 	border-color: ${p => (p.color === 'white' ? p.theme.ebony : p.theme[p.color])};
-	color: ${p => (p.color === 'white' ? p.theme.ebony : p.theme[p.color])};
+	color: ${p => p.textColor || (p.color === 'white' ? p.theme.ebony : p.theme[p.color])};
 	&:focus,
 	&:hover {
 		border-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.ebony : p.theme[p.color])};
@@ -18,7 +18,7 @@ const outlineMixin = css`
 const plainMixin = css`
 	background: ${p => p.theme[p.color]};
 	border-color: transparent;
-	color: ${p => readableColor(p.theme[p.color])};
+	color: ${p => p.textColor || readableColor(p.theme[p.color])};
 	&:disabled {
 		cursor: not-allowed;
 		background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
@@ -59,11 +59,19 @@ Button.defaultProps = {
 	size: 'small',
 };
 
+const colorTypes = PropTypes.oneOf(['ocean', 'scarlett', 'emerald', 'mustard', 'gray', 'white'])
+
 Button.propTypes = {
 	/**
 	 * the color theme for the button
 	 */
-	color: PropTypes.oneOf(['ocean', 'scarlett', 'emerald', 'mustard', 'gray', 'white']),
+	color: colorTypes,
+
+	/**
+	 * the color of the text of the button
+	 */
+	textColor: colorTypes,
+
 	/**
 	 * the variant of the button
 	 */

@@ -9,9 +9,6 @@
 	<Button color="gray" style={{ marginRight: '.5rem' }}>
 		gray
 	</Button>
-	<Button color="gray" textColor="white" style={{ marginRight: '.5rem' }}>
-		gray with white text
-	</Button>
 	<Button color="emerald" style={{ marginRight: '.5rem' }}>
 		emerald
 	</Button>

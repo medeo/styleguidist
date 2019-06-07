@@ -10,6 +10,13 @@ export const CardHeader = styled.header`
 		margin: 0;
 		margin-bottom: 0.25rem;
 	}
+
+	& > h2 {
+		color: ${p => p.theme.ebony};
+		font-size: ${p => p.theme.small};
+		font-weight: ${p => p.theme.lighter};
+		margin: 0;
+	}
 `;
 
 const Card = styled.div`

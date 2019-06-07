@@ -36,6 +36,7 @@ const fontSizes = {
 	large: modularScale(1, '1em', 'majorThird'),
 	medium: modularScale(0, '1em', 'majorThird'),
 	small: modularScale(-1, '1em', 'majorThird'),
+	smaller: modularScale(-1.5, '1em', 'majorThird'),
 };
 
 /**

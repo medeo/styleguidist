@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const invalidMixin = css`
 	border-color: ${p => p.theme.scarlett};
@@ -6,7 +7,7 @@ const invalidMixin = css`
 `;
 
 const defaultMixin = css`
-	border-color: transparent;
+	border-color: ${p => p.backgroundColor === 'alabaster' ? 'transparent' : p.theme.gray };
 `;
 
 const Input = styled.input`
@@ -15,13 +16,15 @@ const Input = styled.input`
 	border-style: solid;
 	border-width: 1px;
 	outline: none;
+	${p => p.type === 'checkbox' ? '' : 'width: 100%;'}
 
-	background: ${p => p.theme.alabaster};
+	background: ${p => p.theme[p.backgroundColor]};
 	border-radius: 0.25rem;
 	padding: 0.5rem 1rem;
 	font-size: ${p => p.theme.medium};
 	font-weight: ${p => p.theme.normal};
 	font-family: 'Inter', sans-serif;
+	${p => p.type !== 'date' ? 'line-height: 1.5;' : ''}
 	&:invalid {
 		${invalidMixin}
 	}
@@ -31,8 +34,14 @@ const Input = styled.input`
 	}
 `;
 
+Input.propTypes = {
+	invalid: PropTypes.bool,
+	backgroundColor: PropTypes.oneOf(['alabaster', 'white']),
+}
+
 Input.defaultProps = {
 	invalid: false,
+	backgroundColor: 'alabaster',
 };
 
 /** @component */

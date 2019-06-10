@@ -15,7 +15,7 @@ dom.watch();
 		backgroundColor="white"
 		role="button"
 		tabIndex="1"
-		style={{ marginRight: '1rem', height: '2.5rem', width: '19rem' }}
+		style={{ marginRight: '1rem', height: '2.5rem', width: '18.75rem' }}
 	>
 		<span>Text</span>
 		<FontAwesomeIcon className="iconChevron" icon={faChevronDown} />

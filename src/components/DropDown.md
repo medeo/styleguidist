@@ -15,13 +15,13 @@ dom.watch();
 		backgroundColor="white"
 		role="button"
 		tabIndex="1"
-		style={{ marginRight: '1rem', height: '2.5rem', width: '18.75rem' }}
+		style={{ marginRight: '1rem', height: '2.5rem', width: '19rem' }}
 	>
 		<span>Text</span>
 		<FontAwesomeIcon className="iconChevron" icon={faChevronDown} />
 		<List items={['text', 'text', 'text']}>
 			{(item, i) => (
-				<li style={{ height: '2.5rem', width: '18.75rem' }} key={i} role="button">
+				<li style={{ height: '2.5rem' }} key={i} role="button">
 					{item}
 				</li>
 			)}
@@ -40,7 +40,7 @@ dom.watch();
 		<FontAwesomeIcon className="iconChevron" icon={faChevronDown} />
 		<List items={['text', 'text', 'text']}>
 			{(item, i) => (
-				<li style={{ height: '2.5rem', width: '18.75rem' }} key={i} role="button">
+				<li style={{ height: '2.5rem' }} key={i} role="button">
 					{item}
 				</li>
 			)}

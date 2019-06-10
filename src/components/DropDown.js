@@ -8,23 +8,24 @@ display: flex;
 justify-content: space-between;
 align-items:center;
 background-color: ${p => p.theme[p.backgroundColor]};
-color: ${p => (p.backgroundColor === 'white' ? darken(0.2, '#EBEBEB') : 'white')};
+color: ${p => (p.backgroundColor === 'white' ? p.theme.black : 'white')};
 font-family: 'Inter', sans-serif;
 font-size: ${p => p.theme.medium};
 border: solid 1px ${p => p.theme.cream};
+padding-right: 1rem;
+box-sizing: border-box;
 border-radius: 0.3rem;
 		& > span {
 			padding-left: 1rem;
 		}
 		& > .iconChevron {
 			color: ${p => p.theme.aqua};
-			padding-right: 1rem;
 		}
 	}
 	&:focus-within > ${List}, &:hover ${List} {
-  		visibility: visible;
-  		opacity:1;
-			}   
+			visibility: visible;
+			opacity:1;
+	}
 	&:hover {
 		border-radius: 0.3rem 0.3rem 0 0;
 	}
@@ -39,13 +40,15 @@ border-radius: 0.3rem;
 			padding-top: 2.5rem;
 		& > li {
 			${clickableMixin};
+			box-sizing: border-box;
 			display: flex;
 			align-items: center;
 			border: solid 0.5px transparent;
+			width: 100%;
 			border-color:${p => (p.backgroundList === 'white' ? p.theme.cream : null)};
 			border-top-color:${p => (p.backgroundList === 'black' ? p.theme.ebony : null)};
 			justify-content: center;
-			color: ${p => (p.backgroundColor === 'white' ? darken(0.2, '#EBEBEB') : 'white')};
+			color: ${p => (p.backgroundColor === 'white' ? p.theme.black : 'white')};
 			background-color: ${p => p.theme[p.backgroundList]};
 			&:last-of-type {
 				border-radius: 0 0 0.3rem 0.3rem;

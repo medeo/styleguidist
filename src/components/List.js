@@ -17,7 +17,6 @@ const List = styled(({ items, children, fallback, ...rest }) => {
 	padding-left: ${p => (p.variant === 'none' ? 0 : p.theme.spacing.medium)};
 	margin: 0;
 	list-style-type: ${p => p.variant};
-	width: 100%;
 `;
 
 List.defaultProps = {

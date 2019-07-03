@@ -61,7 +61,8 @@ border-radius: 0.3rem;
 	}`;
 
 const dropSideMixin = css`
-	width: 5px;
+	width: 16px;
+	height: 16px;
 	& > .iconEllipsisV {
 		color: ${p => p.theme.gray};
 		&:hover {
@@ -77,6 +78,8 @@ const dropSideMixin = css`
 		border-radius: 0.3rem;
 		border-color: ${p => p.theme.cream};
 		position: absolute;
+		background-color: ${p => p.theme.white};
+		z-index: 2;
 		visibility: hidden;
 		opacity: 0;
 		& > li {
@@ -84,7 +87,7 @@ const dropSideMixin = css`
 			border: solid 0.1px transparent;
 			display: flex;
 			align-items: center;
-			padding: 0.25rem 5.5rem 0.25rem 0.7rem;
+			padding: 0.25rem 0.7rem 0.25rem 0.7rem;
 			font-family: 'Inter', sans-serif;
 			font-size: ${p => p.theme.small};
 			&:hover {

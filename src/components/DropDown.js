@@ -22,16 +22,15 @@ border-radius: 0.3rem;
 			color: ${p => p.theme.aqua};
 		}
 	}
-	&:focus-within > ${List} {
+	&:focus-within > ${List}, &:hover > ${List} {
 			visibility: visible;
 			opacity:1;
-	}
-	&:hover {
-		border-radius: 0.3rem 0.3rem 0 0;
+			border-radius: 0.3rem 0.3rem 0 0;
 	}
 	& > ${List} {
 		/*box-shadow: ${p => p.backgroundColor === 'white' ? '-0.125rem 0.1875rem 0.25rem #9AA5B1' : 'none'};*/
-		  min-width: 6rem;
+			min-width: 6rem;
+			width: 100%;
 			border-radius: 0 0 0.3rem 0.3rem;
 			position: absolute;
       visibility: hidden;
@@ -69,7 +68,7 @@ const dropSideMixin = css`
 			color: ${p => p.theme.aqua};
 		}
 	}
-	&:focus-within > ${List}, &:hover > ${List} {
+	&:focus-within > ${List} {
 		visibility: visible;
 		opacity: 1;
 	}

@@ -5,10 +5,13 @@ import jsx from 'rollup-plugin-jsx'
 
 export default [{
 	input: 'src/index.js',
-	output: {
+	output: [{
 		format: 'es',
 		file: pkg.module
-	},
+	}, {
+		format: 'cjs',
+		file: pkg.main
+	}],
 	plugins: [
 		external({
 			includeDependencies: false

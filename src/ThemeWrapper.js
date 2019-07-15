@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import theme from './theme';
+import {DialogProvider}from './components/Dialog'
 import tooltipMixins from './mixins/tooltip';
 
 const GlobalStyle = createGlobalStyle`
@@ -18,11 +19,12 @@ const GlobalStyle = createGlobalStyle`
 
 const ThemeWrapper = ({ children }) => (
 	<ThemeProvider theme={theme}>
-		<div>
-			<GlobalStyle />
-
-			{children}
-		</div>
+		<DialogProvider>
+			<div>
+				<GlobalStyle />
+				{children}
+			</div>
+		</DialogProvider>
 	</ThemeProvider>
 );
 

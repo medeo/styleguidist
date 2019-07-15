@@ -16,7 +16,6 @@ const Input = styled.input`
 	border-style: solid;
 	border-width: 1px;
 	outline: none;
-	${p => p.type === 'checkbox' ? '' : 'width: 100%;'}
 
 	background: ${p => p.theme[p.backgroundColor]};
 	border-radius: 0.25rem;

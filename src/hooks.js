@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export function useOnClickOutsideBoundingBox(ref, handler) {
 	useEffect(
@@ -20,12 +20,12 @@ export function useOnClickOutsideBoundingBox(ref, handler) {
 				handler(event);
 			};
 
-			document.addEventListener("mousedown", listener);
-			document.addEventListener("touchstart", listener);
+			document.addEventListener('mousedown', listener);
+			document.addEventListener('touchstart', listener);
 
 			return () => {
-				document.removeEventListener("mousedown", listener);
-				document.removeEventListener("touchstart", listener);
+				document.removeEventListener('mousedown', listener);
+				document.removeEventListener('touchstart', listener);
 			};
 		},
 		// Add ref and handler to effect dependencies
@@ -37,4 +37,3 @@ export function useOnClickOutsideBoundingBox(ref, handler) {
 		[ref, handler]
 	);
 }
-

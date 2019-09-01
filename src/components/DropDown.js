@@ -28,7 +28,8 @@ border-radius: 0.3rem;
 			border-radius: 0.3rem 0.3rem 0 0;
 	}
 	& > ${List} {
-		/*box-shadow: ${p => p.backgroundColor === 'white' ? '-0.125rem 0.1875rem 0.25rem #9AA5B1' : 'none'};*/
+		/*box-shadow: ${p =>
+			p.backgroundColor === 'white' ? '-0.125rem 0.1875rem 0.25rem #9AA5B1' : 'none'};*/
 			min-width: 6rem;
 			width: 100%;
 			border-radius: 0 0 0.3rem 0.3rem;

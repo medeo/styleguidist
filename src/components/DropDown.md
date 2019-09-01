@@ -7,44 +7,21 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import List from './List';
 dom.watch();
 
-<div style={{ display: 'flex', height: '10rem' }}>
+<div style={{ display: 'flex' }}>
 	<DropDown
 		variant="dropDown"
 		color="darkCream"
-		backgroundList="white"
-		backgroundColor="white"
 		role="button"
-		tabIndex="1"
-		style={{ marginRight: '1rem', height: '2.5rem', width: '18.75rem' }}
-	>
-		<span>Text</span>
-		<FontAwesomeIcon className="iconChevron" icon={faChevronDown} />
-		<List items={['text', 'text', 'text']}>
-			{(item, i) => (
-				<li style={{ height: '2.5rem' }} key={i} role="button">
-					{item}
-				</li>
-			)}
-		</List>
-	</DropDown>
-	<DropDown
-		variant="dropDown"
-		color="darkCream"
-		backgroundList="black"
-		backgroundColor="black"
-		role="button"
-		tabIndex="1"
-		style={{ marginRight: '1rem', height: '2.5rem', width: '18.75rem' }}
-	>
-		<span>Text</span>
-		<FontAwesomeIcon className="iconChevron" icon={faChevronDown} />
-		<List items={['text', 'text', 'text']}>
-			{(item, i) => (
-				<li style={{ height: '2.5rem' }} key={i} role="button">
-					{item}
-				</li>
-			)}
-		</List>
+	> 
+		<DropDown.Toggle>Dropdown input</DropDown.Toggle>
+		<DropDown.Menu>
+				<DropDown.ListItem>
+					Some action
+				</DropDown.ListItem>
+                <DropDown.ListItem>
+					Some other action
+				</DropDown.ListItem>
+		</DropDown.Menu>
 	</DropDown>
 </div>;
 ```

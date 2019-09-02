@@ -119,12 +119,18 @@ const ListItem = styled(({ children, value, isActive, ...rest }) => {
 })``;
 
 export const DropDownContext = React.createContext(false);
-
+const leftMixin = css`
+	margin-top: 0;
+	right: calc(100% + 0.25rem);
+	top: 0;
+`;
+const bottomMixin = css`
+	margin-top: 0.25rem;
+`;
 const Component = styled.div`
 	user-select: none;
 	position: relative;
-	outline: none;
-
+	display: block;
 	& > ${List} {
 		z-index: 1;
 		border-radius: 0.25rem;
@@ -132,7 +138,7 @@ const Component = styled.div`
 		color: ${p => p.theme.cream};
 		position: absolute;
 		padding: 0.25rem 0;
-		margin-top: 0.25rem;
+		${p => (p.variant === 'bottom' ? bottomMixin : leftMixin)};
 		box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
 	}
 
@@ -197,7 +203,7 @@ const Menu = ({ children, ...rest }) => {
 	);
 };
 
-const DropDown = ({ children, onChange }) => {
+const DropDown = ({ children, onChange, ...rest }) => {
 	const [index, setIndex] = useState(-1);
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState(null);
@@ -239,7 +245,7 @@ const DropDown = ({ children, onChange }) => {
 
 	return (
 		<DropDownContext.Provider value={[index, setIndex, open, setOpen, value, setValue]}>
-			<Component ref={ref} onKeyDown={handleKeyDown} onBlur={handleBlur}>
+			<Component ref={ref} {...rest} onKeyDown={handleKeyDown} onBlur={handleBlur}>
 				{children}
 			</Component>
 		</DropDownContext.Provider>

@@ -5,14 +5,21 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
-const CustomToggle = ({ children, defaultOption = { value: null, children: '' }, ...rest }) => {
-	const [, , open, setOpen, value] = useContext(DropDownContext);
+const CustomToggle = ({ children, defaultOption, ...rest }) => {
+	const [a, b, open, setOpen, value] = useContext(DropDownContext);
 	return (
 		<Input as="button" {...rest} onClick={() => setOpen(!open)}>
 			{value == null ? defaultOption.children : value.children}
 			<FontAwesomeIcon icon={faSort} />
 		</Input>
 	);
+};
+
+CustomToggle.defaultProps = {
+	defaultOptions: {
+		value: null,
+		children: '',
+	},
 };
 
 const Component = styled.div`
@@ -49,6 +56,7 @@ const Select = ({ children, onChange, defaultValue, ...rest }) => {
 	return (
 		<Component {...rest}>
 			<DropDown
+				variant="bottom"
 				onChange={event => {
 					if (event == null) return;
 					if (event.value) {

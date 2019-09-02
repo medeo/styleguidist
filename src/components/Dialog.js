@@ -3,14 +3,14 @@ import { useOnClickOutsideBoundingBox } from '../hooks';
 import styled from 'styled-components';
 import Button from './Button';
 export const DialogContext = React.createContext();
-
+/*
 export const DialogProvider = ({ children }) => {
 	const context = useState(null);
 	if (typeof children === 'function') {
 		return <DialogContext.Provider value={context}>{c => children(c)}</DialogContext.Provider>;
 	}
 	return <DialogContext.Provider value={context}>{children}</DialogContext.Provider>;
-};
+};*/
 
 export const Main = styled.main`
 	padding: 1rem;
@@ -44,7 +44,7 @@ const Component = styled.dialog`
 `;
 
 const Dialog = ({ modal, children, ...rest }) => {
-	const ref = useRef();
+	const ref = useRef(null);
 	const [, setDialog] = useContext(DialogContext);
 	useEffect(() => {
 		setDialog({ ref, modal });
@@ -75,7 +75,7 @@ const toggleDialog = (dialog, returnValue) => {
 	}
 };
 
-export const ToggleButton = ({ children, value = undefined, ...rest }) => {
+export const ToggleButton = ({ children, value, ...rest }) => {
 	const [dialog] = useContext(DialogContext);
 	return (
 		<Button onClick={() => toggleDialog(dialog, value)} {...rest}>
@@ -84,9 +84,14 @@ export const ToggleButton = ({ children, value = undefined, ...rest }) => {
 	);
 };
 
+ToggleButton.defaultProps = {
+	value: undefined,
+};
+
 Dialog.defaultProps = {
 	modal: true,
 };
+
 Dialog.Footer = Footer;
 Dialog.Main = Main;
 Dialog.ToggleButton = ToggleButton;

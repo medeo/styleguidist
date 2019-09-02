@@ -8,19 +8,15 @@ import List from './List';
 dom.watch();
 
 <div style={{ display: 'flex' }}>
-	<DropDown
-		variant="dropDown"
-		color="darkCream"
-		role="button"
-	> 
+	<DropDown onChange={v => console.log(v)}> 
 		<DropDown.Toggle>Dropdown input</DropDown.Toggle>
 		<DropDown.Menu>
-				<DropDown.ListItem>
-					Some action
-				</DropDown.ListItem>
-                <DropDown.ListItem>
-					Some other action
-				</DropDown.ListItem>
+            <DropDown.ListItem value="code">
+                Some action
+            </DropDown.ListItem>
+            <DropDown.ListItem value="test">
+                Some other action
+            </DropDown.ListItem>
 		</DropDown.Menu>
 	</DropDown>
 </div>;

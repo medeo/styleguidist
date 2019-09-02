@@ -60,7 +60,7 @@ import { CardHeader } from './Card';
 			</Span>
 		</main>
 		<footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
-			<Button color="alabaster" style={{ marginRight: '.5rem' }}>
+			<Button color="gray" style={{ marginRight: '.5rem' }}>
 				Annuler
 			</Button>
 			<Button>Terminer</Button>

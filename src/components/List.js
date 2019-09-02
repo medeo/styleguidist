@@ -9,10 +9,16 @@ let StyledList = styled.ul`
 	list-style-type: ${p => p.variant};
 `;*/
 
-const List = styled(({ items, children, fallback, ...rest }) => {
-	if (fallback != null && items.length < 1) return fallback;
-	return <ul {...rest}>{items.map(children)}</ul>;
-})`
+const List = styled(
+	React.forwardRef(({ items, children, fallback, ...rest }, ref) => {
+		if (fallback != null && items.length < 1) return fallback;
+		return (
+			<ul ref={ref} {...rest}>
+				{items.map(children)}
+			</ul>
+		);
+	})
+)`
 	font-family: 'Inter', sans-serif;
 	padding-left: ${p => (p.variant === 'none' ? 0 : p.theme.spacing.medium)};
 	margin: 0;

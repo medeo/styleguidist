@@ -5,89 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import clickableMixin from '../mixins/clickable';
 import Button from './Button';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-
-const dropDownMixin = css`
-		background-color: ${p => p.theme[p.backgroundColor]};
-		color: ${p => (p.backgroundColor === 'white' ? p.theme.black : 'white')};
-		font-family: 'Inter', sans-serif;
-		font-size: ${p => p.theme.medium};
-		border: solid 1px ${p => p.theme.cream};
-		padding-right: 1rem;
-		box-sizing: border-box;
-		border-radius: 0.3rem;
-		& > span {
-			padding-left: 1rem;
-		}
-		& > .iconChevron {
-			color: ${p => p.theme.aqua};
-		}
-	}
-	& > ${List} {
-		/*box-shadow: ${p =>
-			p.backgroundColor === 'white' ? '-0.125rem 0.1875rem 0.25rem #9AA5B1' : 'none'};*/
-			min-width: 6rem;
-			width: 100%;
-			border-radius: 0 0 0.3rem 0.3rem;
-			position: absolute;
-			align-self:flex-start;
-			padding-top: 2.5rem;
-		& > li {
-			${clickableMixin};
-			box-sizing: border-box;
-			display: flex;
-			align-items: center;
-			border: solid 0.5px transparent;
-			width: 100%;
-			border-color:${p => (p.backgroundList === 'white' ? p.theme.cream : null)};
-			border-top-color:${p => (p.backgroundList === 'black' ? p.theme.ebony : null)};
-			justify-content: center;
-			color: ${p => (p.backgroundColor === 'white' ? p.theme.black : 'white')};
-			background-color: ${p => p.theme[p.backgroundList]};
-			&:last-of-type {
-				border-radius: 0 0 0.3rem 0.3rem;
-			}
-			&:hover {
-				color: ${p => p.theme.aqua};
-				border-color: ${p => p.theme.aqua};
-			}
-		}
-	}`;
-
-const dropSideMixin = css`
-	& > .iconEllipsisV {
-		color: ${p => p.theme.gray};
-		&:hover {
-			color: ${p => p.theme.aqua};
-		}
-	}
-	&:focus-within > ${List} {
-		visibility: visible;
-		opacity: 1;
-	}
-	& > ${List} {
-		border: solid 1px transparent;
-		border-radius: 0.3rem;
-		border-color: ${p => p.theme.cream};
-		position: absolute;
-		background-color: ${p => p.theme.white};
-		z-index: 2;
-		visibility: hidden;
-		opacity: 0;
-		& > li {
-			${clickableMixin};
-			border: solid 0.1px transparent;
-			display: flex;
-			align-items: center;
-			padding: 0.25rem 0.7rem 0.25rem 0.7rem;
-			font-family: 'Inter', sans-serif;
-			font-size: ${p => p.theme.small};
-			&:hover {
-				color: ${p => p.theme.aqua};
-			}
-		}
-	}
-`;
+import { faChevronDown, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 const ListItem = styled(({ children, value, isActive, ...rest }) => {
 	const ref = useRef(null);
@@ -127,6 +45,27 @@ const leftMixin = css`
 const bottomMixin = css`
 	margin-top: 0.25rem;
 `;
+
+const getMixinFromVariant = p => {
+	const { variant } = p;
+	switch (variant) {
+		case 'left':
+			return leftMixin;
+		default:
+			return bottomMixin;
+	}
+};
+
+const RoundedButton = styled(Button)`
+	border-radius: 1rem;
+	width: 2rem;
+	display: flex;
+	justify-content: center;
+	height: 2rem;
+	& > svg {
+		padding: 0;
+	}
+`;
 const Component = styled.div`
 	user-select: none;
 	position: relative;
@@ -138,7 +77,7 @@ const Component = styled.div`
 		color: ${p => p.theme.cream};
 		position: absolute;
 		padding: 0.25rem 0;
-		${p => (p.variant === 'bottom' ? bottomMixin : leftMixin)};
+		${p => getMixinFromVariant(p)};
 		box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
 	}
 
@@ -147,6 +86,10 @@ const Component = styled.div`
 		opacity: 0.5;
 	}
 
+	& > ${RoundedButton} svg {
+		padding-left: 0;
+		opacity: 0.5;
+	}
 	${ListItem} {
 		padding: 0.5rem 0.5rem;
 		&:hover {
@@ -161,8 +104,17 @@ const Toggle = ({ children, ...rest }) => {
 	return (
 		<Button {...rest} onClick={() => setOpen(!open)}>
 			{children}
-			<FontAwesomeIcon className="iconTimesCircle" icon={faChevronDown} />
+			<FontAwesomeIcon icon={faChevronDown} />
 		</Button>
+	);
+};
+
+const KebabButton = props => {
+	const [, , open, setOpen] = useContext(DropDownContext);
+	return (
+		<RoundedButton {...props} onClick={() => setOpen(!open)}>
+			<FontAwesomeIcon icon={faEllipsisV} />
+		</RoundedButton>
 	);
 };
 
@@ -259,6 +211,7 @@ DropDown.defaultProps = {
 DropDown.ListItem = ListItem;
 DropDown.Toggle = Toggle;
 DropDown.Menu = Menu;
+DropDown.KebabButton = KebabButton;
 
 /** @component */
 export default DropDown;

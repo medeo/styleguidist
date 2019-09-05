@@ -32,7 +32,7 @@ import List from './List';
 dom.watch();
 <div style={{ display: 'flex' }}>
 	<DropDown variant="left" >
-		<DropDown.Toggle></DropDown.Toggle>
+		<DropDown.KebabButton color="gray"/>
 		<DropDown.Menu>
                 <DropDown.ListItem value="test">
                     Some other action

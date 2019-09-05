@@ -2,15 +2,8 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useOnClickOutsideBoundingBox } from '../hooks';
 import styled from 'styled-components';
 import Button from './Button';
+
 export const DialogContext = React.createContext();
-/*
-export const DialogProvider = ({ children }) => {
-	const context = useState(null);
-	if (typeof children === 'function') {
-		return <DialogContext.Provider value={context}>{c => children(c)}</DialogContext.Provider>;
-	}
-	return <DialogContext.Provider value={context}>{children}</DialogContext.Provider>;
-};*/
 
 export const Main = styled.main`
 	padding: 1rem;

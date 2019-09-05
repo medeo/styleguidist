@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import theme from './theme';
-import { DialogProvider } from './mixins/DialogProvider';
+import { DialogProvider } from './components/Dialog';
 import tooltipMixins from './mixins/tooltip';
 
 const GlobalStyle = createGlobalStyle`

@@ -1,7 +1,6 @@
 import pkg from './package.json';
 import external from 'rollup-plugin-peer-deps-external';
-import jsx from 'rollup-plugin-jsx';
-
+import babel from 'rollup-plugin-babel';
 export default [
 	{
 		input: 'src/index.js',
@@ -19,7 +18,9 @@ export default [
 			external({
 				includeDependencies: false,
 			}),
-			jsx({ factory: 'React.createElement' }),
+			babel({
+				exclude: 'node_modules/**',
+			}),
 		],
 	},
 ];

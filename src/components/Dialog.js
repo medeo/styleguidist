@@ -5,6 +5,14 @@ import Button from './Button';
 
 export const DialogContext = React.createContext();
 
+export const DialogProvider = ({ children }) => {
+	const state = useState(null);
+	if (typeof children === 'function') {
+		return <DialogContext.Provider value={state}>{c => children(c)}</DialogContext.Provider>;
+	}
+	return <DialogContext.Provider value={state}>{children}</DialogContext.Provider>;
+};
+
 export const Main = styled.main`
 	padding: 1rem;
 	min-height: 10rem;

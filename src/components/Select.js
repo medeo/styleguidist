@@ -19,7 +19,7 @@ const CustomToggle = ({ children, defaultOption, ...rest }) => {
 				setOpen(!open);
 			}}
 		>
-			{value == null ? defaultOption.children : value.children}
+			<span>{value == null ? defaultOption.children : value.children}</span>
 			<FontAwesomeIcon icon={faSort} />
 		</Input>
 	);
@@ -35,8 +35,13 @@ CustomToggle.defaultProps = {
 const Component = styled.div`
 	position: relative;
 	& ${Input} {
+		display: flex;
+		align-items: center;
+		& > span {
+			flex: 1;
+		}
 		& svg {
-			padding-left: 0.5rem;
+			width: 1rem !important;
 		}
 	}
 
@@ -47,7 +52,7 @@ const Component = styled.div`
 	}
 `;
 
-const Select = ({ children, onChange, defaultValue, ...rest }) => {
+const Select = styled(({ children, onChange, defaultValue, ...rest }) => {
 	const [selected, select] = useState('');
 	const [defaultOptionProps, setDefaultOptionProps] = useState({ value: null, children: '' });
 	const ref = useRef();
@@ -90,7 +95,7 @@ const Select = ({ children, onChange, defaultValue, ...rest }) => {
 			</select>
 		</Component>
 	);
-};
+})``;
 
 Select.defaultProps = {
 	onChange: () => {},

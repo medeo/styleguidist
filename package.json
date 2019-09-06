@@ -1,7 +1,7 @@
 {
   "name": "@medeo/component",
   "description": "Styled-Components Library",
-  "version": "6.0.2",
+  "version": "6.1.0",
   "private": false,
   "module": "es/dist.js",
   "main": "cjs/dist.js",

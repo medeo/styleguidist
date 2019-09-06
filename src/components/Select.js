@@ -8,7 +8,7 @@ import { faSort } from '@fortawesome/free-solid-svg-icons';
 const CustomToggle = ({ children, defaultOption, ...rest }) => {
 	const [a, b, open, setOpen, value] = useContext(DropDownContext);
 	return (
-		<Input as="button" {...rest} onClick={() => setOpen(!open)}>
+		<Input as="button" role="button" {...rest} onClick={() => setOpen(!open)}>
 			{value == null ? defaultOption.children : value.children}
 			<FontAwesomeIcon icon={faSort} />
 		</Input>

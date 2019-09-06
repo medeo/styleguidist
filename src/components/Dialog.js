@@ -43,7 +43,7 @@ const Component = styled.dialog`
 	}
 `;
 
-const Dialog = ({ modal, children, ...rest }) => {
+const Dialog = ({ dismissable, modal, children, ...rest }) => {
 	const ref = useRef(null);
 	const [, setDialog] = useContext(DialogContext);
 	useEffect(() => {
@@ -51,6 +51,7 @@ const Dialog = ({ modal, children, ...rest }) => {
 	}, [ref, modal, setDialog]);
 
 	useOnClickOutsideBoundingBox(ref, () => {
+		if(dismissable === false) return
 		if (!ref.current || ref.current.open === true) {
 			ref.current.close('dismiss');
 		}
@@ -90,6 +91,7 @@ ToggleButton.defaultProps = {
 
 Dialog.defaultProps = {
 	modal: true,
+	dismissable: true
 };
 
 Dialog.Footer = Footer;

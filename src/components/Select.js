@@ -52,7 +52,7 @@ const Component = styled.div`
 	}
 `;
 
-const Select = styled(({ children, onChange, defaultValue, ...rest }) => {
+const Select = styled(({ children, onChange, defaultValue, readOnly, ...rest }) => {
 	const [selected, select] = useState('');
 	const [defaultOptionProps, setDefaultOptionProps] = useState({ value: null, children: '' });
 	const ref = useRef();
@@ -68,6 +68,7 @@ const Select = styled(({ children, onChange, defaultValue, ...rest }) => {
 			else if (children.length > 0) setDefaultOptionProps(children[0].props);
 		}
 	}, [defaultValue]);
+
 	return (
 		<Component {...rest}>
 			<DropDown
@@ -83,14 +84,14 @@ const Select = styled(({ children, onChange, defaultValue, ...rest }) => {
 					}
 				}}
 			>
-				<CustomToggle defaultOption={defaultOptionProps} />
-				<DropDown.Menu>
+				<CustomToggle defaultOption={defaultOptionProps} readOnly={readOnly} />
+				{readOnly == false && <DropDown.Menu>
 					{children.map((c, i) => (
 						<DropDown.ListItem key={i} {...c.props} />
 					))}
-				</DropDown.Menu>
+				</DropDown.Menu>}
 			</DropDown>
-			<select ref={ref} defaultValue={selected}>
+			<select ref={ref} defaultValue={selected} disabled={readOnly}>
 				{children}
 			</select>
 		</Component>

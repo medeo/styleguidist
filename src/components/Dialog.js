@@ -26,7 +26,6 @@ export const Footer = styled.footer`
 `;
 
 const Component = styled.dialog`
-	overflow: hidden;
 	padding: 0;
 	border: none;
 	background: ${p => p.theme.white};

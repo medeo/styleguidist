@@ -30,16 +30,18 @@ import Span from './Span';
 import Span from './Span';
 import Input from './Input';
 <div>
-   	<Select defaultValue="female">
-        <option value="male">Homme</option>
-        <option value="female">Femme</option>
-        <option value="other">Autre</option>
-    </Select>
-	<Select defaultValue="2" style={{marginTop: '1rem'}}>
-        <option>test</option>
-        <option value="2">tsttests</option>
-    </Select>
-    <Input type="text" />   
+    <form onSubmit={e => console.log(e)}>    
+        <Select defaultValue="female">
+            <option value="male">Homme</option>
+            <option value="female">Femme</option>
+            <option value="other">Autre</option>
+        </Select>
+        <Select defaultValue="2" style={{marginTop: '1rem'}}>
+            <option>test</option>
+            <option value="2">tsttests</option>
+        </Select>
+        <Input type="text" required/>   
+    </form>
 </div>
 ```
 

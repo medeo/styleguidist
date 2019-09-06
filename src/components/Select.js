@@ -8,7 +8,17 @@ import { faSort } from '@fortawesome/free-solid-svg-icons';
 const CustomToggle = ({ children, defaultOption, ...rest }) => {
 	const [a, b, open, setOpen, value] = useContext(DropDownContext);
 	return (
-		<Input as="button" role="button" {...rest} onClick={() => setOpen(!open)}>
+		<Input
+			as="button"
+			role="button"
+			{...rest}
+			onClick={e => {
+				// e.preventDefault is required because when this button is clicked inside of a form with required inputs
+				// the browser will complain about required input not filled.
+				e.preventDefault();
+				setOpen(!open);
+			}}
+		>
 			{value == null ? defaultOption.children : value.children}
 			<FontAwesomeIcon icon={faSort} />
 		</Input>

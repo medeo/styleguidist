@@ -19,12 +19,10 @@ const GlobalStyle = createGlobalStyle`
 
 const ThemeWrapper = ({ children }) => (
 	<ThemeProvider theme={theme}>
-		<DialogProvider>
 			<div>
 				<GlobalStyle />
 				{children}
 			</div>
-		</DialogProvider>
 	</ThemeProvider>
 );
 

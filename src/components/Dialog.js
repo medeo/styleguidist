@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom'
 import { useOnClickOutsideBoundingBox } from '../hooks';
 import styled from 'styled-components';
 import Button from './Button';
@@ -7,10 +8,7 @@ export const DialogContext = React.createContext();
 
 export const DialogProvider = ({ children }) => {
 	const state = useState(null);
-	if (typeof children === 'function') {
-		return <DialogContext.Provider value={state}>{c => children(c)}</DialogContext.Provider>;
-	}
-	return <DialogContext.Provider value={state}>{children}</DialogContext.Provider>;
+	return <DialogContext.Provider value={state}>{typeof children === 'function' ? c => children(c) : children}</DialogContext.Provider>;
 };
 
 export const Main = styled.main`
@@ -56,10 +54,11 @@ const Dialog = ({ dismissable, modal, children, ...rest }) => {
 			ref.current.close('dismiss');
 		}
 	});
-	return (
+	console.log(ref.current)
+	return createPortal(
 		<Component ref={ref} {...rest}>
 			{children}
-		</Component>
+		</Component>, document.getElementById('modal')
 	);
 };
 

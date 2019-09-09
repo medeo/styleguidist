@@ -19,10 +19,21 @@ export const Main = styled.main`
 export const Footer = styled.footer`
 	background: ${p => p.theme.alabaster};
 	padding: 1rem;
+	border-radius: 0 0 .5rem .5rem;
 	display: flex;
 	justify-content: flex-end;
 `;
+export const Header = styled.header`
+	justify-content: flex-start;
+	border-bottom: 1px solid ${p => p.theme.alabaster};
+	padding: 1rem;
+	display: flex;	
+	border-radius:  .5rem .5rem 0 0;
+	& > h1 {
+		margin: 0.5rem 0;
+	}
 
+`;
 const Component = styled.dialog`
 	padding: 0;
 	border: none;
@@ -93,6 +104,7 @@ Dialog.defaultProps = {
 	dismissable: true
 };
 
+Dialog.Header= Header;
 Dialog.Footer = Footer;
 Dialog.Main = Main;
 Dialog.ToggleButton = ToggleButton;

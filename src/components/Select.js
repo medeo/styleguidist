@@ -85,7 +85,7 @@ const Select = styled(({ children, onChange, defaultValue, readOnly, ...rest }) 
 				}}
 			>
 				<CustomToggle defaultOption={defaultOptionProps} readOnly={readOnly} />
-				{readOnly == false && <DropDown.Menu>
+				{readOnly === false && <DropDown.Menu>
 					{children.map((c, i) => (
 						<DropDown.ListItem key={i} {...c.props} />
 					))}
@@ -100,5 +100,6 @@ const Select = styled(({ children, onChange, defaultValue, readOnly, ...rest }) 
 
 Select.defaultProps = {
 	onChange: () => {},
+	readOnly: false
 };
 export default Select;

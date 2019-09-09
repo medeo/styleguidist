@@ -75,14 +75,14 @@ const toggleDialog = (dialog, returnValue) => {
 	}
 };
 
-export const ToggleButton = ({ children, value, ...rest }) => {
+export const ToggleButton = styled(({ children, value, ...rest }) => {
 	const [dialog] = useContext(DialogContext);
 	return (
 		<Button onClick={() => toggleDialog(dialog, value)} {...rest}>
 			{children}
 		</Button>
 	);
-};
+})``;
 
 ToggleButton.defaultProps = {
 	value: undefined,
@@ -97,4 +97,4 @@ Dialog.Footer = Footer;
 Dialog.Main = Main;
 Dialog.ToggleButton = ToggleButton;
 
-export default Dialog;
+export default styled(Dialog)``;

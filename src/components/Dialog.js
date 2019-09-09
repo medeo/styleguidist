@@ -65,7 +65,6 @@ const Dialog = ({ dismissable, modal, children, ...rest }) => {
 			ref.current.close('dismiss');
 		}
 	});
-	console.log(ref.current)
 	return createPortal(
 		<Component ref={ref} {...rest}>
 			{children}

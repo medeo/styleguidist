@@ -108,7 +108,27 @@ const Toggle = ({ children, ...rest }) => {
 		</Button>
 	);
 };
+const SplitToggle = styled(({ className, children, ...rest }) => {
+	const [, , open, setOpen] = useContext(DropDownContext);
+	return (
+		<div className={className}>
+			<Button {...rest}>
+				{children}
+			</Button>
+			<Button {...rest} onClick={() => setOpen(!open)}>
+				<FontAwesomeIcon icon={faChevronDown} />
+			</Button>
+		</div>
+	);
+})`
+	${Button}:first-of-type {
+		border-radius: 0.25rem 0 0 0.25rem;
+	}
+		${Button}:last-of-type {
+		border-radius: 0 0.25rem 0.25rem 0;
+	}
 
+`;
 const KebabButton = props => {
 	const [, , open, setOpen] = useContext(DropDownContext);
 	return (
@@ -204,12 +224,15 @@ const DropDown = ({ children, onChange, ...rest }) => {
 	);
 };
 
+
 DropDown.defaultProps = {
 	onChange: null,
 };
 
+
 DropDown.ListItem = ListItem;
 DropDown.Toggle = Toggle;
+DropDown.SplitToggle = SplitToggle;
 DropDown.Menu = Menu;
 DropDown.KebabButton = KebabButton;
 

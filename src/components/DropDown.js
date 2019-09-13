@@ -108,11 +108,11 @@ const Toggle = ({ children, ...rest }) => {
 		</Button>
 	);
 };
-const SplitToggle = styled(({ className, children, ...rest }) => {
+const SplitToggle = styled(({ className, children, onClick, ...rest }) => {
 	const [, , open, setOpen] = useContext(DropDownContext);
 	return (
 		<div className={className}>
-			<Button {...rest}>
+			<Button {...rest} onClick={onClick}>
 				{children}
 			</Button>
 			<Button {...rest} onClick={() => setOpen(!open)}>
@@ -168,7 +168,7 @@ const Menu = ({ children, ...rest }) => {
 
 	return (
 		open === true && (
-			<List ref={ref} {...rest} onKeyDown={handleKeyDown} items={children}>
+			<List ref={ref} {...rest} onKeyDown={handleKeyDown} items={React.Children.toArray(children)}>
 				{(item, i) => React.cloneElement(item, { key: 'select-' + i, isActive: i === index })}
 			</List>
 		)

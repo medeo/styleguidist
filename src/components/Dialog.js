@@ -8,7 +8,7 @@ export const DialogContext = React.createContext();
 
 export const DialogProvider = ({ children }) => {
 	const state = useState(null);
-	return <DialogContext.Provider value={state}>{typeof children === 'function' ? c => children(c) : children}</DialogContext.Provider>;
+	return <DialogContext.Provider value={state}>{typeof children === 'function' ? children(state) : children}</DialogContext.Provider>;
 };
 
 export const Main = styled.main`
@@ -88,7 +88,7 @@ const toggleDialog = (dialog, returnValue) => {
 export const ToggleButton = styled(({ children, value, ...rest }) => {
 	const [dialog] = useContext(DialogContext);
 	return (
-		<Button onClick={() => toggleDialog(dialog, value)} {...rest}>
+		<Button  {...rest} onClick={() => toggleDialog(dialog, value)}>
 			{children}
 		</Button>
 	);

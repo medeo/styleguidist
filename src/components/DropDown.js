@@ -3,11 +3,10 @@ import styled, { css } from 'styled-components';
 import List from './List';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import clickableMixin from '../mixins/clickable';
 import Button from './Button';
 import { faChevronDown, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
-const ListItem = styled(({ children, value, isActive, ...rest }) => {
+const ListItem = styled(({ children, value, isActive, onClick, ...rest }) => {
 	const ref = useRef(null);
 	const [index, setIndex, open, setOpen, , setValue] = useContext(DropDownContext);
 	useEffect(() => {
@@ -16,10 +15,11 @@ const ListItem = styled(({ children, value, isActive, ...rest }) => {
 		}
 	}, [isActive]);
 
-	const handleClick = () => {
+	const handleClick = (e) => {
 		setIndex(-1);
 		setOpen(false);
 		setValue({ value, children: ref.current.innerHTML });
+		onClick(e)
 	};
 
 	const handleKeyDown = e => {
@@ -35,6 +35,11 @@ const ListItem = styled(({ children, value, isActive, ...rest }) => {
 		</li>
 	);
 })``;
+
+ListItem.defaultProps= {
+	onClick: () => {}
+}
+
 
 export const DropDownContext = React.createContext(false);
 const leftMixin = css`
@@ -97,7 +102,6 @@ const Component = styled.div`
 		}
 	}
 `;
-//${p => (p.variant === 'dropDown' ? dropDownMixin : dropSideMixin)};
 
 const Toggle = ({ children, ...rest }) => {
 	const [, , open, setOpen] = useContext(DropDownContext);

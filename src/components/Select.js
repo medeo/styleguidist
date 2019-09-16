@@ -52,7 +52,7 @@ const Component = styled.div`
 	}
 `;
 
-const Select = styled(({ children, onChange, defaultValue, readOnly, ...rest }) => {
+const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) => {
 	const [selected, select] = useState('');
 	const [defaultOptionProps, setDefaultOptionProps] = useState({ value: null, children: '' });
 	const ref = useRef();
@@ -73,14 +73,26 @@ const Select = styled(({ children, onChange, defaultValue, readOnly, ...rest }) 
 		<Component {...rest}>
 			<DropDown
 				variant="bottom"
-				onChange={event => {
-					if (event == null) return;
-					if (event.value) {
-						select(event.value);
-						onChange(event);
-					} else if (event.children) {
-						select(event.children);
-						onChange(event);
+				onChange={e => {
+					if (e == null) return;
+					if (e.value) {
+						select(e.value);
+						const triggerChange = Object.getOwnPropertyDescriptor(
+							HTMLSelectElement.prototype,
+							"value"
+						).set;
+						const event = new Event("change", { bubbles: true, cancelable: true });
+						triggerChange.call(ref.current, e.value);
+						ref.current.dispatchEvent(event);
+					} else if (e.children) {
+						select(e.children);
+						const triggerChange = Object.getOwnPropertyDescriptor(
+							HTMLSelectElement.prototype,
+							"value"
+						).set;
+						const event = new Event("change", { bubbles: true, cancelable: true });
+						triggerChange.call(ref.current, e.children);
+						ref.current.dispatchEvent(event);
 					}
 				}}
 			>
@@ -91,7 +103,7 @@ const Select = styled(({ children, onChange, defaultValue, readOnly, ...rest }) 
 					))}
 				</DropDown.Menu>}
 			</DropDown>
-			<select ref={ref} defaultValue={selected} disabled={readOnly}>
+			<select ref={ref} {...rest} value={selected} disabled={true} onChange={onChange}>
 				{children}
 			</select>
 		</Component>

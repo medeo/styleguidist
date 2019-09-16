@@ -1,6 +1,6 @@
 ```jsx
 <div>
-	<Select onChange={e => console.log(e)}>
+	<Select onChange={e => console.log(e.target.options)}>
         <option>test</option>
         <option value="2">tsttests</option>
     </Select>

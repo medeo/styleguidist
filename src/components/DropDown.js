@@ -103,10 +103,25 @@ const Component = styled.div`
 	}
 `;
 
-const Toggle = ({ children, ...rest }) => {
-	const [, , open, setOpen] = useContext(DropDownContext);
+const Toggle = ({ children, onChange, ...rest }) => {
+	const [, , open, setOpen, state] = useContext(DropDownContext);
+	const ref = useRef(null)
+	useEffect(() => {
+		if(ref.current == null ) return
+		if(state == null) return
+		const triggerChange = Object.getOwnPropertyDescriptor(
+			HTMLButtonElement.prototype,
+			"value"
+		).set;
+		const event = new Event("change", { bubbles: true, cancelable: true });
+		triggerChange.call(ref.current, value);
+		ref.current.dispatchEvent(event);
+		onChange(event)
+	}, [state]);
+	const value = state!= null ? state.value ? state.value : state.children : null
+	console.log(value)
 	return (
-		<Button {...rest} onClick={() => setOpen(!open)}>
+		<Button {...rest} ref={ref} onClick={() => setOpen(!open)} value={value}>
 			{children}
 			<FontAwesomeIcon icon={faChevronDown} />
 		</Button>
@@ -185,9 +200,7 @@ const DropDown = ({ children, onChange, ...rest }) => {
 	const [value, setValue] = useState(null);
 
 	const ref = useRef(null);
-	useEffect(() => {
-		if (onChange != null) onChange(value);
-	}, [value]);
+
 	const handleKeyDown = e => {
 		if (e.keyCode === 40) {
 			// arrow down
@@ -221,7 +234,7 @@ const DropDown = ({ children, onChange, ...rest }) => {
 
 	return (
 		<DropDownContext.Provider value={[index, setIndex, open, setOpen, value, setValue]}>
-			<Component ref={ref} {...rest} onKeyDown={handleKeyDown} onBlur={handleBlur}>
+			<Component ref={ref} {...rest} onKeyDown={handleKeyDown} onBlur={handleBlur} onChange={() => { console.log("hlooa")}}>
 				{children}
 			</Component>
 		</DropDownContext.Provider>

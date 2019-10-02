@@ -8,8 +8,8 @@ import List from './List';
 dom.watch();
 
 <div style={{ display: 'flex' }}>
-	<DropDown variant="bottom" onChange={v => console.log(v)}> 
-		<DropDown.Toggle>Dropdown action</DropDown.Toggle>
+	<DropDown variant="bottom"> 
+		<DropDown.Toggle onChange={e => console.log(e)}>Dropdown action</DropDown.Toggle>
 		<DropDown.Menu>
             <DropDown.ListItem value="code">
                 Some action
@@ -19,17 +19,7 @@ dom.watch();
             </DropDown.ListItem>
 		</DropDown.Menu>
 	</DropDown>
-</div>;
-<div style={{ display: 'flex', marginRight:'0.5rem'}}>
-	<DropDown variant="bottom" onChange={v => console.log(v)}> 
-		<DropDown.Toggle>Dropdown Action</DropDown.Toggle>
-		<DropDown.Menu>
-            <DropDown.ListItem value="code">
-                Only one other action
-            </DropDown.ListItem>
-		</DropDown.Menu>
-	</DropDown>
-</div>;
+</div>
 ```
 
 ### DropSide

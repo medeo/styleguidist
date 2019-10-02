@@ -119,7 +119,6 @@ const Toggle = ({ children, onChange, ...rest }) => {
 		onChange(event)
 	}, [state]);
 	const value = state!= null ? state.value ? state.value : state.children : null
-	console.log(value)
 	return (
 		<Button {...rest} ref={ref} onClick={() => setOpen(!open)} value={value}>
 			{children}
@@ -234,7 +233,7 @@ const DropDown = ({ children, onChange, ...rest }) => {
 
 	return (
 		<DropDownContext.Provider value={[index, setIndex, open, setOpen, value, setValue]}>
-			<Component ref={ref} {...rest} onKeyDown={handleKeyDown} onBlur={handleBlur} onChange={() => { console.log("hlooa")}}>
+			<Component ref={ref} {...rest} onKeyDown={handleKeyDown} onBlur={handleBlur} >
 				{children}
 			</Component>
 		</DropDownContext.Provider>

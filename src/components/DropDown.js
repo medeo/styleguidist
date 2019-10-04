@@ -6,6 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from './Button';
 import { faChevronDown, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
+const Divider = styled.div`
+	padding: .125rem 0;
+	border-bottom: 1px solid ${p => p.theme.nevada};
+;
+`
+
 const ListItem = styled(({ children, value, isActive, onClick, ...rest }) => {
 	const ref = useRef(null);
 	const [index, setIndex, open, setOpen, , setValue] = useContext(DropDownContext);
@@ -247,6 +253,7 @@ DropDown.defaultProps = {
 
 
 DropDown.ListItem = ListItem;
+DropDown.Divider = Divider;
 DropDown.Toggle = Toggle;
 DropDown.SplitToggle = SplitToggle;
 DropDown.Menu = Menu;

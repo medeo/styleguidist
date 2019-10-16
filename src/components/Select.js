@@ -69,7 +69,7 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) 
 		} else {
 			select(defaultValue);
 			let option = children.find(
-				c => c.props.value === defaultValue || c.props.children === defaultValue
+				c => c.props.value.toString() === defaultValue || c.props.children.toString() === defaultValue
 			);
 			if (option != null) setDefaultOptionProps(option.props);
 			else if (children.length > 0) setDefaultOptionProps(children[0].props);

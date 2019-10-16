@@ -5,13 +5,20 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
-const CustomToggle = ({ children, defaultOption, ...rest }) => {
-	const [a, b, open, setOpen, value] = useContext(DropDownContext);
+const CustomToggle = ({ children, defaultOption, onChange, ...rest }) => {
+	const [,, open, setOpen, value] = useContext(DropDownContext);
+	useEffect(() => {
+		onChange(value)
+		//console.log(onChange)
+	},
+		[value]
+	)
 	return (
 		<Input
 			as="button"
 			role="button"
 			{...rest}
+			value={value}
 			onClick={e => {
 				// e.preventDefault is required because when this button is clicked inside of a form with required inputs
 				// the browser will complain about required input not filled.
@@ -71,9 +78,8 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) 
 
 	return (
 		<Component {...rest}>
-			<DropDown
-				variant="bottom"
-				onChange={e => {
+			<DropDown variant="bottom">
+				<CustomToggle defaultOption={defaultOptionProps} readOnly={readOnly} onChange={e => {
 					if (e == null) return;
 					if (e.value) {
 						select(e.value);
@@ -94,9 +100,7 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) 
 						triggerChange.call(ref.current, e.children);
 						ref.current.dispatchEvent(event);
 					}
-				}}
-			>
-				<CustomToggle defaultOption={defaultOptionProps} readOnly={readOnly} />
+				}} />
 				{readOnly === false && <DropDown.Menu>
 					{children.map((c, i) => (
 						<DropDown.ListItem key={i} {...c.props} />

@@ -14,8 +14,9 @@ const Divider = styled.div`
 
 const ListItem = styled(({ children, value, isActive, onClick, ...rest }) => {
 	const ref = useRef(null);
-	const [index, setIndex, open, setOpen, , setValue] = useContext(DropDownContext);
+	const [index, setIndex,, setOpen,, setValue] = useContext(DropDownContext);
 	useEffect(() => {
+
 		if (isActive === true) {
 			ref.current.focus();
 		}
@@ -110,9 +111,9 @@ const Component = styled.div`
 `;
 
 const Toggle = ({ children, onChange, ...rest }) => {
-	const [, , open, setOpen, state] = useContext(DropDownContext);
+	const [index, , open, setOpen, state] = useContext(DropDownContext);
 	const ref = useRef(null)
-	useEffect(() => {
+	useEffect(() =>{
 		if(ref.current == null ) return
 		if(state == null) return
 		const triggerChange = Object.getOwnPropertyDescriptor(
@@ -123,8 +124,9 @@ const Toggle = ({ children, onChange, ...rest }) => {
 		triggerChange.call(ref.current, value);
 		ref.current.dispatchEvent(event);
 		onChange(event)
-	}, [state]);
+	}, [ state]);
 	const value = state!= null ? state.value ? state.value : state.children : null
+
 	return (
 		<Button {...rest} ref={ref} onClick={() => setOpen(!open)} value={value}>
 			{children}
@@ -205,7 +207,6 @@ const DropDown = ({ children, onChange, ...rest }) => {
 	const [value, setValue] = useState(null);
 
 	const ref = useRef(null);
-
 	const handleKeyDown = e => {
 		if (e.keyCode === 40) {
 			// arrow down

@@ -1,11 +1,13 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import Input from './Input';
+import Label from './Label';
+import Button from './Button';
 import DropDown, { DropDownContext } from './DropDown';
-import styled from 'styled-components';
+import styled, { css} from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
-const CustomToggle = ({ children, defaultOption, onChange, ...rest }) => {
+const CustomToggle = ({ children, defaultOption, onChange, label, ...rest }) => {
 	const [,, open, setOpen, value] = useContext(DropDownContext);
 	useEffect(() => {
 		onChange(value)
@@ -14,9 +16,10 @@ const CustomToggle = ({ children, defaultOption, onChange, ...rest }) => {
 		[value]
 	)
 	return (
-		<Input
+		<div>
+			<Label>{label}</Label>
+		<Input.DefaultComponent
 			as="button"
-			role="button"
 			{...rest}
 			value={value}
 			onClick={e => {
@@ -27,8 +30,9 @@ const CustomToggle = ({ children, defaultOption, onChange, ...rest }) => {
 			}}
 		>
 			<span>{value == null ? defaultOption.children : value.children}</span>
-			<FontAwesomeIcon icon={faSort} />
-		</Input>
+			<FontAwesomeIcon icon={faSort} style={{}} />
+		</Input.DefaultComponent>
+		</div>
 	);
 };
 
@@ -41,15 +45,18 @@ CustomToggle.defaultProps = {
 
 const Component = styled.div`
 	position: relative;
-	& ${Input} {
+	& ${Input.DefaultComponent} {
 		display: flex;
 		align-items: center;
 		& > span {
 			flex: 1;
+			margin-right: 0.5rem;
 		}
 		& svg {
 			width: 1rem !important;
 		}
+		${p => p.readOnly === true && css` & svg {display: none;} & > span { margin: 0;} background: transparent; padding: 0;`}
+		
 	}
 
 	& select {
@@ -69,7 +76,7 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) 
 		} else {
 			select(defaultValue);
 			let option = children.find(
-				c => c.props.value.toString() === defaultValue || c.props.children.toString() === defaultValue
+				c => (c.props.value && c.props.value.toString() === defaultValue) || (c.props.children && c.props.children.toString() === defaultValue)
 			);
 			if (option != null) setDefaultOptionProps(option.props);
 			else if (children.length > 0) setDefaultOptionProps(children[0].props);
@@ -77,9 +84,9 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) 
 	}, [defaultValue]);
 
 	return (
-		<Component {...rest}>
+		<Component readOnly={readOnly} {...rest}>
 			<DropDown variant="bottom">
-				<CustomToggle defaultOption={defaultOptionProps} readOnly={readOnly} onChange={e => {
+				<CustomToggle label={rest.label} defaultOption={defaultOptionProps} readOnly={readOnly} onChange={e => {
 					if (e == null) return;
 					if (e.value) {
 						select(e.value);

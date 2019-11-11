@@ -121,7 +121,7 @@ const Input = styled(props => {
 
 Input.propTypes = {
 	invalid: PropTypes.bool,
-	label: PropTypes.string.isRequired,
+	label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
 };
 
 Input.defaultProps = {

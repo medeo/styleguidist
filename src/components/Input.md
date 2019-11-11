@@ -38,13 +38,13 @@ import Select from './Select';
     <Form.Row>
       <Input label="Adresse" name="name" defaultValue="12 rue Douze" readOnly/>
     </Form.Row>
-    <Form.Row>
+    <Form.Column>
       <Label>Le patient fume t'il ?</Label>
       <div style={{ display: "flex"}}>
         <Input label="Réponse A" name="name" id="rep1" type="radio" value="1" label="Oui" readOnly/>
         <Input label="Réponse B" name="name" id="rep2" type="radio" value="2" label="Non" defaultChecked readOnly/>
       </div>
-    </Form.Row>
+    </Form.Column>
     <Form.Row>
     <Select label="Genre" readOnly>
       <option value="test">Homme</option>

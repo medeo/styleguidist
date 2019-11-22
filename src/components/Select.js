@@ -43,6 +43,11 @@ CustomToggle.defaultProps = {
 	},
 };
 
+const CustomMenu = styled(DropDown.Menu)`
+	overflow-x: scroll;
+	height: 10rem ;
+`
+
 const Component = styled.div`
 	position: relative;
 	& ${Input.DefaultComponent} {
@@ -108,11 +113,11 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) 
 						ref.current.dispatchEvent(event);
 					}
 				}} />
-				{readOnly === false && <DropDown.Menu>
+				{readOnly === false && <CustomMenu>
 					{children.map((c, i) => (
 						<DropDown.ListItem key={i} {...c.props} />
 					))}
-				</DropDown.Menu>}
+				</CustomMenu>}
 			</DropDown>
 			<select ref={ref} {...rest} value={selected} disabled={true} onChange={onChange}>
 				{children}

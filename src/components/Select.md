@@ -19,7 +19,16 @@ import Input from './Input';
             <option value="other">Autre</option>
         </Select>
         <Select defaultValue="2" style={{marginTop: '1rem'}} label="Genre" onChange={e => console.log(e.target.options)}>
-            <option>test</option>
+            <option>abc</option>
+            <option>bcde</option>
+            <option>cde</option>
+            <option>def</option>
+            <option>efg</option>
+            <option>fgh</option>
+            <option>ghi</option>
+            <option>hij</option>
+            <option>ijk</option>
+            <option>jkl</option>
             <option value="2">tsttests</option>
         </Select>
     </form>

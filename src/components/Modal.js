@@ -33,22 +33,8 @@ const Modal = styled.dialog`
 	}
 `;
 
-/** @component */
-export default Modal;
-
 /**
- * & > form {
-			svg {
-				color: ${p => p.theme.aqua};
-			}
-			& > label {
-				padding-right: 0.75rem;
-			}
-			& > input[type='date'] {
-				margin-right: 0.75rem;
-				border-radius: 0.3rem;
-				border: solid 2px ${p => p.theme.cream};
-				outline: none;
-			}
-		}
+ * @component
+ * @deprecated
  */
+export default Modal;

@@ -63,7 +63,7 @@ Button.propTypes = {
 	/**
 	 * the color theme for the button
 	 */
-	color: PropTypes.oneOf(['ocean', 'scarlett', 'emerald', 'mustard', 'gray', 'white']),
+	color: PropTypes.oneOf(['aqua', 'ocean', 'scarlett', 'emerald', 'mustard', 'gray', 'white']),
 	/**
 	 * the variant of the button
 	 */

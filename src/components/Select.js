@@ -43,9 +43,10 @@ CustomToggle.defaultProps = {
 	},
 };
 
+// CustomMenu is required to prevent big list to fill up the screen
 const CustomMenu = styled(DropDown.Menu)`
 	overflow-x: scroll;
-	height: 10rem ;
+	max-height: 10rem ;
 `
 
 const Component = styled.div`

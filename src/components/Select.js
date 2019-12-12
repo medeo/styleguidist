@@ -17,7 +17,7 @@ const CustomToggle = ({ children, name, defaultOption, onChange, label, ...rest 
 	)
 	return (
 		<div>
-			<Label htmlFor={name}>{label}</Label>
+			<Label>{label}</Label>
 		<Input.DefaultComponent
 			as="button"
 			{...rest}
@@ -120,7 +120,7 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, label, name
 					))}
 				</CustomMenu>}
 			</DropDown>
-			<select ref={ref} name={name} {...rest} value={selected} disabled={true} onChange={onChange}>
+			<select ref={ref} name={name} aria-label={label} {...rest} value={selected} disabled={true} onChange={onChange}>
 				{children}
 			</select>
 		</Component>

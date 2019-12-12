@@ -7,7 +7,7 @@ import styled, { css} from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
-const CustomToggle = ({ children, defaultOption, onChange, label, ...rest }) => {
+const CustomToggle = ({ children, name, defaultOption, onChange, label, ...rest }) => {
 	const [,, open, setOpen, value] = useContext(DropDownContext);
 	useEffect(() => {
 		onChange(value)
@@ -17,7 +17,7 @@ const CustomToggle = ({ children, defaultOption, onChange, label, ...rest }) => 
 	)
 	return (
 		<div>
-			<Label>{label}</Label>
+			<Label htmlFor={name}>{label}</Label>
 		<Input.DefaultComponent
 			as="button"
 			{...rest}
@@ -72,7 +72,7 @@ const Component = styled.div`
 	}
 `;
 
-const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) => {
+const Select = styled(({ children, defaultValue, readOnly, onChange, label, name, ...rest }) => {
 	const [selected, select] = useState('');
 	const [defaultOptionProps, setDefaultOptionProps] = useState({ value: null, children: '' });
 	const ref = useRef();
@@ -92,7 +92,7 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) 
 	return (
 		<Component readOnly={readOnly} {...rest}>
 			<DropDown variant="bottom">
-				<CustomToggle label={rest.label} defaultOption={defaultOptionProps} readOnly={readOnly} onChange={e => {
+				<CustomToggle label={label} name={name} defaultOption={defaultOptionProps} readOnly={readOnly} onChange={e => {
 					if (e == null) return;
 					if (e.value) {
 						select(e.value);
@@ -120,7 +120,7 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, ...rest }) 
 					))}
 				</CustomMenu>}
 			</DropDown>
-			<select ref={ref} {...rest} value={selected} disabled={true} onChange={onChange}>
+			<select ref={ref} name={name} {...rest} value={selected} disabled={true} onChange={onChange}>
 				{children}
 			</select>
 		</Component>

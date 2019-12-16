@@ -102,13 +102,11 @@ const Tabs = ({ children, color, size, border, position, space, bold }) => {
 					);
 				})}
 			</TabBar>
-			<TabContent position={position}>
 				{children.map(child => {
 					const { label } = child.props;
 					if (label !== activeTab) return undefined;
 					return child.props.children;
 				})}
-			</TabContent>
 		</Component>
 	);
 };

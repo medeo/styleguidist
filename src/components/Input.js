@@ -109,7 +109,7 @@ const Input = styled(props => {
 	const { id, label, onChange, ...rest} = props
 	if(props.type === 'radio' || props.type === 'checkbox') {
 		return <RadioGroup htmlFor={id} {...rest}>
-				<input {...rest} onChange={onChange}/>
+				<input {...rest} id={id} onChange={onChange}/>
 				<span>{label}</span>
 			</RadioGroup>
 	}

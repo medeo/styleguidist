@@ -16,6 +16,7 @@
 		mustard
 	</Button>
 	<Button style={{ marginRight: '.5rem' }}>ocean</Button>
+	<Button color="aqua" style={{ marginRight: '.5rem' }}>aqua</Button>
 	<Button color="scarlett">scarlett</Button>
 ```
 
@@ -35,6 +36,7 @@
 		mustard
 	</Button>
 	<Button disabled style={{ marginRight: '.5rem' }}>ocean</Button>
+	<Button disabled color="aqua" style={{ marginRight: '.5rem' }}>aqua</Button>
 	<Button  disabled color="scarlett">scarlett</Button>
 ```
 
@@ -56,6 +58,7 @@ Outlined buttons do not have a background set.
 		mustard
 	</Button>
 	<Button variant="outline" style={{ marginRight: '.5rem' }}>ocean</Button>
+	<Button variant="outline" color="aqua" style={{ marginRight: '.5rem' }}>aqua</Button>
 	<Button variant="outline" color="scarlett">scarlett</Button>
 ```
 

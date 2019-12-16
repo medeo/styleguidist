@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Component = styled.div`
-	width: 100%;
-	margin: 0 1rem;
 	font-family: 'Inter', sans-serif;
 	display: flex;
 	flex-direction: column;
@@ -12,20 +10,9 @@ const Component = styled.div`
 	align-items: center;
 `;
 
-const TabBar = styled.ul`
-	width: 100%;
-	height: 3rem;
-	font-family: 'Inter', sans-serif;
-	background: none;
-	display: flex;
-	flex-direction: row
-	justify-content: center;
-	align-items: center;
-`;
 
 const TabName = styled.li`
 	padding: 0.5rem 0;
-	margin: 0 1rem;
 	border-bottom-width: ${props => (props.tabFocused ? '2px' : '0px')};
 	border-bottom-color: ${p => p.theme[p.color]};
 	border-bottom-style: solid;
@@ -35,6 +22,23 @@ const TabName = styled.li`
 		cursor: pointer;
 	}
 `;
+
+const TabBar = styled.ul`
+	width: 100%;
+	height: 3rem;
+	font-family: 'Inter', sans-serif;
+	background: none;
+	display: flex;
+	flex-direction: row;
+	margin: 0;
+	padding:0;
+	justify-content: center;
+	align-items: center;
+	& > ${TabName}:not(:last-child) {
+		margin-right: 2rem;
+	}
+`;
+
 
 TabName.defaultProps = {
 	color: 'aqua',

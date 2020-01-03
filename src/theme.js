@@ -19,8 +19,10 @@ const palette = {
 	alabaster: '#F5F7FA',
 	// secondary colors
 	gray: '#9AA5B1',
+	darkgray: '#1f2933',
 	white: '#fff',
 	black: '#040404',
+
 	// supporting colors
 	emerald: '#57DA92',
 	mustard: '#F7B029',

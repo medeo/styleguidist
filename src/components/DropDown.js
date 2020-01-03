@@ -85,8 +85,10 @@ const Component = styled.div`
 	& > ${List} {
 		z-index: 1;
 		border-radius: 0.25rem;
-		background: ${p => p.theme.ebony};
-		color: ${p => p.theme.cream};
+		border: solid 1px #98a5b2;
+		width: 300px;
+		background: ${p => p.theme.white};
+		color: ${p => p.theme.darkgray};
 		position: absolute;
 		padding: 0.25rem 0;
 		${p => getMixinFromVariant(p)};
@@ -105,7 +107,7 @@ const Component = styled.div`
 	${ListItem} {
 		padding: 0.5rem 0.5rem;
 		&:hover {
-			background: ${p => p.theme.nevada};
+			background: ${p => p.theme.cream};
 		}
 	}
 `;

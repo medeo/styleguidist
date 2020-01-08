@@ -60,12 +60,13 @@ const Group = styled.div`
 	& > ${Label} {
 		flex: 1;
 	}
-`
+`;
 
-
-const selectDisplay = (p) => {
-	if(p.readOnly === false) {
-		return css`display: block`
+const selectDisplay = p => {
+	if (p.readOnly === false) {
+		return css`
+			display: block;
+		`;
 	} else {
 		if (p.defaultChecked === true || p.checked === true) {
 			return css`

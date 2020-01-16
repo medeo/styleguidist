@@ -1,7 +1,7 @@
 {
   "name": "@medeo/component",
   "description": "Styled-Components Library",
-  "version": "7.2.0",
+  "version": "7.2.2",
   "private": false,
   "module": "es/dist.js",
   "main": "cjs/dist.js",
@@ -63,5 +63,8 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "styled-components": "^4.2.0",
     "webpack": "^4.33.0"
+  },
+  "dependencies": {
+    "semantic-ui-react": "^0.88.2"
   }
 }

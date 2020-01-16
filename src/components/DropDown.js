@@ -23,6 +23,7 @@ const ListItem = styled(({ children, value, isActive, onClick, ...rest }) => {
 	}, [isActive]);
 
 	const handleClick = (e) => {
+		console.log('clicked')
 		setIndex(-1);
 		setOpen(false);
 		setValue({ value, children: ref.current.innerHTML });
@@ -38,6 +39,7 @@ const ListItem = styled(({ children, value, isActive, onClick, ...rest }) => {
 	};
 	return (
 		<li ref={ref} tabIndex="0" {...rest} onKeyDown={handleKeyDown} onClick={handleClick}>
+
 			{children}
 		</li>
 	);
@@ -195,6 +197,7 @@ const Menu = ({ children, ...rest }) => {
 	};
 
 	return (
+
 		open === true && (
 			<List ref={ref} {...rest} onKeyDown={handleKeyDown} items={React.Children.toArray(children)}>
 				{(item, i) => React.cloneElement(item, { key: 'select-' + i, isActive: i === index })}

@@ -1,58 +1,39 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
+import fuzzy from 'fuzzy'
+import styled from 'styled-components'
+
 import Input from './Input'
 import DropDown from './DropDown';
 
-const Search = ({options}) => {
-	const [searchInput, setSearchInput] = useState('')
-	const [optionState, setOptionState] = useState(options)
+const SearchInput = styled(Input).attrs(() => ({type: 'text'}))`
+	background: transparent;
+	border: none;
+	font-weight: normal;
 
-	// useEffect(() => {
-	//
-	// }, [])
-	console.log(searchInput, 'STATE')
-	console.log(options, 'OPTIONS')
-	const searchHandler = () => {
-		const filteredOption = optionState.filter(o => o.text.toLowerCase() === searchInput.toLowerCase())
+`
 
+const Search = ({options, placeholder}) => {
+	const [search, setSearch] = useState('')
+	const results = fuzzy.filter(search, options)
 
-		// const option = optionState
-
-		// console.log(option, 'OPTION')
-		// for (let i = 0; i < option.length; i++) {
-		// 	const txtValue = option[i].text
-		//
-		// 	if (txtValue.toUpperCase().indexOf(searchInput.toUpperCase()) > -1) {
-		// 		console.log('if')
-		// 		option[i].text
-		// 	} else {
-		// 		console.log('else')
-		// 		option[i].text
-		// 	}
-		// }
-		if (filteredOption.length > 0) {
-			console.log('inside', filteredOption)
-			setOptionState(filteredOption)
-		} else {
-			setOptionState(options)
-		}
-		console.log(filteredOption, 'FILTERED OPTION')
-	}
-
-	return optionState ? (
-		<div id="myDropdownMenu">
-			<Input
+	return options ? (
+		<>
+			<SearchInput
 				type="text"
-				placeholder="Search..."
 				id="mySearchInput"
-				value={searchInput} onChange={e => setSearchInput(e.target.value)}
-				onKeyUp={searchHandler} />
-			{optionState.map((option, i) => (
-				<DropDown.ListItem value="code" key={i}>
-					{option.text}
-				</DropDown.ListItem>
-			))}
-		</div>
+				value={search}
+				placeholder={placeholder}
+				onChange={e => setSearch(e.target.value)}
+			/>
+			{results.map((o, i) => {
+				console.log(o)
+				return (
+					<DropDown.ListItem value={o.original} key={i}>
+						{o.string}
+					</DropDown.ListItem>
+				)})}
+		</>
 	) : null
 }
-
 export default Search
+

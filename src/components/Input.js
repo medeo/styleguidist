@@ -8,21 +8,18 @@ const invalidMixin = css`
 	color: ${p => p.theme.black};
 `;
 
-
 const readOnlyMixin = css`
 	border-color: transparent;
 	padding: 0;
 	background: transparent;
 	&:focus {
-	 border-color: transparent;
+		border-color: transparent;
 	}
-`
+`;
 
-const selectMixin = (p) => {
-	if(p.readOnly === true)
-		return invalidMixin
-}
-
+const selectMixin = p => {
+	if (p.readOnly === true) return invalidMixin;
+};
 
 const Component = styled.input`
 	${selectMixin}
@@ -37,20 +34,18 @@ const Component = styled.input`
 	font-weight: ${p => p.theme.normal};
 	font-family: 'Inter', sans-serif;
 	${p => (p.type !== 'date' ? 'line-height: 1.5;' : '')}
-	
 `;
-
 
 const Group = styled.div`
 	display: flex;
-	flex:1;
+	flex: 1;
 	grid-row: 1;
 	flex-direction: column-reverse;
-	
+
 	// read-only invalid and focus are pasted here in case we are using Input.DefaultComponent outside of this file
 	// c.f. Select. Button is read-only all the time
 	& input:read-only {
-	 ${readOnlyMixin}
+		${readOnlyMixin}
 	}
 	& input:invalid {
 		${invalidMixin}
@@ -65,12 +60,13 @@ const Group = styled.div`
 	& > ${Label} {
 		flex: 1;
 	}
-`
+`;
 
-
-const selectDisplay = (p) => {
-	if(p.readOnly === false) {
-		return css`display: block`
+const selectDisplay = p => {
+	if (p.readOnly === false) {
+		return css`
+			display: block;
+		`;
 	} else {
 		if (p.defaultChecked === true || p.checked === true) {
 			return css`
@@ -82,42 +78,56 @@ const selectDisplay = (p) => {
 				& input {
 					display: none;
 				}
-				`
+			`;
 		}
-		return css`display: none`
+		return css`
+			display: none;
+		`;
 	}
-}
+};
 
 const RadioGroup = styled.label`
- 	padding: 0.5rem;
-  border-radius: 0.25rem;
-  background: transparent;
-  border: 1px solid ${p => p.theme.nevada};
-  display: flex;
-  align-items: center;
-  ${p=> p.type ==='radio'? css`margin-right: 0.5rem;`: css`margin-bottom: 0.5rem; justify-self: flex-start` };
-  ${props => selectDisplay(props)}
-  & > input {
-    margin-right: 0.5rem;
-  }
-  &:hover {
-    background: ${p => p.theme.alabaster};
-  }
-`
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+	background: transparent;
+	border: 1px solid ${p => p.theme.nevada};
+	display: flex;
+	align-items: center;
+	${p =>
+		p.type === 'radio'
+			? css`
+					margin-right: 0.5rem;
+			  `
+			: css`
+					margin-bottom: 0.5rem;
+					justify-self: flex-start;
+			  `};
+	${props => selectDisplay(props)}
+	& > input {
+		margin-right: 0.5rem;
+	}
+	&:hover {
+		background: ${p => p.theme.alabaster};
+	}
+`;
 
 const Input = styled(props => {
-	const { id, label, onChange, ...rest} = props
-	if(props.type === 'radio' || props.type === 'checkbox') {
-		return <RadioGroup htmlFor={id} {...rest}>
-				<input {...rest} onChange={onChange}/>
+	const { id, label, onChange, ...rest } = props;
+	if (props.type === 'radio' || props.type === 'checkbox') {
+		return (
+			<RadioGroup htmlFor={id} {...rest}>
+				<input id={id} {...rest} onChange={onChange} />
 				<span>{label}</span>
 			</RadioGroup>
+		);
 	}
-	return <Group className={props.className}>
-		<Component id={id} onChange={onChange} {...rest}/>
-		<Label htmlFor={id}>{label}</Label>
-	</Group>
-})``
+	return (
+		<Group className={props.className}>
+			<Component id={id} onChange={onChange} {...rest} />
+			<Label htmlFor={id}>{label}</Label>
+		</Group>
+	);
+})``;
 
 Input.propTypes = {
 	invalid: PropTypes.string,
@@ -130,7 +140,7 @@ Input.defaultProps = {
 	readOnly: false,
 };
 
-Input.DefaultComponent = Component
+Input.DefaultComponent = Component;
 
 /** @component */
 export default Input;

@@ -3,35 +3,50 @@ import Input from './Input';
 import Label from './Label';
 import Button from './Button';
 import DropDown, { DropDownContext } from './DropDown';
-import styled, { css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
 const CustomToggle = ({ children, name, defaultOption, onChange, label, ...rest }) => {
-	const [,, open, setOpen, value] = useContext(DropDownContext);
+	const [, , open, setOpen, value, , dimensions] = useContext(DropDownContext);
+	const [fakeOpen, setFakeOpen] = useState(false);
 	useEffect(() => {
-		onChange(value)
+		onChange(value);
 		//console.log(onChange)
-	},
-		[value]
-	)
+	}, [value]);
+
+	// open and then close select to get the size of widest children item.
+	// Because the width of the listItem can only be get if displayed (therefore select must be opened)
+	if (dimensions == null && fakeOpen == false) {
+		setOpen(true);
+		setFakeOpen(true);
+	}
+	useEffect(() => {
+		if (fakeOpen == true && dimensions != null) {
+			setOpen(false);
+			setFakeOpen(false);
+		}
+	}, [fakeOpen, dimensions]);
+
+	let width = dimensions ? dimensions.width + 50 : 0;
 	return (
 		<div>
 			<Label>{label}</Label>
-		<Input.DefaultComponent
-			as="button"
-			{...rest}
-			value={value}
-			onClick={e => {
-				// e.preventDefault is required because when this button is clicked inside of a form with required inputs
-				// the browser will complain about required input not filled.
-				e.preventDefault();
-				setOpen(!open);
-			}}
-		>
-			<span>{value == null ? defaultOption.children : value.children}</span>
-			<FontAwesomeIcon icon={faSort} style={{}} />
-		</Input.DefaultComponent>
+			<Input.DefaultComponent
+				as="button"
+				style={{ textAlign: 'start', width: `${width}px` }}
+				{...rest}
+				value={value}
+				onClick={e => {
+					// e.preventDefault is required because when this button is clicked inside of a form with required inputs
+					// the browser will complain about required input not filled.
+					e.preventDefault();
+					setOpen(!open);
+				}}
+			>
+				<span>{value == null ? defaultOption.children : value.children}</span>
+				<FontAwesomeIcon icon={faSort} style={{}} />
+			</Input.DefaultComponent>
 		</div>
 	);
 };
@@ -46,8 +61,8 @@ CustomToggle.defaultProps = {
 // CustomMenu is required to prevent big list to fill up the screen
 const CustomMenu = styled(DropDown.Menu)`
 	overflow-x: scroll;
-	max-height: 10rem ;
-`
+	max-height: 10rem;
+`;
 
 const Component = styled.div`
 	position: relative;
@@ -61,8 +76,18 @@ const Component = styled.div`
 		& svg {
 			width: 1rem !important;
 		}
-		${p => p.readOnly === true && css` & svg {display: none;} & > span { margin: 0;} background: transparent; padding: 0;`}
-		
+		${p =>
+			p.readOnly === true &&
+			css`
+				& svg {
+					display: none;
+				}
+				& > span {
+					margin: 0;
+				}
+				background: transparent;
+				padding: 0;
+			`}
 	}
 
 	& select {
@@ -82,7 +107,9 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, label, name
 		} else {
 			select(defaultValue);
 			let option = children.find(
-				c => (c.props.value && c.props.value.toString() === defaultValue) || (c.props.children && c.props.children.toString() === defaultValue)
+				c =>
+					(c.props.value && c.props.value.toString() === defaultValue) ||
+					(c.props.children && c.props.children.toString() === defaultValue)
 			);
 			if (option != null) setDefaultOptionProps(option.props);
 			else if (children.length > 0) setDefaultOptionProps(children[0].props);
@@ -129,6 +156,6 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, label, name
 
 Select.defaultProps = {
 	onChange: () => {},
-	readOnly: false
+	readOnly: false,
 };
 export default Select;

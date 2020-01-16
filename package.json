@@ -1,7 +1,7 @@
 {
   "name": "@medeo/component",
   "description": "Styled-Components Library",
-  "version": "7.2.2",
+  "version": "7.2.4",
   "private": false,
   "module": "es/dist.js",
   "main": "cjs/dist.js",
@@ -65,6 +65,6 @@
     "webpack": "^4.33.0"
   },
   "dependencies": {
-    "semantic-ui-react": "^0.88.2"
+    "fuzzy": "^0.1.3"
   }
 }

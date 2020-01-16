@@ -25,29 +25,6 @@ dom.watch();
 </div>
 ```
 
-### DropDown with fuzzy search
-
-```jsx
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { dom } from '@fortawesome/fontawesome-svg-core';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import List from './List';
-import Search from './Search';
-dom.watch();
-
-// options must be an array
-const countryOptions = ['Argentina', 'Bolivia', 'Colombia', 'Venezuela', 'Alemania', 'Grecia', 'Reino Unido'];
-
-<div style={{ display: 'flex' }}>
-	<DropDown variant="bottom"> 
-		<DropDown.Toggle>Dropdown action</DropDown.Toggle>
-		<DropDown.Menu>
-            <Search options={countryOptions} placeholder='Choose your country' />
-		</DropDown.Menu>
-	</DropDown>
-</div>
-```
-
 ### DropSide
 
 ```jsx

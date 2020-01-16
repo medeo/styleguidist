@@ -111,7 +111,7 @@ const Component = styled.div`
 		opacity: 0.5;
 	}
 	${ListItem} {
-		padding: 0.5rem 1rem;
+		padding: 0.5rem 0.5rem;
 		&:hover {
 			background: ${p => p.theme.cream};
 		}

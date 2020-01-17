@@ -11,6 +11,9 @@
 ```jsx
 import Span from './Span';
 import Input from './Input';
+
+const selectOptions = ['hello', 'bonjour', 'hola', 'salut', 'epale', 'guten tag', 'que tal', 'yo', 'hey'];
+
 <div>
     <form onSubmit={e => console.log(e)}>    
         <Select defaultValue="female" label="Genre readonly" readOnly>
@@ -18,20 +21,8 @@ import Input from './Input';
             <option value="female">Femme</option>
             <option value="other">Autre</option>
         </Select>
-        <Select defaultValue="2" style={{marginTop: '1rem'}} label="Genre" onChange={e => console.log(e.target.options)}>
-            <option>abc</option>
-            <option>bcde</option>
-            <option>cde</option>
-            <option>def</option>
-            <option>efg</option>
-            <option>fgh</option>
-            <option>ghi</option>
-            <option>hij</option>
-            <option>ijk</option>
-            <option>jkl</option>
-            <option>mmmmmmmmmmmmmmm</option>
-            <option>iiiii iiiii iiiii</option>
-            <option value="2">tsttests</option>
+        <Select selectOptions={selectOptions} defaultValue="bonjour" style={{marginTop: '1rem'}} label="How do you say Hello?" onChange={e => console.log(e.target.options)}>
+            {selectOptions.map(o => <option value={o}>{o}</option>)}
         </Select>
     </form>
 </div>

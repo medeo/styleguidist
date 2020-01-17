@@ -1,13 +1,30 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
+import fuzzy from 'fuzzy';
+
 import Input from './Input';
 import Label from './Label';
-import Button from './Button';
 import DropDown, { DropDownContext } from './DropDown';
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
-const CustomToggle = ({ children, name, defaultOption, onChange, label, ...rest }) => {
+const useOutsideAlerter = ref => {
+	const handleClickOutside = e => {
+		if(ref.current && !ref.current.contains(e.target)) {
+			// console.log('you clicked outside of me!')
+		}
+	}
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside)
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside)
+		}
+	})
+}
+
+
+const CustomToggle = ({ children, name, defaultOption, onChange, label, selected, setSearch, ...rest }) => {
 	const [, , open, setOpen, value, , dimensions] = useContext(DropDownContext);
 	const [fakeOpen, setFakeOpen] = useState(false);
 	useEffect(() => {
@@ -29,24 +46,29 @@ const CustomToggle = ({ children, name, defaultOption, onChange, label, ...rest 
 	}, [fakeOpen, dimensions]);
 
 	let width = dimensions ? dimensions.width + 50 : 0;
+
+
+
 	return (
-		<div>
+		<div
+			onClick={e => {
+			// e.preventDefault is required because when this button is clicked inside of a form with required inputs
+			// the browser will complain about required input not filled.
+			e.preventDefault();
+			setOpen(!open);
+
+		}}
+			style={{ textAlign: 'start', width: `${width}px` }}>
 			<Label>{label}</Label>
-			<Input.DefaultComponent
-				as="button"
-				style={{ textAlign: 'start', width: `${width}px` }}
+			<span style={{display: 'flex'}}>
+			<Input
+				placeholder={value == null ? defaultOption.children : value.children}
+				onChange={e => setSearch(e.target.value)}
+				style={{display: 'inline-block'}}
 				{...rest}
-				value={value}
-				onClick={e => {
-					// e.preventDefault is required because when this button is clicked inside of a form with required inputs
-					// the browser will complain about required input not filled.
-					e.preventDefault();
-					setOpen(!open);
-				}}
-			>
-				<span>{value == null ? defaultOption.children : value.children}</span>
-				<FontAwesomeIcon icon={faSort} style={{}} />
-			</Input.DefaultComponent>
+			/>
+			<FontAwesomeIcon icon={faSort} style={{}}/>
+			</span>
 		</div>
 	);
 };
@@ -77,8 +99,8 @@ const Component = styled.div`
 			width: 1rem !important;
 		}
 		${p =>
-			p.readOnly === true &&
-			css`
+	p.readOnly === true &&
+	css`
 				& svg {
 					display: none;
 				}
@@ -100,6 +122,12 @@ const Component = styled.div`
 const Select = styled(({ children, defaultValue, readOnly, onChange, label, name, ...rest }) => {
 	const [selected, select] = useState('');
 	const [defaultOptionProps, setDefaultOptionProps] = useState({ value: null, children: '' });
+	const [search, setSearch] = useState('');
+	const wrapperRef = useRef(null)
+	useOutsideAlerter(wrapperRef)
+	const myOptions = children.map(c => c.props.value || c.props.children);
+	const results = fuzzy.filter(search, myOptions)
+		.map(r => r.string) || myOptions;
 	const ref = useRef();
 	useEffect(() => {
 		if (defaultValue == null) {
@@ -109,7 +137,7 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, label, name
 			let option = children.find(
 				c =>
 					(c.props.value && c.props.value.toString() === defaultValue) ||
-					(c.props.children && c.props.children.toString() === defaultValue)
+					(c.props.children && c.props.children.toString() === defaultValue),
 			);
 			if (option != null) setDefaultOptionProps(option.props);
 			else if (children.length > 0) setDefaultOptionProps(children[0].props);
@@ -117,34 +145,35 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, label, name
 	}, [defaultValue]);
 
 	return (
-		<Component readOnly={readOnly} {...rest}>
+		<Component readOnly={readOnly} ref={wrapperRef} {...rest}>
 			<DropDown variant="bottom">
-				<CustomToggle label={label} name={name} defaultOption={defaultOptionProps} readOnly={readOnly} onChange={e => {
+				<CustomToggle setSearch={setSearch} selected={selected} label={label} name={name} defaultOption={defaultOptionProps}
+											readOnly={readOnly} onChange={e => {
 					if (e == null) return;
 					if (e.value) {
 						select(e.value);
 						const triggerChange = Object.getOwnPropertyDescriptor(
 							HTMLSelectElement.prototype,
-							"value"
+							'value',
 						).set;
-						const event = new Event("change", { bubbles: true, cancelable: true });
+						const event = new Event('change', { bubbles: true, cancelable: true });
 						triggerChange.call(ref.current, e.value);
 						ref.current.dispatchEvent(event);
 					} else if (e.children) {
 						select(e.children);
 						const triggerChange = Object.getOwnPropertyDescriptor(
 							HTMLSelectElement.prototype,
-							"value"
+							'value',
 						).set;
-						const event = new Event("change", { bubbles: true, cancelable: true });
+						const event = new Event('change', { bubbles: true, cancelable: true });
 						triggerChange.call(ref.current, e.children);
 						ref.current.dispatchEvent(event);
 					}
-				}} />
+				}}/>
 				{readOnly === false && <CustomMenu>
-					{children.map((c, i) => (
-						<DropDown.ListItem key={i} {...c.props} />
-					))}
+					{results.map((result, i) => (
+							<DropDown.ListItem key={i}>{result}</DropDown.ListItem>
+						))}
 				</CustomMenu>}
 			</DropDown>
 			<select ref={ref} name={name} aria-label={label} {...rest} value={selected} disabled={true} onChange={onChange}>
@@ -155,7 +184,8 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, label, name
 })``;
 
 Select.defaultProps = {
-	onChange: () => {},
+	onChange: () => {
+	},
 	readOnly: false,
 };
 export default Select;

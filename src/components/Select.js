@@ -24,11 +24,20 @@ const useOutsideAlerter = ref => {
 }
 
 
-const CustomToggle = ({ children, name, defaultOption, onChange, label, selected, setSearch, ...rest }) => {
+const CustomToggle = ({ children, name, defaultOption, onChange, label, selected, search, setSearch, results, ...rest }) => {
 	const [, , open, setOpen, value, , dimensions] = useContext(DropDownContext);
 	const [fakeOpen, setFakeOpen] = useState(false);
+	const [selectedValue, setSelectedValue] = useState(null)
+	console.log(search, 'search')
+	console.log(selectedValue, 'selectedValue')
+	console.log(value, 'value')
 	useEffect(() => {
 		onChange(value);
+		if (value == null) {
+			setSelectedValue(defaultOption.children)
+		} else {
+			setSelectedValue(value.children)
+		}
 		//console.log(onChange)
 	}, [value]);
 
@@ -47,7 +56,20 @@ const CustomToggle = ({ children, name, defaultOption, onChange, label, selected
 
 	let width = dimensions ? dimensions.width + 50 : 0;
 
-
+	useEffect(() => {
+		// handle when the search input has not been clicked for first time
+		if (!open && search != '') {
+			setSelectedValue(results[0])
+			if (!open && setSelectedValue != null) {
+				setSelectedValue(results[0])
+			}
+		} else if (open) {
+			setSearch('')
+			setSelectedValue(null)
+		} else if (!open && setSelectedValue == null) {
+			setSelectedValue(results[0])
+		}
+	}, [open])
 
 	return (
 		<div
@@ -56,16 +78,20 @@ const CustomToggle = ({ children, name, defaultOption, onChange, label, selected
 			// the browser will complain about required input not filled.
 			e.preventDefault();
 			setOpen(!open);
-
+			setSearch('');
+			console.log('you clikc')
+			setSelectedValue(null);
 		}}
 			style={{ textAlign: 'start', width: `${width}px` }}>
 			<Label>{label}</Label>
 			<span style={{display: 'flex'}}>
 			<Input
-				placeholder={value == null ? defaultOption.children : value.children}
+				value={open ? search : selectedValue}
+				placeholder={value == null ? defaultOption.children : null}
 				onChange={e => setSearch(e.target.value)}
 				style={{display: 'inline-block'}}
 				{...rest}
+
 			/>
 			<FontAwesomeIcon icon={faSort} style={{}}/>
 			</span>
@@ -123,12 +149,11 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, label, name
 	const [selected, select] = useState('');
 	const [defaultOptionProps, setDefaultOptionProps] = useState({ value: null, children: '' });
 	const [search, setSearch] = useState('');
-	const wrapperRef = useRef(null)
-	useOutsideAlerter(wrapperRef)
 	const myOptions = children.map(c => c.props.value || c.props.children);
 	const results = fuzzy.filter(search, myOptions)
 		.map(r => r.string) || myOptions;
 	const ref = useRef();
+
 	useEffect(() => {
 		if (defaultValue == null) {
 			if (children.length > 0) setDefaultOptionProps(children[0].props);
@@ -145,9 +170,9 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, label, name
 	}, [defaultValue]);
 
 	return (
-		<Component readOnly={readOnly} ref={wrapperRef} {...rest}>
+		<Component readOnly={readOnly} {...rest}>
 			<DropDown variant="bottom">
-				<CustomToggle setSearch={setSearch} selected={selected} label={label} name={name} defaultOption={defaultOptionProps}
+				<CustomToggle search={search} setSearch={setSearch} results={results} selected={selected} label={label} name={name} defaultOption={defaultOptionProps}
 											readOnly={readOnly} onChange={e => {
 					if (e == null) return;
 					if (e.value) {

@@ -47,9 +47,12 @@ const Group = styled.div`
 	& input:read-only {
 		${readOnlyMixin}
 	}
-	& input:invalid {
+	// apply invalid state only when the user has started to type
+	// check out this article for more info https://zellwk.com/blog/check-empty-input-css/
+	& input:invalid:not(:placeholder-shown):not(:focus) {
 		${invalidMixin}
 	}
+	
 	& input:focus {
 		outline: none;
 		border-color: ${p => p.theme.aqua};

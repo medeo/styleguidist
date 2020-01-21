@@ -53,3 +53,14 @@ import Select from './Select';
   </Form.Row>
 </Form>
 ```
+
+```js
+import Form from './Form';
+<Form onSubmit={e => e.preventDefault()}>
+    <Form.Row>
+      <Input label="Nom" name="name" required/>
+      <Input label="Email" name="given" type="email" required/>
+    </Form.Row>
+    <button>coucou</button>
+</Form>
+```

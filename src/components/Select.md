@@ -12,8 +12,6 @@
 import Span from './Span';
 import Input from './Input';
 
-const selectOptions = ['hello', 'bonjour', 'hola', 'salut', 'epale', 'guten tag', 'que tal', 'yo', 'hey'];
-
 <div>
     <form onSubmit={e => console.log(e)}>    
         <Select defaultValue="female" label="Genre readonly" readOnly>
@@ -21,8 +19,16 @@ const selectOptions = ['hello', 'bonjour', 'hola', 'salut', 'epale', 'guten tag'
             <option value="female">Femme</option>
             <option value="other">Autre</option>
         </Select>
-        <Select selectOptions={selectOptions} defaultValue="bonjour" style={{marginTop: '1rem'}} label="How do you say Hello?" onChange={e => console.log(e.target.options)}>
-            {selectOptions.map(o => <option value={o}>{o}</option>)}
+        <Select style={{marginTop: '1rem'}} label="How do you say Hello?" onChange={e => console.log(e.target.options)}>
+            <option value="">Pick your option</option>
+            <option value="hello">Hello</option>
+            <option value="bonjour">bonjour</option>
+            <option value="hola">hola</option>
+            <option value="salut">salut</option>
+            <option value="epale">epale</option>
+            <option value="guten tag">guten tag</option>
+            <option value="que tal">que tal</option>
+            <option value="hey">hey</option>
         </Select>
     </form>
 </div>

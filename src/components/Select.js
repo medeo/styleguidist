@@ -8,29 +8,14 @@ import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
-const useOutsideAlerter = ref => {
-	const handleClickOutside = e => {
-		if(ref.current && !ref.current.contains(e.target)) {
-			// console.log('you clicked outside of me!')
-		}
-	}
-
-	useEffect(() => {
-		document.addEventListener("mousedown", handleClickOutside)
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside)
-		}
-	})
-}
-
-
-const CustomToggle = ({ children, name, defaultOption, onChange, label, selected, search, setSearch, results, ...rest }) => {
+const CustomToggle = ({ children, name, ref, defaultOption, setDefaultOptionProps, onChange, label, select, selected, search, setSearch, results, ...rest }) => {
 	const [, , open, setOpen, value, , dimensions] = useContext(DropDownContext);
 	const [fakeOpen, setFakeOpen] = useState(false);
 	const [selectedValue, setSelectedValue] = useState(null)
 	console.log(search, 'search')
 	console.log(selectedValue, 'selectedValue')
 	console.log(value, 'value')
+	console.log(selected, 'selected')
 	useEffect(() => {
 		onChange(value);
 		if (value == null) {
@@ -57,16 +42,25 @@ const CustomToggle = ({ children, name, defaultOption, onChange, label, selected
 	let width = dimensions ? dimensions.width + 50 : 0;
 
 	useEffect(() => {
-		// handle when the search input has not been clicked for first time
-		if (!open && search != '') {
-			setSelectedValue(results[0])
-			if (!open && setSelectedValue != null) {
-				setSelectedValue(results[0])
-			}
-		} else if (open) {
+		if (open) {
+			// If the toggle is opened then clean the search and set value to null
+			console.log('FIRST')
 			setSearch('')
 			setSelectedValue(null)
+		} else if (!open && search != '' && value == null) {
+
+			setSelectedValue(results[0])
+		} else if (!open && search != '' && value != null) {
+			// if toggle is closed and search was not empty but nothing was selected
+			// it will take the value of the closest search
+			console.log('SECOND')
+			setSelectedValue(value.children)
+		} else if (!open && search === '' && selectedValue) {
+			// if toggle is closed and search was not empty but a value was selected
+			console.log('THIRD')
+			setSelectedValue(value.children)
 		} else if (!open && setSelectedValue == null) {
+			console.log('FOURTH')
 			setSelectedValue(results[0])
 		}
 	}, [open])
@@ -172,7 +166,7 @@ const Select = styled(({ children, defaultValue, readOnly, onChange, label, name
 	return (
 		<Component readOnly={readOnly} {...rest}>
 			<DropDown variant="bottom">
-				<CustomToggle search={search} setSearch={setSearch} results={results} selected={selected} label={label} name={name} defaultOption={defaultOptionProps}
+				<CustomToggle ref={ref} search={search} setSearch={setSearch} setDefaultOptionProps={setDefaultOptionProps} results={results} selected={selected} select={select} label={label} name={name} defaultOption={defaultOptionProps}
 											readOnly={readOnly} onChange={e => {
 					if (e == null) return;
 					if (e.value) {

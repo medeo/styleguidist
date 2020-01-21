@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 import List from './List';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,26 +7,24 @@ import Button from './Button';
 import { faChevronDown, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 const Divider = styled.div`
-	padding: .125rem 0;
+	padding: 0.125rem 0;
 	border-bottom: 1px solid ${p => p.theme.nevada};
-;
-`
+`;
 
 const ListItem = styled(({ children, value, isActive, onClick, ...rest }) => {
 	const ref = useRef(null);
-	const [index, setIndex,, setOpen,, setValue] = useContext(DropDownContext);
+	const [index, setIndex, , setOpen, , setValue, , setDimensions] = useContext(DropDownContext);
 	useEffect(() => {
-
 		if (isActive === true) {
 			ref.current.focus();
 		}
 	}, [isActive]);
 
-	const handleClick = (e) => {
+	const handleClick = e => {
 		setIndex(-1);
 		setOpen(false);
 		setValue({ value, children: ref.current.innerHTML });
-		onClick(e)
+		onClick(e);
 	};
 
 	const handleKeyDown = e => {
@@ -36,6 +34,16 @@ const ListItem = styled(({ children, value, isActive, onClick, ...rest }) => {
 		}
 		e.persist();
 	};
+	// here we send the dimensions to the context, in order to fix the field width of the select
+	useLayoutEffect(() => {
+		if (ref.current) {
+			setDimensions({
+				width: ref.current.offsetWidth,
+				height: ref.current.offsetHeight,
+			});
+		}
+	}, []);
+
 	return (
 		<li ref={ref} tabIndex="0" {...rest} onKeyDown={handleKeyDown} onClick={handleClick}>
 			{children}
@@ -43,10 +51,9 @@ const ListItem = styled(({ children, value, isActive, onClick, ...rest }) => {
 	);
 })``;
 
-ListItem.defaultProps= {
-	onClick: () => {}
-}
-
+ListItem.defaultProps = {
+	onClick: () => {},
+};
 
 export const DropDownContext = React.createContext(false);
 const leftMixin = css`
@@ -150,10 +157,9 @@ const SplitToggle = styled(({ className, children, onClick, ...rest }) => {
 	${Button}:first-of-type {
 		border-radius: 0.25rem 0 0 0.25rem;
 	}
-		${Button}:last-of-type {
+	${Button}:last-of-type {
 		border-radius: 0 0.25rem 0.25rem 0;
 	}
-
 `;
 const KebabButton = props => {
 	const [, , open, setOpen] = useContext(DropDownContext);
@@ -205,6 +211,7 @@ const DropDown = ({ children, onChange, ...rest }) => {
 	const [index, setIndex] = useState(-1);
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState(null);
+	const [dimensions, setDimensions] = useState(null);
 
 	const ref = useRef(null);
 	const handleKeyDown = e => {
@@ -239,19 +246,19 @@ const DropDown = ({ children, onChange, ...rest }) => {
 	};
 
 	return (
-		<DropDownContext.Provider value={[index, setIndex, open, setOpen, value, setValue]}>
-			<Component ref={ref} {...rest} onKeyDown={handleKeyDown} onBlur={handleBlur} >
+		<DropDownContext.Provider
+			value={[index, setIndex, open, setOpen, value, setValue, dimensions, setDimensions]}
+		>
+			<Component ref={ref} {...rest} onKeyDown={handleKeyDown} onBlur={handleBlur}>
 				{children}
 			</Component>
 		</DropDownContext.Provider>
 	);
 };
 
-
 DropDown.defaultProps = {
 	onChange: null,
 };
-
 
 DropDown.ListItem = ListItem;
 DropDown.Divider = Divider;

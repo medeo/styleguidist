@@ -1,47 +1,94 @@
+import React from 'react'
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import Label from './Label';
 
 const invalidMixin = css`
 	border-color: ${p => p.theme.scarlett};
 	color: ${p => p.theme.black};
 `;
 
-const defaultMixin = css`
-	border-color: ${p => (p.backgroundColor === 'alabaster' ? 'transparent' : p.theme.gray)};
-`;
+const readOnlyMixin = css` 
+	border-color: transparent;
+	padding: 0;
+	background: transparent;
+	resize: none;
+	&:focus {
+	 border-color: transparent;
+	}
+`
 
-const TextArea = styled.textarea`
-	${p => (p.invalid === true ? invalidMixin : defaultMixin)}
+const selectMixin = (p) => {
+	if(p.readOnly === true)
+		return invalidMixin
+}
 
+const Component = styled.textarea`
+	${selectMixin}
+	border-color: transparent;
 	border-style: solid;
 	border-width: 1px;
+	resize: none;
+	height: 4rem;
 	outline: none;
-	width: 100%
-	background: ${p => p.theme[p.backgroundColor]};
+	background: ${p => p.theme.alabaster};
 	border-radius: 0.25rem;
 	padding: 0.5rem 1rem;
 	font-size: ${p => p.theme.medium};
 	font-weight: ${p => p.theme.normal};
 	font-family: 'Inter', sans-serif;
-	${p => (p.type !== 'date' ? 'line-height: 1.5;' : '')}
-	&:invalid {
+`;
+
+const Group = styled.div`
+	display: flex;
+	flex:1;
+	grid-row: 1;
+	flex-direction: column-reverse;
+	
+	// read-only invalid and focus are pasted here in case we are using Input.DefaultComponent outside of this file
+	// c.f. Select. Button is read-only all the time
+	& textarea:read-only {
+	 ${readOnlyMixin}
+	}
+	& textarea:invalid {
 		${invalidMixin}
 	}
-	&:focus {
+	& textarea:focus {
 		outline: none;
 		border-color: ${p => p.theme.aqua};
 	}
-`;
+	& > textarea {
+		flex: 1;
+	}
+	& > ${Label} {
+		flex: 1;
+	}
+`
+
+const TextArea = styled(props => {
+	const { id, label, onChange, ...rest} = props
+
+	return (
+		<Group className={props.className}>
+			<Component id={id} onChange={onChange} {...rest}/>
+			<Label htmlFor={id}>{label}</Label>
+		</Group>
+	)
+})``
 
 TextArea.propTypes = {
-	invalid: PropTypes.bool,
+	invalid: PropTypes.string,
 	backgroundColor: PropTypes.oneOf(['alabaster', 'white']),
 };
 
 TextArea.defaultProps = {
 	invalid: false,
 	backgroundColor: 'alabaster',
+	placeholder: '-',
+	readOnly: false,
 };
+
+TextArea.DefaultComponent = Component
 
 /** @component */
 export default TextArea;

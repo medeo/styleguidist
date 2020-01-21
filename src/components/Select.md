@@ -29,6 +29,8 @@ import Input from './Input';
             <option>hij</option>
             <option>ijk</option>
             <option>jkl</option>
+            <option>mmmmmmmmmmmmmmm</option>
+            <option>iiiii iiiii iiiii</option>
             <option value="2">tsttests</option>
         </Select>
     </form>

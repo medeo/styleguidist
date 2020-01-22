@@ -8,6 +8,10 @@ const invalidMixin = css`
 	color: ${p => p.theme.black};
 `;
 
+const disabledMixin = css`
+	background: ${p => p.theme.cream};
+`;
+
 const readOnlyMixin = css` 
 	border-color: transparent;
 	padding: 0;
@@ -24,14 +28,14 @@ const selectMixin = (p) => {
 }
 
 const Component = styled.textarea`
-	${selectMixin}
-	border-color: transparent;
-	border-style: solid;
-	border-width: 1px;
 	resize: none;
 	height: 4rem;
+	${selectMixin}
+	border-color: ${p =>p.theme.nevada};
+	border-style: solid;
+	border-width: 1px;
 	outline: none;
-	background: ${p => p.theme.alabaster};
+	background: white;
 	border-radius: 0.25rem;
 	padding: 0.5rem 1rem;
 	font-size: ${p => p.theme.medium};
@@ -50,8 +54,15 @@ const Group = styled.div`
 	& textarea:read-only {
 	 ${readOnlyMixin}
 	}
-	& textarea:invalid {
+
+	// apply invalid state only when the user has started to type
+	// check out this article for more info https://zellwk.com/blog/check-empty-input-css/
+	& textarea:invalid:not(:placeholder-shown):not(:focus) {
 		${invalidMixin}
+	}
+
+	& textarea:disabled {
+		${disabledMixin}
 	}
 	& textarea:focus {
 		outline: none;
@@ -59,6 +70,13 @@ const Group = styled.div`
 	}
 	& > textarea {
 		flex: 1;
+	}
+
+	& textarea:required:not(:read-only) ~ label::after {
+		dislay: inline;
+		content: '*';
+		margin-left: 0.25rem;
+		color: ${p => p.theme.aqua};
 	}
 	& > ${Label} {
 		flex: 1;

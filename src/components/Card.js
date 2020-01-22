@@ -21,10 +21,8 @@ export const CardHeader = styled.header`
 
 const Card = styled.div`
 	background: ${p => p.theme.white};
-	border-style: solid;
-	border-width: 1px;
-	border-color: ${p => transparentize(0.5, p.theme.gray)};
 	border-radius: 0.3125rem;
+  	box-shadow: 0 .5rem 1.5rem 0 rgba(32, 67, 102, 0.06);
 	display: flex;
 	justify-content: center;
 	flex-direction: column;

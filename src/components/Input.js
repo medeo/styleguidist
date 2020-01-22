@@ -17,17 +17,20 @@ const readOnlyMixin = css`
 	}
 `;
 
+const disabledMixin = css`
+	background: ${p => p.theme.cream};
+`;
 const selectMixin = p => {
 	if (p.readOnly === true) return invalidMixin;
 };
 
 const Component = styled.input`
 	${selectMixin}
-	border-color: transparent;
+	border-color: ${p =>p.theme.nevada};
 	border-style: solid;
 	border-width: 1px;
 	outline: none;
-	background: ${p => p.theme.alabaster};
+	background: white;
 	border-radius: 0.25rem;
 	padding: 0.5rem 1rem;
 	font-size: ${p => p.theme.medium};
@@ -47,10 +50,22 @@ const Group = styled.div`
 	& input:read-only {
 		${readOnlyMixin}
 	}
+
+	& input:disabled {
+		${disabledMixin}
+	}
+
 	// apply invalid state only when the user has started to type
 	// check out this article for more info https://zellwk.com/blog/check-empty-input-css/
 	& input:invalid:not(:placeholder-shown):not(:focus) {
 		${invalidMixin}
+	}
+
+	& input:required:not(:read-only) ~ label::after {
+		dislay: inline;
+		content: '*';
+		margin-left: 0.25rem;
+		color: ${p => p.theme.aqua};
 	}
 	
 	& input:focus {
@@ -124,6 +139,7 @@ const Input = styled(props => {
 			</RadioGroup>
 		);
 	}
+
 	return (
 		<Group className={props.className}>
 			<Component id={id} onChange={onChange} {...rest} />

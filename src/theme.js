@@ -11,8 +11,9 @@ import { modularScale } from 'polished/lib/index';
 const palette = {
 	//text colors
 	ebony: '#1F2933',
-	nevada: '#616E7C',
-	cream: '#EBEBEB',
+//	nevada: '#616E7C',
+	nevada: '#98a5b2',
+	cream: '#d5dce3',
 	// primary colors
 	aqua: '#1FB6FF',
 	ocean: '#0967D2',

@@ -34,7 +34,7 @@ const CustomToggle = ({ children, name, defaultOption, onChange, label, ...rest 
 			<Label>{label}</Label>
 			<Input.DefaultComponent
 				as="button"
-				style={{ textAlign: 'start', width: `${width}px` }}
+				style={{ textAlign: 'starts', width: `${width}px` }}
 				{...rest}
 				value={value}
 				onClick={e => {

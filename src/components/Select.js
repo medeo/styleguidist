@@ -1,10 +1,14 @@
 import React, { useReducer, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import fuzzy from 'fuzzy';
 import Input from './Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, } from '@fortawesome/free-solid-svg-icons';
 import Label from './Label';
+
+const Hidden = styled.input`
+	display: none;
+`
 
 
 const CustomInput = styled(Input.DefaultComponent)`
@@ -13,17 +17,28 @@ const CustomInput = styled(Input.DefaultComponent)`
 	padding:0;
 `;
 
+const Option = styled.li`
+flex:1;
+list-style: none;
+line-height: 1.5;
+${p => p.active === true && css`background: ${p.theme.cream}`}
+`
+
 const List = styled.ul`
   font-family: sans-serif;
   text-align: center;
   box-sizing: border-box;
+  max-height: 10rem;
+  overflow: scroll;
   width: 100%;
 `;
 const Div = styled.div`
-  border: 1px solid ${p => p.theme.nevada};
   display: flex;
 	border-radius: 0.25rem;
-	padding:0.5rem 1rem;
+	${p => p.readOnly ? css`
+			padding:0.5rem 0;
+` : css`  border: 1px solid ${p => p.theme.nevada};
+	padding:0.5rem 1rem;`};
  	align-items: center;
  	&:hover,&:focus, &:focus-within {
  		border-color: ${p => p.theme.aqua};
@@ -44,6 +59,7 @@ const Component = styled.div`
      border-bottom-width: 0 ;
      }
    }
+
   ${List} {
   z-index: 1;
     padding: 0.125rem 0;
@@ -60,16 +76,18 @@ const Component = styled.div`
     border-radius: 0 0 .25rem .25rem ;
     list-style: none;
     position: absolute;
-    li {
+    ${Option} {
       padding: 0.25rem .5rem;
       margin: 0.25rem .5rem;
       border-radius: .125rem;
     }
-    li:hover {
+    
+    
+    ${Option}:hover {
       background: ${p => p.theme.cream};
       cursor: pointer;
     }
-    li[aria-disabled]:hover {
+    ${Option}[aria-disabled]:hover {
     	background: inherit;
     	cursor: default;
     }
@@ -91,16 +109,27 @@ const Component = styled.div`
   }
 `;
 
-const init = initialOptions => ({
-	value: '',
+const init = ({ value, original}) => ({
+	value: value || '',
 	open: false,
 	current: null,
-	filtered: initialOptions,
-	original: initialOptions,
+	index: null,
+	filtered: original,
+	original: original,
 });
 
 const reducer = (state, action) => {
 	switch (action.type) {
+		case 'up':
+			return {
+				...state,
+				index: state.index > 0 ? state.index- 1 : null
+			}
+		case 'down':
+			return {
+				...state,
+				index: state.index === null ? 0 : state.index < state.filtered.length - 1? state.index+1 : state.index
+			}
 		case 'change':
 			return {
 				...state,
@@ -117,21 +146,26 @@ const reducer = (state, action) => {
 				open: true,
 			};
 		case 'blur':
+			const isValueIncluded = state.filtered.map(o => o.value).includes(state.value)
 			return {
 				...state,
-				value:
+				current:
+				state.index != null ? state.filtered[state.index] :
+				state.value === "" ? null :
 					state.filtered.length > 0 ?
-						state.filtered.includes(action.payload) ?
-							action.payload :
-							state.filtered[0].props.value
-						: '',
+						isValueIncluded === true ? state.filtered.find(o => o.value === state.value)  :
+							state.filtered[0]
+						: null,
+				value: "",
 				filtered: state.original,
 				open: false,
+				index: null
 			};
 		case 'click':
 			return {
 				...state,
 				open: false,
+				value: "",
 				current: action.payload,
 				filtered: state.original,
 			};
@@ -139,11 +173,13 @@ const reducer = (state, action) => {
 			return state;
 	}
 };
-const Select = ({ children, label, fallback, ...rest }) => {
+const Select = ({ children, label, placeholder, onChange, fallback, name, readOnly, value, ...rest }) => {
 	const ref = useRef(null)
+	const hidden = useRef(null)
 	const [state, dispatch] = useReducer(
 		reducer,
-		React.Children.map(children, c => c),
+		{original: React.Children.map(children, c => c), value},
+
 		init,
 	);
 	const onMouseDown = index => {
@@ -155,34 +191,55 @@ const Select = ({ children, label, fallback, ...rest }) => {
 		}
 	}, [state.open])
 
+	useEffect(() => {
+		if(hidden.current == null || state.current == null) {
+			return
+		}
+		const triggerChange = Object.getOwnPropertyDescriptor(
+			HTMLInputElement.prototype,
+			"value"
+		).set;
+		const event = new Event("change", { bubbles: true, cancelable: true });
+		triggerChange.call(hidden.current, state.current.props.value);
+		hidden.current.dispatchEvent(event);
+	}, [state.current, hidden.current])
+
 	return (
-		<Component onKeyDown={(e) => {
-			console.log(e.key)
+		<Component readOnly={readOnly} onKeyDown={(e) => {
 			if(e.key === "Enter") {
+				dispatch({type: 'enter' })
 				ref.current.blur()
 			} else if (e.key ==="Escape") {
 				ref.current.blur()
+			} else if (e.key === "ArrowDown") {
+				dispatch({type: 'down' })
+			} else if (e.key === "ArrowUp") {
+				dispatch({type: 'up' })
 			}
 		}} onBlur={() => dispatch({ type: 'blur' })}>
+			<Hidden ref={hidden} type="text" name={name} defaultValue={value} onChange={onChange}/>
 			<Label>{label}</Label>
-			<Div onClick={() => dispatch({ type: 'focus' })} onFocus={() => dispatch({ type: 'focus' })}>
+			<Div readOnly={readOnly} onClick={() => dispatch({ type: 'focus' })} onFocus={() => dispatch({ type: 'focus' })}>
 				{state.open === false && state.current != null ?
 					React.createElement(Select.Option, {...state.current.props })
 				: <CustomInput
 						ref={ref}
 						{...rest}
 						onChange={e => dispatch({ type: 'change', payload: e.target.value })}
+						value={state.value}
 						type="text"
 						autoComplete="off"
+						placeholder={readOnly === true ?  '–': placeholder}
+						readOnly={readOnly}
 			/>}
-				<FontAwesomeIcon icon={faCaretDown}/>
+				{readOnly===false && <FontAwesomeIcon icon={faCaretDown}/>}
 			</Div>
-			{state.open === true && (
+			{state.open === true && readOnly === false &&(
 				<List>
 					{state.filtered.length > 0 ? (
 						React.Children.map(state.filtered, (c, i) => {
 								if (c.props.value == null) console.warn('value prop  is not set in Select option !!!', c);
-								return React.cloneElement(c, { ...c.props, onMouseDown: () => onMouseDown(c) });
+								return React.cloneElement(c, { ...c.props, active: state.index === i, onMouseDown: () => onMouseDown(c) });
 							},
 						)
 					) : (
@@ -194,15 +251,10 @@ const Select = ({ children, label, fallback, ...rest }) => {
 	);
 };
 
-const Option = styled.li`
-flex:1;
-list-style: none;
-line-height: 1.5;
-`;
 
-Select.Option = Option;
-
+Select.Option = Option
 Select.defaultProps = {
+	readOnly: false,
 	placeholder: "Select an option",
 	fallback: "No result found"
 }

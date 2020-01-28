@@ -55,9 +55,9 @@ import Select from './Select';
       </div>
     </Form.Column>
     <Form.Row>
-    <Select label="Genre" readOnly>
+    <Select label="Genre" value="test" readOnly>
       <option value="test">Homme</option>
-      <option value="test">Femme</option>
+      <option value="test-2">Femme</option>
     </Select>
   </Form.Row>
 </Form>

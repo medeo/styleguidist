@@ -173,12 +173,12 @@ const reducer = (state, action) => {
 			return state;
 	}
 };
-const Select = ({ children, label, placeholder, onChange, fallback, name, readOnly, value, ...rest }) => {
+const Select = ({ children, label, placeholder, onChange, fallback, name, readOnly, value,  defaultValue, ...rest }) => {
 	const ref = useRef(null)
 	const hidden = useRef(null)
 	const [state, dispatch] = useReducer(
 		reducer,
-		{original: React.Children.map(children, c => c), value},
+		{original: React.Children.map(children, c => c), value: value || defaultValue},
 
 		init,
 	);
@@ -217,7 +217,7 @@ const Select = ({ children, label, placeholder, onChange, fallback, name, readOn
 				dispatch({type: 'up' })
 			}
 		}} onBlur={() => dispatch({ type: 'blur' })}>
-			<Hidden ref={hidden} type="text" name={name} defaultValue={value} onChange={onChange}/>
+			<Hidden ref={hidden} type="text" name={name} defaultValue={defaultValue} onChange={onChange}/>
 			<Label>{label}</Label>
 			<Div readOnly={readOnly} onClick={() => dispatch({ type: 'focus' })} onFocus={() => dispatch({ type: 'focus' })}>
 				{state.open === false && state.current != null ?
@@ -229,12 +229,12 @@ const Select = ({ children, label, placeholder, onChange, fallback, name, readOn
 						value={state.value}
 						type="text"
 						autoComplete="off"
-						placeholder={readOnly === true ?  '–': placeholder}
+						placeholder={readOnly === true ? state.value !== "" ? state.value :  '–': placeholder}
 						readOnly={readOnly}
 			/>}
 				{readOnly===false && <FontAwesomeIcon icon={faCaretDown}/>}
 			</Div>
-			{state.open === true && readOnly === false &&(
+			{state.open === true && readOnly === false && (
 				<List>
 					{state.filtered.length > 0 ? (
 						React.Children.map(state.filtered, (c, i) => {

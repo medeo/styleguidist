@@ -173,6 +173,7 @@ const Select = ({ children, label, fallback, ...rest }) => {
 						{...rest}
 						onChange={e => dispatch({ type: 'change', payload: e.target.value })}
 						type="text"
+						autocomplete="off"
 			/>}
 				<FontAwesomeIcon icon={faCaretDown}/>
 			</Div>

@@ -1,161 +1,209 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, { useReducer, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import fuzzy from 'fuzzy';
 import Input from './Input';
-import Label from './Label';
-import Button from './Button';
-import DropDown, { DropDownContext } from './DropDown';
-import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, } from '@fortawesome/free-solid-svg-icons';
+import Label from './Label';
 
-const CustomToggle = ({ children, name, defaultOption, onChange, label, ...rest }) => {
-	const [, , open, setOpen, value, , dimensions] = useContext(DropDownContext);
-	const [fakeOpen, setFakeOpen] = useState(false);
-	useEffect(() => {
-		onChange(value);
-		//console.log(onChange)
-	}, [value]);
 
-	// open and then close select to get the size of widest children item.
-	// Because the width of the listItem can only be get if displayed (therefore select must be opened)
-	if (dimensions == null && fakeOpen == false) {
-		setOpen(true);
-		setFakeOpen(true);
-	}
-	useEffect(() => {
-		if (fakeOpen == true && dimensions != null) {
-			setOpen(false);
-			setFakeOpen(false);
-		}
-	}, [fakeOpen, dimensions]);
+const CustomInput = styled(Input.DefaultComponent)`
+	flex: 1;
+	border: none;
+	padding:0;
+`;
 
-	let width = dimensions ? dimensions.width + 50 : 0;
-	return (
-		<div>
-			<Label>{label}</Label>
-			<Input.DefaultComponent
-				as="button"
-				style={{ textAlign: 'start', width: `${width}px` }}
-				{...rest}
-				value={value}
-				onClick={e => {
-					// e.preventDefault is required because when this button is clicked inside of a form with required inputs
-					// the browser will complain about required input not filled.
-					e.preventDefault();
-					setOpen(!open);
-				}}
-			>
-				<span>{value == null ? defaultOption.children : value.children}</span>
-				<FontAwesomeIcon icon={faSort} style={{}} />
-			</Input.DefaultComponent>
-		</div>
-	);
-};
+const List = styled.ul`
+  font-family: sans-serif;
+  text-align: center;
+  box-sizing: border-box;
+  width: 100%;
+`;
+const Div = styled.div`
+  border: 1px solid ${p => p.theme.nevada};
+  display: flex;
+	border-radius: 0.25rem;
+	padding:0.5rem 1rem;
+ 	align-items: center;
+ 	&:hover,&:focus, &:focus-within {
+ 		border-color: ${p => p.theme.aqua};
+ 	}
 
-CustomToggle.defaultProps = {
-	defaultOptions: {
-		value: null,
-		children: '',
-	},
-};
-
-// CustomMenu is required to prevent big list to fill up the screen
-const CustomMenu = styled(DropDown.Menu)`
-	overflow-x: scroll;
-	max-height: 10rem;
 `;
 
 const Component = styled.div`
-	position: relative;
-	& ${Input.DefaultComponent} {
-		display: flex;
-		align-items: center;
-		& > span {
-			flex: 1;
-			margin-right: 0.5rem;
-		}
-		& svg {
-			width: 1rem !important;
-		}
-		${p =>
-			p.readOnly === true &&
-			css`
-				& svg {
-					display: none;
-				}
-				& > span {
-					margin: 0;
-				}
-				background: transparent;
-				padding: 0;
-			`}
-	}
-
-	& select {
-		opacity: 0;
-		position: absolute;
-		visibility: hidden;
-	}
+  position: relative;
+   &:focus, &:focus-within {
+     & ${Input.DefaultComponent} {
+       opacity: .5;
+     }
+     & ${Div} {
+     
+     border-bottom-left-radius: 0;
+     border-bottom-right-radius: 0;
+     border-bottom-width: 0 ;
+     }
+   }
+  ${List} {
+  z-index: 1;
+    padding: 0.125rem 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    margin: 0;
+    text-align: left;
+    background: white;
+    opacity: 1;
+    display: block;
+    color: black;
+    border: 1px solid ${p => p.theme.aqua};
+    border-top-width: 0;
+    border-radius: 0 0 .25rem .25rem ;
+    list-style: none;
+    position: absolute;
+    li {
+      padding: 0.25rem .5rem;
+      margin: 0.25rem .5rem;
+      border-radius: .125rem;
+    }
+    li:hover {
+      background: ${p => p.theme.cream};
+      cursor: pointer;
+    }
+    li[aria-disabled]:hover {
+    	background: inherit;
+    	cursor: default;
+    }
+  }
+  input:hover ~ ${List}, input:focus ~ ${List}, ${List}:hover {
+    opacity: 1;
+    display: block;
+  }
+  
+  ${Input.DefaultComponent} {
+  	position:relative;
+  }
+  
+  ${Input}:after { 
+  	content: "*";
+  	position: absolute;
+  	bottom:0;
+  	padding:0.5rem;
+  }
 `;
 
-const Select = styled(({ children, defaultValue, readOnly, onChange, label, name, ...rest }) => {
-	const [selected, select] = useState('');
-	const [defaultOptionProps, setDefaultOptionProps] = useState({ value: null, children: '' });
-	const ref = useRef();
+const init = initialOptions => ({
+	value: '',
+	open: false,
+	current: null,
+	filtered: initialOptions,
+	original: initialOptions,
+});
+
+const reducer = (state, action) => {
+	switch (action.type) {
+		case 'change':
+			return {
+				...state,
+				filtered: fuzzy
+					.filter(action.payload, state.original, {
+						extract: c => c.props.value,
+					})
+					.map(r => r.original),
+				value: action.payload,
+			};
+		case 'focus':
+			return {
+				...state,
+				open: true,
+			};
+		case 'blur':
+			return {
+				...state,
+				value:
+					state.filtered.length > 0 ?
+						state.filtered.includes(action.payload) ?
+							action.payload :
+							state.filtered[0].props.value
+						: '',
+				filtered: state.original,
+				open: false,
+			};
+		case 'click':
+			return {
+				...state,
+				open: false,
+				current: action.payload,
+				filtered: state.original,
+			};
+		default:
+			return state;
+	}
+};
+const Select = ({ children, label, fallback, ...rest }) => {
+	const ref = useRef(null)
+	const [state, dispatch] = useReducer(
+		reducer,
+		React.Children.map(children, c => c),
+		init,
+	);
+	const onMouseDown = index => {
+		dispatch({ type: 'click', payload: index });
+	};
 	useEffect(() => {
-		if (defaultValue == null) {
-			if (children.length > 0) setDefaultOptionProps(children[0].props);
-		} else {
-			select(defaultValue);
-			let option = children.find(
-				c =>
-					(c.props.value && c.props.value.toString() === defaultValue) ||
-					(c.props.children && c.props.children.toString() === defaultValue)
-			);
-			if (option != null) setDefaultOptionProps(option.props);
-			else if (children.length > 0) setDefaultOptionProps(children[0].props);
+		if(state.open === true) {
+			ref.current.focus()
 		}
-	}, [defaultValue]);
+	}, [state.open])
 
 	return (
-		<Component readOnly={readOnly} {...rest}>
-			<DropDown variant="bottom">
-				<CustomToggle label={label} name={name} defaultOption={defaultOptionProps} readOnly={readOnly} onChange={e => {
-					if (e == null) return;
-					if (e.value) {
-						select(e.value);
-						const triggerChange = Object.getOwnPropertyDescriptor(
-							HTMLSelectElement.prototype,
-							"value"
-						).set;
-						const event = new Event("change", { bubbles: true, cancelable: true });
-						triggerChange.call(ref.current, e.value);
-						ref.current.dispatchEvent(event);
-					} else if (e.children) {
-						select(e.children);
-						const triggerChange = Object.getOwnPropertyDescriptor(
-							HTMLSelectElement.prototype,
-							"value"
-						).set;
-						const event = new Event("change", { bubbles: true, cancelable: true });
-						triggerChange.call(ref.current, e.children);
-						ref.current.dispatchEvent(event);
-					}
-				}} />
-				{readOnly === false && <CustomMenu>
-					{children.map((c, i) => (
-						<DropDown.ListItem key={i} {...c.props} />
-					))}
-				</CustomMenu>}
-			</DropDown>
-			<select ref={ref} name={name} aria-label={label} {...rest} value={selected} disabled={true} onChange={onChange}>
-				{children}
-			</select>
+		<Component onKeyDown={(e) => {
+			console.log(e.key)
+			if(e.key === "Enter") {
+				ref.current.blur()
+			} else if (e.key ==="Escape") {
+				ref.current.blur()
+			}
+		}} onBlur={() => dispatch({ type: 'blur' })}>
+			<Label>{label}</Label>
+			<Div onClick={() => dispatch({ type: 'focus' })} onFocus={() => dispatch({ type: 'focus' })}>
+				{state.open === false && state.current != null ?
+					React.createElement(Select.Option, {...state.current.props })
+				: <CustomInput
+						ref={ref}
+						{...rest}
+						onChange={e => dispatch({ type: 'change', payload: e.target.value })}
+						type="text"
+			/>}
+				<FontAwesomeIcon icon={faCaretDown}/>
+			</Div>
+			{state.open === true && (
+				<List>
+					{state.filtered.length > 0 ? (
+						React.Children.map(state.filtered, (c, i) => {
+								if (c.props.value == null) console.warn('value prop  is not set in Select option !!!', c);
+								return React.cloneElement(c, { ...c.props, onMouseDown: () => onMouseDown(c) });
+							},
+						)
+					) : (
+						<li aria-disabled>{fallback}</li>
+					)}
+				</List>
+			)}
 		</Component>
 	);
-})``;
+};
+
+const Option = styled.li`
+flex:1;
+list-style: none;
+line-height: 1.5;
+`;
+
+Select.Option = Option;
 
 Select.defaultProps = {
-	onChange: () => {},
-	readOnly: false,
-};
+	placeholder: "Select an option",
+	fallback: "No result found"
+}
+
 export default Select;

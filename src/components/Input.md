@@ -4,11 +4,19 @@ import Form from './Form';
 import Select from './Select';
 <Form>
     <Form.Row>
-      <Input label="Nom" name="name" defaultValue="Doe" />
-      <Input label="Prénom" name="given" />
+      <Input label="Input with defaultValue" defaultValue="defaultValue" />
+      <Input label="Input without defaultValue" />
     </Form.Row>
     <Form.Row>
-      <Input label="Adresse" name="name" defaultValue="12 rue Douze" />
+      <Input label="Input alone in row" defaultValue="useful for address" />
+    </Form.Row>
+    <Form.Row>
+      <Input label="Required input" defaultValue="defaultValue" required />
+      <Input label="Disabled input" disabled />
+    </Form.Row>
+  <Form.Row>
+      <Input label="Invalid input" type="email" defaultValue="wrong value" />
+      <Input label="Disabled input" disabled />
     </Form.Row>
     <Form.Row>
       <Label>Le patient fume t'il ?</Label>
@@ -18,11 +26,12 @@ import Select from './Select';
       </div>
     </Form.Row>
     <Form.Row>
-    <Select label="Genre" >
-      <option value="test">Homme</option>
-      <option value="test">Femme</option>
-    </Select>
-  </Form.Row>
+        <Select label="Genre" >
+          <Select.Option value="Homme">Homme</Select.Option>
+          <Select.Option value="Femme">Femme</Select.Option>
+        </Select>
+        <Input label="Disabled input" disabled />
+      </Form.Row>
 </Form>
 ```
 

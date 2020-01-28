@@ -2,11 +2,18 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import Label from './Label';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import Button from './Button';
 
 const invalidMixin = css`
 	border-color: ${p => p.theme.scarlett};
 	color: ${p => p.theme.black};
-`;
+`
+const disabledMixin = css`
+ background: ${p => p.theme.alabaster};
+`
+
 
 const readOnlyMixin = css`
 	border-color: transparent;
@@ -17,17 +24,14 @@ const readOnlyMixin = css`
 	}
 `;
 
-const selectMixin = p => {
-	if (p.readOnly === true) return invalidMixin;
-};
 
 const Component = styled.input`
-	${selectMixin}
-	border-color: transparent;
+	flex:1;
+	border-color: ${p=> p.theme.nevada};
 	border-style: solid;
 	border-width: 1px;
 	outline: none;
-	background: ${p => p.theme.alabaster};
+	background: white;
 	border-radius: 0.25rem;
 	padding: 0.5rem 1rem;
 	font-size: ${p => p.theme.medium};
@@ -53,6 +57,15 @@ const Group = styled.div`
 		${invalidMixin}
 	}
 	
+	& input:required ~ label::after {
+		display: inline;
+		content: "*";
+		color: ${p => p.theme.aqua};
+		margin-left: 0.25rem;
+	}
+	& input:disabled {
+		${disabledMixin}
+	}
 	& input:focus {
 		outline: none;
 		border-color: ${p => p.theme.aqua};

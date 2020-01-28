@@ -63,5 +63,8 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "styled-components": "^4.2.0",
     "webpack": "^4.33.0"
+  },
+  "dependencies": {
+    "fuzzy": "^0.1.3"
   }
 }

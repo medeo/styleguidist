@@ -3,10 +3,9 @@ import Span from './Span';
 
 <div style={{ background: '#F5F7FA', padding: '1rem', margin: '-1rem' }}>
 	<Card spacing="small">
-		<main>
-			<Span size="large" weight="bold">
-				Some stuff
-			</Span>
+        <Card.Header>
+        <h1>Some title</h1></Card.Header>
+            <main>
 			<Span style={{ marginTop: '1rem' }}>
 				Fusce sed metus efficitur enim aliquet cursus. In scelerisque, lacus non viverra ultricies,
 				ipsum felis tempor quam, sed posuere odio nisl suscipit odio. Curabitur tristique
@@ -42,13 +41,11 @@ import Span from './Span';
 import Button from './Button';
 import Span from './Span';
 
-import { CardHeader } from './Card';
 <div style={{ background: '#F5F7FA', padding: '1rem', margin: '-1rem' }}>
 	<Card>
-		<CardHeader>
-			<h1>mesures d'aujourd'hui</h1>
-			<Span> Les données prises à partir des appareils connectés s’ajouteront automatiquement</Span>
-		</CardHeader>
+		<Card.Header>
+			<h1>Examen Clinique</h1>
+		</Card.Header>
 		<main>
 			<Span>
 				Nunc fermentum orci in risus congue pulvinar. Phasellus quis ultricies augue. In id
@@ -59,12 +56,12 @@ import { CardHeader } from './Card';
 				dignissim euismod et at lacus. Pellentesque a elementum nulla.
 			</Span>
 		</main>
-		<footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
+		<Card.Footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
 			<Button color="gray" style={{ marginRight: '.5rem' }}>
 				Annuler
 			</Button>
 			<Button>Terminer</Button>
-		</footer>
+		</Card.Footer>
 	</Card>
 </div>;
 ```
@@ -81,10 +78,10 @@ import Span from './Span';
 				quam at congue dignissim, diam massa mattis magna.
 			</Span>
 		</main>
-		<footer style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline' }}>
+		<Card.Footer style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline' }}>
 			<Span style={{ marginRight: '.5rem' }}>Nullam nec porttitor lacus.</Span>
 			<Button>test</Button>
-		</footer>
+		</Card.Footer>
 	</Card>
 </div>;
 ```

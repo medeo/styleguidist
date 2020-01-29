@@ -181,7 +181,7 @@ const reducer = (state, action) => {
 			return state;
 	}
 };
-const Select = ({ children, label, required, placeholder, onChange, fallback, name, readOnly, value,  defaultValue, ...rest }) => {
+const Select = ({ children, id, label, required, placeholder, onChange, fallback, name, readOnly, value,  defaultValue, ...rest }) => {
 	const ref = useRef(null)
 	const hidden = useRef(null)
 	const [state, dispatch] = useReducer(
@@ -225,8 +225,8 @@ const Select = ({ children, label, required, placeholder, onChange, fallback, na
 				dispatch({type: 'up' })
 			}
 		}} onBlur={() => dispatch({ type: 'blur' })}>
-			<Hidden ref={hidden} type="text" name={name} defaultValue={defaultValue} onChange={onChange}/>
-			<Label>{label}</Label>
+			<Hidden ref={hidden} type="text" id={id} name={name} defaultValue={defaultValue} onChange={onChange}/>
+			<Label htmlFor={id}>{label}</Label>
 			<Div readOnly={readOnly} onClick={() => dispatch({ type: 'focus' })} onFocus={() => dispatch({ type: 'focus' })}>
 				{state.open === false && state.current != null ?
 					React.createElement(Select.Option, {...state.current.props })
@@ -264,6 +264,7 @@ const Select = ({ children, label, required, placeholder, onChange, fallback, na
 Select.Option = Option
 Select.defaultProps = {
 	readOnly: false,
+	id: null,
 	required: false,
 	placeholder: "Select an option",
 	fallback: "No result found"

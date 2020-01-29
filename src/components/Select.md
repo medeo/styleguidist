@@ -209,7 +209,7 @@ import Input from './Input';
               <Select.Option value="Zambie">Zambie</Select.Option>
               <Select.Option value="Zimbabwe">Zimbabwe</Select.Option>
         </Select>
- <Select label="Country readonly" readOnly>
+ <Select  label="Country readonly" readOnly>
               <Select.Option value="Afghanistan">Afghanistan</Select.Option>
               <Select.Option value="Afrique du Sud">Afrique du Sud</Select.Option>
               <Select.Option value="Albanie">Albanie</Select.Option>

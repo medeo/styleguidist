@@ -67,9 +67,19 @@ import Select from './Select';
 import Form from './Form';
 <Form onSubmit={e => e.preventDefault()}>
     <Form.Row>
-      <Input label="Nom" name="name" required/>
-      <Input label="Email" name="given" type="email" required/>
+      <Input label="Input required" name="name" required/>
+      <Input label="Input required of type email" name="given" type="email" required/>
     </Form.Row>
-    <button>coucou</button>
+    <Form.Row>
+      <Input label="Invalid input of type email" defaultValue="invalid email" name="given" type="email"/>
+    </Form.Row>
+    <Form.Row>
+      <Input label="Input required and read-only" name="name" value="John" required readOnly/>
+      <Input label="Input read-only" name="given" type="email" value="dev@medeo.care" readOnly/>
+    </Form.Row>
+    <Form.Row>
+      <Input label="Input required and disabled" name="name" value="John" required disabled/>
+      <Input label="Input disabled" name="given" type="email" value="dev@medeo.care" disabled/>
+    </Form.Row>
 </Form>
 ```

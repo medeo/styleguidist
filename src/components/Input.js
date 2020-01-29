@@ -2,9 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import Label from './Label';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import Button from './Button';
 
 const invalidMixin = css`
 	border-color: ${p => p.theme.scarlett};
@@ -55,6 +52,13 @@ const Group = styled.div`
 	// check out this article for more info https://zellwk.com/blog/check-empty-input-css/
 	& input:invalid:not(:placeholder-shown):not(:focus) {
 		${invalidMixin}
+	}
+
+	& input:required:not(:read-only) ~ label::after {
+		dislay: inline;
+		content: '*';
+		margin-left: 0.25rem;
+		color: ${p => p.theme.aqua};
 	}
 	
 	& input:required ~ label::after {
@@ -137,6 +141,7 @@ const Input = styled(props => {
 			</RadioGroup>
 		);
 	}
+
 	return (
 		<Group className={props.className}>
 			<Component id={id} onChange={onChange} {...rest} />

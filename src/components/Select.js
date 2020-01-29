@@ -60,6 +60,14 @@ const Component = styled.div`
      }
    }
 
+	${p => p.required === true && css`
+		${Label}:after {
+		  display: inline;
+      content: "*";
+      color: ${p => p.theme.aqua};
+      margin-left: 0.25rem;
+		}
+	`}
   ${List} {
   z-index: 1;
     padding: 0.125rem 0;
@@ -173,7 +181,7 @@ const reducer = (state, action) => {
 			return state;
 	}
 };
-const Select = ({ children, label, placeholder, onChange, fallback, name, readOnly, value,  defaultValue, ...rest }) => {
+const Select = ({ children, label, required, placeholder, onChange, fallback, name, readOnly, value,  defaultValue, ...rest }) => {
 	const ref = useRef(null)
 	const hidden = useRef(null)
 	const [state, dispatch] = useReducer(
@@ -205,7 +213,7 @@ const Select = ({ children, label, placeholder, onChange, fallback, name, readOn
 	}, [state.current, hidden.current])
 
 	return (
-		<Component readOnly={readOnly} onKeyDown={(e) => {
+		<Component required={required} readOnly={readOnly} onKeyDown={(e) => {
 			if(e.key === "Enter") {
 				dispatch({type: 'enter' })
 				ref.current.blur()
@@ -225,6 +233,7 @@ const Select = ({ children, label, placeholder, onChange, fallback, name, readOn
 				: <CustomInput
 						ref={ref}
 						{...rest}
+						required={required}
 						onChange={e => dispatch({ type: 'change', payload: e.target.value })}
 						value={state.value}
 						type="text"
@@ -255,6 +264,7 @@ const Select = ({ children, label, placeholder, onChange, fallback, name, readOn
 Select.Option = Option
 Select.defaultProps = {
 	readOnly: false,
+	required: false,
 	placeholder: "Select an option",
 	fallback: "No result found"
 }

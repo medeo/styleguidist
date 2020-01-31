@@ -53,6 +53,10 @@ const Div = styled.div`
 
 const Component = styled.div`
   position: relative;
+  & ${Input.DefaultComponent} {
+  	/* prevent overflow from the container on small screen*/
+  	width: 100%;
+  }
    &:focus, &:focus-within {
      & ${Input.DefaultComponent} {
        opacity: .5;

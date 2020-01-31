@@ -23,7 +23,7 @@ const Footer = styled.footer`
 const Card = styled.section`
 	background: ${p => p.theme.white};
 	border-radius: 0.3125rem;
-  	box-shadow: 0 .5rem 1.5rem 0 rgba(32, 67, 102, 0.06);
+	box-shadow: ${p => p.theme.boxShadow};
 	display: flex;
 	justify-content: center;
 	flex-direction: column;

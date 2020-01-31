@@ -26,10 +26,19 @@ import Select from './Select';
       </div>
     </Form.Row>
     <Form.Row>
-        <Select id="country" label="Genre" defaultValue="Homme">
-          <Select.Option value="Homme">Homme</Select.Option>
-          <Select.Option value="Femme">Femme</Select.Option>
+        <Select id="country" label="Genre" defaultValue="female">
+          <Select.Option value="male">Homme</Select.Option>
+          <Select.Option value="female">Femme</Select.Option>
         </Select>
+        <Input label="Disabled input" disabled />
+      </Form.Row>
+ <Form.Row>
+
+        <Select id="country" label="Genre" defaultValue="female">
+          <Select.Option value="male">Homme</Select.Option>
+          <Select.Option value="female">Femme</Select.Option>
+        </Select>
+        <Input label="Disabled input" disabled />
         <Input label="Disabled input" disabled />
       </Form.Row>
 </Form>

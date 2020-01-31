@@ -40,7 +40,6 @@ const Component = styled.input`
 const Group = styled.div`
 	display: flex;
 	flex: 1;
-	grid-row: 1;
 	flex-direction: column-reverse;
 
 	// read-only invalid and focus are pasted here in case we are using Input.DefaultComponent outside of this file

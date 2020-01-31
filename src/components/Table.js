@@ -53,6 +53,7 @@ const Table = styled.table`
 		&:hover td {
 			border-color: ${p => p.theme.ocean};
 		}
+		box-shadow: ${p => p.theme.boxShadow};
 	}
 `;
 Table.defaultProps = {

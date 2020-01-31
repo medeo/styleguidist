@@ -35,10 +35,15 @@ const List = styled.ul`
 const Div = styled.div`
   display: flex;
 	border-radius: 0.25rem;
-	${p => p.readOnly ? css`
+	cursor: pointer;
+	${p => p.readOnly ?
+		css`
+			cursor: default;
 			padding:0.5rem 0;
-` : css`  border: 1px solid ${p => p.theme.nevada};
-	padding:0.5rem 1rem;`};
+` : css`
+	border: 1px solid ${p => p.theme.nevada};
+	padding:0.5rem 1rem;
+`};
  	align-items: center;
  	&:hover,&:focus, &:focus-within {
  		border-color: ${p => p.theme.aqua};
@@ -51,12 +56,16 @@ const Component = styled.div`
    &:focus, &:focus-within {
      & ${Input.DefaultComponent} {
        opacity: .5;
+       &:not(:focus){
+       cursor: pointer;
+       
+       }
      }
      & ${Div} {
      
      border-bottom-left-radius: 0;
      border-bottom-right-radius: 0;
-     border-bottom-width: 0 ;
+     border-bottom-color: transparent ;
      }
    }
 
@@ -120,11 +129,14 @@ const Component = styled.div`
 const init = ({ value, original}) => ({
 	value: value || '',
 	open: false,
-	current: null,
+	// in case we have a valid defaultValue
+	current: original.find(o => o.props.value === value) || null,
 	index: null,
 	filtered: original,
 	original: original,
 });
+
+
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -212,22 +224,33 @@ const Select = ({ children, id, label, required, placeholder, onChange, fallback
 		hidden.current.dispatchEvent(event);
 	}, [state.current, hidden.current])
 
-	return (
-		<Component required={required} readOnly={readOnly} onKeyDown={(e) => {
-			if(e.key === "Enter") {
-				dispatch({type: 'enter' })
-				ref.current.blur()
-			} else if (e.key ==="Escape") {
-				ref.current.blur()
-			} else if (e.key === "ArrowDown") {
-				dispatch({type: 'down' })
-			} else if (e.key === "ArrowUp") {
-				dispatch({type: 'up' })
+	const onKeyDown = (e) => {
+		if(e.key === "Enter") {
+			dispatch({type: 'enter' })
+			ref.current.blur()
+		} else if (e.key ==="Escape") {
+			ref.current.blur()
+		} else if (e.key === "ArrowDown") {
+			dispatch({type: 'down' })
+		} else if (e.key === "ArrowUp") {
+			dispatch({type: 'up' })
+		}
+	}
+
+	const onFocus = () => {
+			// prevent focus to happen when the user click on readOnly element
+			if(readOnly === false) {
+				dispatch({ type: 'focus' })
 			}
-		}} onBlur={() => dispatch({ type: 'blur' })}>
+	}
+
+	const onBlur = () => dispatch({ type: 'blur' })
+
+	return (
+		<Component required={required} readOnly={readOnly} onKeyDown={onKeyDown} onBlur={onBlur}>
 			<Hidden ref={hidden} type="text" id={id} name={name} defaultValue={defaultValue} onChange={onChange}/>
 			<Label htmlFor={id}>{label}</Label>
-			<Div readOnly={readOnly} onClick={() => dispatch({ type: 'focus' })} onFocus={() => dispatch({ type: 'focus' })}>
+			<Div readOnly={readOnly} onClick={onFocus} onFocus={onFocus}>
 				{state.open === false && state.current != null ?
 					React.createElement(Select.Option, {...state.current.props })
 				: <CustomInput
@@ -261,7 +284,11 @@ const Select = ({ children, id, label, required, placeholder, onChange, fallback
 };
 
 
+//Make Option available as a SubComponent
+// <Select.Option>....</Select.Option>
 Select.Option = Option
+
+
 Select.defaultProps = {
 	readOnly: false,
 	id: null,

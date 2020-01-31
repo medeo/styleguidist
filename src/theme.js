@@ -64,6 +64,9 @@ const fontWeights = {
 	lighter: 400,
 };
 
+
+const boxShadow = '0 .5rem 1.5rem 0 rgba(32, 67, 102, 0.06)'
+
 /**
  * Le theme est généré ici à l'aide de différentes propriétés.
  * La construction du thème est très inspirée par le fonctionnement de bootstrap où un
@@ -89,6 +92,7 @@ const theme = {
 	...fontSizes,
 	...fontWeights,
 	spacing,
+	boxShadow
 };
 
 export default theme;

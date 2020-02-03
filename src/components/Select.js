@@ -159,7 +159,14 @@ const reducer = (state, action) => {
 				...state,
 				filtered: fuzzy
 					.filter(action.payload, state.original, {
-						extract: c => c.props.value,
+						extract: c => {
+							// prefer to search using the children instead of the value
+							// c.f. MED-1213
+							if(typeof c.props.children === "string") {
+								return c.props.children
+							}
+							return c.props.value
+						},
 					})
 					.map(r => r.original),
 				value: action.payload,

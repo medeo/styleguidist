@@ -5,6 +5,7 @@ import clickableMixin from '../mixins/clickable';
 
 const outlineMixin = css`
 	background-color: transparent;
+	text-transform: uppercase;
 	border-style: solid;
 	/* there is a special case for the white version of the button */
 	border-color: ${p => (p.color === 'white' ? p.theme.ebony : p.theme[p.color])};
@@ -19,10 +20,39 @@ const plainMixin = css`
 	background: ${p => p.theme[p.color]};
 	border-color: transparent;
 	color: ${p => readableColor(p.theme[p.color])};
+	text-transform: uppercase;
+	&:focus,
+	&:hover {
+		/* there is a special case for the white version of the button */
+		background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
+		/* check with the non-hovered bg so the font color don't flicker.*/
+		color: ${p => readableColor(p.theme[p.color], p.theme.ebony)};
+	}
 	&:disabled {
 		cursor: not-allowed;
 		background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
 		color: ${p => mix(0.5, p.theme[p.color], readableColor(p.theme[p.color]))};
+	}
+`;
+
+const roundButton = css`
+	height: 3rem;
+	width: 3rem;
+	border-radius: 50%;
+`;
+
+const normalButton = css`
+	border-radius: 0.25rem;
+`;
+
+const noborder = css`
+	border-color: transparent;
+	background: transparent;
+	color: ${p => (p.color === 'white' ? p.theme.ebony : p.theme[p.color])};
+	text-transform: none;
+	&:hover {
+		background: transparent;
+		border-color: transparent;
 	}
 `;
 
@@ -39,18 +69,11 @@ const Button = styled.button`
 	font-weight: ${p => p.theme.bold};
 	padding: 0.5rem 1rem;
 	font-size: ${p => p.theme[p.size]};
-	border-radius: 0.25rem;
-	text-transform: uppercase;
+	${p => (p.round ? roundButton : normalButton)}
+	${p => (p.noborder ? noborder : null)}
 	outline: none;
 	${clickableMixin};
 	cursor: pointer;
-	&:focus,
-	&:hover {
-		/* there is a special case for the white version of the button */
-		background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
-		/* check with the non-hovered bg so the font color don't flicker.*/
-		color: ${p => readableColor(p.theme[p.color], p.theme.ebony)};
-	}
 `;
 
 Button.defaultProps = {
@@ -68,6 +91,10 @@ Button.propTypes = {
 	 * the variant of the button
 	 */
 	variant: PropTypes.oneOf(['plain', 'outline']),
+
+	round: PropTypes.oneOf([true, false]),
+
+	noborder: PropTypes.oneOf([true, false]),
 
 	/**
 	 * The size of the button. It defines the font-size of the button.

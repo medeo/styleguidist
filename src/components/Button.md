@@ -62,6 +62,45 @@ Outlined buttons do not have a background set.
 	<Button variant="outline" color="scarlett">scarlett</Button>
 ```
 
+### Round variant
+
+This is used for Font-Awesome icons.
+
+```jsx
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisV, faInfo, faMicrophone, faVideo, faPhone, faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
+<div>
+	<Button color="white" round={true} variant="outline" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faEllipsisV} /></Button>
+	<Button color="gray" round={true} variant="outline" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faInfo} /></Button>
+	<Button color="emerald" round={true} variant="outline" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faMicrophone} /></Button>
+	<Button color="mustard" round={true} variant="outline" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faVideo} /></Button>
+	<Button variant="outline" round={true} style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faPhone} /></Button>
+	<Button variant="outline" round={true} color="aqua" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faPhoneSlash} /></Button>
+	<Button variant="outline" round={true} color="scarlett" style={{ marginRight: '2rem' }}><FontAwesomeIcon icon={faMicrophone} /></Button>
+	<Button color="white" round={true}  style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faEllipsisV} /></Button>
+	<Button color="gray" round={true}  style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faInfo} /></Button>
+	<Button color="emerald" round={true} style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faMicrophone} /></Button>
+	<Button color="mustard" round={true}  style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faVideo} /></Button>
+	<Button  round={true} style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faPhone} /></Button>
+	<Button color="aqua"  round={true} style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faPhoneSlash} /></Button>
+	<Button  color="scarlett" round={true}><FontAwesomeIcon icon={faMicrophone} /></Button>
+</div>
+```
+
+### No border variant
+
+Button with no border.
+
+```jsx
+<Button color="white" noborder={true} variant="outline" style={{ marginRight: '.5rem' }}>White</Button>
+<Button color="gray" noborder={true} variant="outline" style={{ marginRight: '.5rem' }}>Gray</Button>
+<Button color="emerald" noborder={true} variant="outline" style={{ marginRight: '.5rem' }}>Emerald</Button>
+<Button color="mustard" noborder={true} variant="outline" style={{ marginRight: '.5rem' }}>Mustard</Button>
+<Button variant="outline" noborder={true} style={{ marginRight: '.5rem' }}>Ocean</Button>
+<Button variant="outline" noborder={true} color="aqua" style={{ marginRight: '.5rem' }}>Aqua</Button>
+<Button variant="outline" noborder={true} color="scarlett">Scarlett</Button>
+```
+
 ### Sizes
 
 ```jsx

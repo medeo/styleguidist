@@ -18,6 +18,7 @@ const outlineMixin = css`
 
 const plainMixin = css`
 	background: ${p => p.theme[p.color]};
+	box-shadow: ${p => p.theme.boxShadow};
 	border-color: transparent;
 	color: ${p => readableColor(p.theme[p.color])};
 	text-transform: uppercase;
@@ -30,8 +31,8 @@ const plainMixin = css`
 	}
 	&:disabled {
 		cursor: not-allowed;
-		background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
-		color: ${p => mix(0.5, p.theme[p.color], readableColor(p.theme[p.color]))};
+		background-color: ${p => p.theme.cream};
+		color: ${p => p.theme.white};
 	}
 `;
 

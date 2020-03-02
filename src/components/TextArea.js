@@ -108,12 +108,10 @@ const TextArea = styled(props => {
 })``
 
 TextArea.propTypes = {
-	invalid: PropTypes.string,
 	backgroundColor: PropTypes.oneOf(['alabaster', 'white']),
 };
 
 TextArea.defaultProps = {
-	invalid: false,
 	backgroundColor: 'alabaster',
 	placeholder: '-',
 	readOnly: false,

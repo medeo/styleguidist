@@ -14,6 +14,12 @@ const outlineMixin = css`
 	&:hover {
 		border-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.ebony : p.theme[p.color])};
 	}
+	&:disabled {
+		cursor: not-allowed;
+		background-color: ${p => p.theme.cream};
+		color: ${p => p.theme.white};
+		border-color: transparent;
+	}
 `;
 
 const plainMixin = css`
@@ -36,26 +42,53 @@ const plainMixin = css`
 	}
 `;
 
-const roundButton = css`
+const roundMixin = css`
+	${plainMixin};
 	height: 3rem;
 	width: 3rem;
 	border-radius: 50%;
 `;
 
-const normalButton = css`
-	border-radius: 0.25rem;
+const outlineToggleMixin = css`
+	${outlineMixin};
+	height: 3rem;
+	width: 3rem;
+	border-radius: 50%;
 `;
 
-const noborder = css`
+const textMixin = css`
+	${outlineMixin};
 	border-color: transparent;
 	background: transparent;
-	color: ${p => (p.color === 'white' ? p.theme.ebony : p.theme[p.color])};
-	text-transform: none;
-	&:hover {
-		background: transparent;
-		border-color: transparent;
-	}
+	&:focus,
+  &:hover {
+    /* there is a special case for the white version of the button */
+    background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
+    /* check with the non-hovered bg so the font color don't flicker.*/
+    color: ${p => readableColor(p.theme[p.color], p.theme.ebony)};
+  }
 `;
+
+const selectMixin = (p) => {
+	switch (p.variant) {
+		case 'toggle':
+		case 'toggle-primary':
+			return roundMixin
+		case 'toggle-outline':
+		case 'toggle-secondary':
+			return outlineToggleMixin
+		case 'secondary':
+		case 'outline':
+			return outlineMixin
+		case 'tertiary':
+		case 'text':
+			return textMixin
+		case 'primary':
+		case 'plain':
+		default:
+			return plainMixin
+	}
+}
 
 /**
  * Par défaut, la taille des boutons est à `small`.
@@ -66,15 +99,14 @@ const noborder = css`
  * @author medeo
  */
 const Button = styled.button`
-	${p => (p.variant === 'outline' ? outlineMixin : plainMixin)};
 	font-weight: ${p => p.theme.bold};
 	padding: 0.5rem 1rem;
+	border-radius: 0.25rem;
 	font-size: ${p => p.theme[p.size]};
-	${p => (p.round ? roundButton : normalButton)}
-	${p => (p.noborder ? noborder : null)}
 	outline: none;
-	${clickableMixin};
 	cursor: pointer;
+	${p => selectMixin(p)};
+	${clickableMixin};
 `;
 
 Button.defaultProps = {
@@ -90,13 +122,9 @@ Button.propTypes = {
 	color: PropTypes.oneOf(['aqua', 'ocean', 'scarlett', 'emerald', 'mustard', 'gray', 'white']),
 	/**
 	 * the variant of the button
+	 * tertiary === noborder
 	 */
-	variant: PropTypes.oneOf(['plain', 'outline']),
-
-	round: PropTypes.oneOf([true, false]),
-
-	noborder: PropTypes.oneOf([true, false]),
-
+	variant: PropTypes.oneOf(['plain', 'outline', 'text','toggle']),
 	/**
 	 * The size of the button. It defines the font-size of the button.
 	 * @see See [font-size property](https://www.w3schools.com/cssref/pr_font_font-size.asp)

@@ -124,7 +124,7 @@ Button.propTypes = {
 	 * the variant of the button
 	 * tertiary === noborder
 	 */
-	variant: PropTypes.oneOf(['plain', 'outline', 'text','toggle']),
+	variant: PropTypes.oneOf(['plain', 'outline', 'text','toggle', 'primary', 'secondary', 'tertiary', 'toggle-primary', 'toggle-secondary','toggle-outline']),
 	/**
 	 * The size of the button. It defines the font-size of the button.
 	 * @see See [font-size property](https://www.w3schools.com/cssref/pr_font_font-size.asp)

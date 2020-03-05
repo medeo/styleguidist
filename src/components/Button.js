@@ -100,6 +100,9 @@ const selectMixin = (p) => {
  */
 const Button = styled.button`
 	font-weight: ${p => p.theme.bold};
+	// the two following lines are useful when using the Button style in a <a> anchor
+	line-height: 1.2rem;
+	text-decoration: none;
 	padding: 0.5rem 1rem;
 	border-radius: 0.25rem;
 	font-size: ${p => p.theme[p.size]};

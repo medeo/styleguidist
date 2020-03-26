@@ -356,7 +356,7 @@ Select.defaultProps = {
 	id: null,
 	required: false,
 	placeholder: 'Choisir une option',
-	fallback: 'Pas de résultat trouvé',
+	fallback: 'Aucun résultat',
 };
 
 export default Select;

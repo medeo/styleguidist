@@ -148,6 +148,13 @@ const init = ({ value, original }) => ({
 
 const reducer = (state, action) => {
 	switch (action.type) {
+		// c.f. MED-1254
+		// there is a useEffect in the component with more explanation
+		case 'defaultValueChange':
+			return {
+				...state,
+				value: action.payload,
+			};
 		case 'up':
 			return {
 				...state,
@@ -238,6 +245,17 @@ const Select = ({
 
 		init
 	);
+
+	// The following useEffect update the value of the component when the default value change
+	// this is the case with the YamlSelect, it start with undefined and when the resources are loaded
+	// the defaultValue is updated.
+	// c.f. MED-1254
+	useEffect(() => {
+		if (defaultValue != null) {
+			dispatch({ type: 'defaultValueChange', payload: defaultValue });
+		}
+	}, [defaultValue]);
+
 	const onMouseDown = index => {
 		dispatch({ type: 'click', payload: index });
 	};
@@ -337,8 +355,8 @@ Select.defaultProps = {
 	readOnly: false,
 	id: null,
 	required: false,
-	placeholder: 'Select an option',
-	fallback: 'No result found',
+	placeholder: 'Choisir une option',
+	fallback: 'Aucun résultat',
 };
 
 export default Select;

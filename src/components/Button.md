@@ -62,6 +62,50 @@ Outlined buttons do not have a background set.
 	<Button variant="outline" color="scarlett">scarlett</Button>
 ```
 
+### Toggle variant
+
+This is used for Font-Awesome icons.
+- `toggle-primary` has a background
+- `toggle-secondary` is outlined
+
+```jsx
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisV, faInfo, faMicrophone, faVideo, faPhone, faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
+<div>
+	<Button variant="toggle" color="white"  style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faEllipsisV} /></Button>
+	<Button variant="toggle" color="gray"  style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faInfo} /></Button>
+	<Button variant="toggle" color="emerald" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faMicrophone} /></Button>
+	<Button variant="toggle" color="mustard" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faVideo} /></Button>
+	<Button variant="toggle" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faPhone} /></Button>
+	<Button variant="toggle" color="aqua" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faPhoneSlash} /></Button>
+	<Button variant="toggle" color="aqua" disabled style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faPhoneSlash} /></Button>
+	<Button variant="toggle" color="scarlett" style={{ marginRight: '2rem' }}><FontAwesomeIcon icon={faMicrophone} /></Button>
+	<br/>	<br/>
+    <Button variant="toggle-secondary" color="white"  style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faEllipsisV} /></Button>
+	<Button variant="toggle-secondary" color="gray"  style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faInfo} /></Button>
+	<Button variant="toggle-secondary" color="emerald" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faMicrophone} /></Button>
+	<Button variant="toggle-secondary" color="mustard"  style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faVideo} /></Button>
+	<Button variant="toggle-secondary" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faPhone} /></Button>
+	<Button variant="toggle-secondary" color="aqua"  style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faPhoneSlash} /></Button>
+	<Button variant="toggle-secondary" color="scarlett" style={{ marginRight: '.5rem' }}><FontAwesomeIcon icon={faMicrophone} /></Button>
+	<Button variant="toggle-secondary" color="scarlett" disabled><FontAwesomeIcon icon={faMicrophone} /></Button>
+</div>
+```
+
+### Tertiary variant
+
+Button with no border.
+
+```jsx
+<Button color="white"  variant="tertiary" style={{ marginRight: '.5rem' }}>White</Button>
+<Button color="gray"  variant="tertiary" style={{ marginRight: '.5rem' }}>Gray</Button>
+<Button color="emerald"  variant="tertiary" style={{ marginRight: '.5rem' }}>Emerald</Button>
+<Button color="mustard"  variant="tertiary" style={{ marginRight: '.5rem' }}>Mustard</Button>
+<Button variant="tertiary"  style={{ marginRight: '.5rem' }}>Ocean</Button>
+<Button variant="tertiary"  color="aqua" style={{ marginRight: '.5rem' }}>Aqua</Button>
+<Button variant="tertiary"  color="scarlett">Scarlett</Button>
+```
+
 ### Sizes
 
 ```jsx

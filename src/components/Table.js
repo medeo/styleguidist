@@ -5,7 +5,6 @@ import { transparentize } from 'polished';
 
 const Table = styled.table`
 	width: 100%;
-	margin: 0 1rem;
 	color: ${p => p.theme.ebony};
 	font-size: ${p => p.theme.medium};
 	font-weight: ${p => p.theme.normal};

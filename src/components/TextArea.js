@@ -83,23 +83,34 @@ const Group = styled.div`
 `;
 
 const TextArea = styled(props => {
-	const { id, label, onChange, ...rest } = props;
+	const { id, label, onChange, readOnly, ...rest } = props;
+
+	// the following ref+effect change the size of the textarea component in readonly
+	// It stretches the textarea to fit its content.
+	// We do this because there are no borders on the readonly,
+	// and user might not see there are some text hidden
+	const ref = React.useRef(null);
+	React.useEffect(() => {
+		// override flex:1 to flex: 0 0 <scrollHeight>
+		// if the component is in readOnly
+		if (readOnly === true && ref.current != null) {
+			ref.current.style.flex = `0 0 ${ref.current.scrollHeight}px`;
+		}
+	}, [readOnly, ref.current]);
 
 	return (
 		<Group className={props.className}>
-			<Component id={id} onChange={onChange} {...rest} />
+			<Component ref={ref} id={id} onChange={onChange} readOnly={readOnly} {...rest} />
 			<Label htmlFor={id}>{label}</Label>
 		</Group>
 	);
 })``;
 
 TextArea.propTypes = {
-	invalid: PropTypes.string,
 	backgroundColor: PropTypes.oneOf(['alabaster', 'white']),
 };
 
 TextArea.defaultProps = {
-	invalid: false,
 	backgroundColor: 'alabaster',
 	placeholder: '-',
 	readOnly: false,

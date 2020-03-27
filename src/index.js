@@ -14,6 +14,7 @@ export { default as Label } from './components/Label';
 export { default as Tabs } from './components/Tabs';
 export { default as TextArea } from './components/TextArea';
 export { default as Form } from './components/Form';
+export { default as Spinner } from './components/Spinner';
 
 export { default as theme } from './theme';
 

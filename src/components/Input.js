@@ -148,12 +148,10 @@ const Input = styled(props => {
 })``;
 
 Input.propTypes = {
-	invalid: PropTypes.string,
 	label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
 };
 
 Input.defaultProps = {
-	invalid: 'false',
 	placeholder: '–',
 	readOnly: false,
 };

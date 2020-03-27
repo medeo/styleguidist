@@ -226,7 +226,7 @@ const MultipleSearchInput = ({
 		onInputChange({ target: { value } });
 	};
 
-	const handleClick = item => () => {
+	const handleClick = item => {
 		return dispatch({ type: 'select', payload: item });
 	};
 	return (
@@ -246,9 +246,9 @@ const MultipleSearchInput = ({
 				{state.query !== '' && (
 					<DataList>
 						{state.current.map((item, i) => (
-							<DataListItem key={i} onClick={handleClick(item)} item={item} />
+							<DataListItem key={i} onClick={handleClick} item={item} />
 						))}
-						<DefaultDataListItem query={state.query} onClick={handleClick(state.query)} />
+						<DefaultDataListItem query={state.query} onClick={handleClick} />
 					</DataList>
 				)}
 			</Relative>
@@ -262,11 +262,7 @@ MultipleSearchInput.defaultProps = {
 	extract: i => i,
 	onChange: () => {},
 	onInputChange: () => {},
-	DataListItem: ({ item, ...rest }) => <li {...rest}>{item}</li>,
-	DefaultDataListItem: ({ query, onClick, ...rest }) => (
-		<li {...rest} onClick={() => onClick(query)}>
-			{query}
-		</li>
-	),
+	DataListItem: ({ item, onClick }) => <li onClick={() => onClick(item)}>{item}</li>,
+	DefaultDataListItem: ({ query, onClick }) => <li onClick={() => onClick(query)}>{query}</li>,
 };
 export default MultipleSearchInput;

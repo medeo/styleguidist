@@ -1,0 +1,17 @@
+{
+    "projectName": "styleguidist",
+    "version": "2.0",
+    "frontend": "javascript",
+    "javascript": {
+        "framework": "react",
+        "config": {
+            "SourceDir": "src",
+            "DistributionDir": "styleguide",
+            "BuildCommand": "yarn styleguide:build",
+            "StartCommand": "yarn start"
+        }
+    },
+    "providers": [
+        "awscloudformation"
+    ]
+}

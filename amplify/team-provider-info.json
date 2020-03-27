@@ -1,0 +1,15 @@
+{
+    "master": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-styleguidist-master-174733-authRole",
+            "UnauthRoleArn": "arn:aws:iam::043514907797:role/amplify-styleguidist-master-174733-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::043514907797:role/amplify-styleguidist-master-174733-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-styleguidist-master-174733-deployment",
+            "UnauthRoleName": "amplify-styleguidist-master-174733-unauthRole",
+            "StackName": "amplify-styleguidist-master-174733",
+            "StackId": "arn:aws:cloudformation:eu-west-1:043514907797:stack/amplify-styleguidist-master-174733/a93cdb10-704a-11ea-93c1-0ace5b4cd800",
+            "AmplifyAppId": "dip5k62b07571"
+        }
+    }
+}

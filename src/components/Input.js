@@ -6,11 +6,10 @@ import Label from './Label';
 const invalidMixin = css`
 	border-color: ${p => p.theme.scarlett};
 	color: ${p => p.theme.black};
-`
+`;
 const disabledMixin = css`
- background: ${p => p.theme.alabaster};
-`
-
+	background: ${p => p.theme.alabaster};
+`;
 
 const readOnlyMixin = css`
 	border-color: transparent;
@@ -21,10 +20,9 @@ const readOnlyMixin = css`
 	}
 `;
 
-
 const Component = styled.input`
-	flex:1;
-	border-color: ${p=> p.theme.nevada};
+	flex: 1;
+	border-color: ${p => p.theme.nevada};
 	border-style: solid;
 	border-width: 1px;
 	outline: none;
@@ -59,10 +57,10 @@ const Group = styled.div`
 		margin-left: 0.25rem;
 		color: ${p => p.theme.aqua};
 	}
-	
+
 	& input:required ~ label::after {
 		display: inline;
-		content: "*";
+		content: '*';
 		color: ${p => p.theme.aqua};
 		margin-left: 0.25rem;
 	}

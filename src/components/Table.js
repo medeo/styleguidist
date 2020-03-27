@@ -20,7 +20,7 @@ const Table = styled.table`
 		font-weight: ${p => p.theme.bold};
 		letter-spacing: 0.125rem;
 		// padding should be set by the implementation
-	//	padding: 2rem 1rem 0 2rem;
+		//	padding: 2rem 1rem 0 2rem;
 	}
 	& > tbody tr {
 		&[role='button']:active {
@@ -35,7 +35,7 @@ const Table = styled.table`
 			border-left: none;
 			border-right: none;
 			// padding should be set by the implementation
-		//	padding: 0.5rem 2rem;
+			//	padding: 0.5rem 2rem;
 			//	vertical-align: top;
 			text-align: left;
 

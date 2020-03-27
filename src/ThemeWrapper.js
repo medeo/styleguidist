@@ -19,10 +19,10 @@ const GlobalStyle = createGlobalStyle`
 
 const ThemeWrapper = ({ children }) => (
 	<ThemeProvider theme={theme}>
-			<div>
-				<GlobalStyle />
-				{children}
-			</div>
+		<div>
+			<GlobalStyle />
+			{children}
+		</div>
 	</ThemeProvider>
 );
 

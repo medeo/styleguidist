@@ -119,20 +119,17 @@ const Component = styled.div`
 
 const Toggle = ({ children, onChange, ...rest }) => {
 	const [index, , open, setOpen, state] = useContext(DropDownContext);
-	const ref = useRef(null)
-	useEffect(() =>{
-		if(ref.current == null ) return
-		if(state == null) return
-		const triggerChange = Object.getOwnPropertyDescriptor(
-			HTMLButtonElement.prototype,
-			"value"
-		).set;
-		const event = new Event("change", { bubbles: true, cancelable: true });
+	const ref = useRef(null);
+	useEffect(() => {
+		if (ref.current == null) return;
+		if (state == null) return;
+		const triggerChange = Object.getOwnPropertyDescriptor(HTMLButtonElement.prototype, 'value').set;
+		const event = new Event('change', { bubbles: true, cancelable: true });
 		triggerChange.call(ref.current, value);
 		ref.current.dispatchEvent(event);
-		onChange(event)
-	}, [ state]);
-	const value = state!= null ? state.value ? state.value : state.children : null
+		onChange(event);
+	}, [state]);
+	const value = state != null ? (state.value ? state.value : state.children) : null;
 
 	return (
 		<Button {...rest} ref={ref} onClick={() => setOpen(!open)} value={value}>

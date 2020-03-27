@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom'
+import { createPortal } from 'react-dom';
 import { useOnClickOutsideBoundingBox } from '../hooks';
 import styled from 'styled-components';
 import Button from './Button';
@@ -8,7 +8,11 @@ export const DialogContext = React.createContext();
 
 export const DialogProvider = ({ children }) => {
 	const state = useState(null);
-	return <DialogContext.Provider value={state}>{typeof children === 'function' ? children(state) : children}</DialogContext.Provider>;
+	return (
+		<DialogContext.Provider value={state}>
+			{typeof children === 'function' ? children(state) : children}
+		</DialogContext.Provider>
+	);
 };
 
 export const Main = styled.main`
@@ -19,7 +23,7 @@ export const Main = styled.main`
 export const Footer = styled.footer`
 	background: ${p => p.theme.alabaster};
 	padding: 1rem;
-	border-radius: 0 0 .5rem .5rem;
+	border-radius: 0 0 0.5rem 0.5rem;
 	display: flex;
 	justify-content: flex-end;
 `;
@@ -27,12 +31,11 @@ export const Header = styled.header`
 	justify-content: flex-start;
 	border-bottom: 1px solid ${p => p.theme.alabaster};
 	padding: 1rem;
-	display: flex;	
-	border-radius:  .5rem .5rem 0 0;
+	display: flex;
+	border-radius: 0.5rem 0.5rem 0 0;
 	& > h1 {
 		margin: 0.5rem 0;
 	}
-
 `;
 const Component = styled.dialog`
 	padding: 0;
@@ -60,7 +63,7 @@ const Dialog = ({ dismissable, modal, children, ...rest }) => {
 	}, [ref, modal, setDialog]);
 
 	useOnClickOutsideBoundingBox(ref, () => {
-		if(dismissable === false) return
+		if (dismissable === false) return;
 		if (!ref.current || ref.current.open === true) {
 			ref.current.close('dismiss');
 		}
@@ -68,7 +71,8 @@ const Dialog = ({ dismissable, modal, children, ...rest }) => {
 	return createPortal(
 		<Component ref={ref} {...rest}>
 			{children}
-		</Component>, document.getElementById('modal')
+		</Component>,
+		document.getElementById('modal')
 	);
 };
 
@@ -88,7 +92,7 @@ const toggleDialog = (dialog, returnValue) => {
 export const ToggleButton = styled(({ children, value, ...rest }) => {
 	const [dialog] = useContext(DialogContext);
 	return (
-		<Button  {...rest} onClick={() => toggleDialog(dialog, value)}>
+		<Button {...rest} onClick={() => toggleDialog(dialog, value)}>
 			{children}
 		</Button>
 	);
@@ -100,10 +104,10 @@ ToggleButton.defaultProps = {
 
 Dialog.defaultProps = {
 	modal: true,
-	dismissable: true
+	dismissable: true,
 };
 
-Dialog.Header= Header;
+Dialog.Header = Header;
 Dialog.Footer = Footer;
 Dialog.Main = Main;
 Dialog.ToggleButton = ToggleButton;

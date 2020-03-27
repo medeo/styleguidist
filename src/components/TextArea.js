@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import Label from './Label';
@@ -12,26 +12,25 @@ const disabledMixin = css`
 	background: ${p => p.theme.cream};
 `;
 
-const readOnlyMixin = css` 
+const readOnlyMixin = css`
 	border-color: transparent;
 	padding: 0;
 	background: transparent;
 	resize: none;
 	&:focus {
-	 border-color: transparent;
+		border-color: transparent;
 	}
-`
+`;
 
-const selectMixin = (p) => {
-	if(p.readOnly === true)
-		return invalidMixin
-}
+const selectMixin = p => {
+	if (p.readOnly === true) return invalidMixin;
+};
 
 const Component = styled.textarea`
 	resize: none;
 	height: 4rem;
 	${selectMixin}
-	border-color: ${p =>p.theme.nevada};
+	border-color: ${p => p.theme.nevada};
 	border-style: solid;
 	border-width: 1px;
 	outline: none;
@@ -45,14 +44,14 @@ const Component = styled.textarea`
 
 const Group = styled.div`
 	display: flex;
-	flex:1;
+	flex: 1;
 	grid-row: 1;
 	flex-direction: column-reverse;
-	
+
 	// read-only invalid and focus are pasted here in case we are using Input.DefaultComponent outside of this file
 	// c.f. Select. Button is read-only all the time
 	& textarea:read-only {
-	 ${readOnlyMixin}
+		${readOnlyMixin}
 	}
 
 	// apply invalid state only when the user has started to type
@@ -81,18 +80,18 @@ const Group = styled.div`
 	& > ${Label} {
 		flex: 1;
 	}
-`
+`;
 
 const TextArea = styled(props => {
-	const { id, label, onChange, ...rest} = props
+	const { id, label, onChange, ...rest } = props;
 
 	return (
 		<Group className={props.className}>
-			<Component id={id} onChange={onChange} {...rest}/>
+			<Component id={id} onChange={onChange} {...rest} />
 			<Label htmlFor={id}>{label}</Label>
 		</Group>
-	)
-})``
+	);
+})``;
 
 TextArea.propTypes = {
 	invalid: PropTypes.string,
@@ -106,7 +105,7 @@ TextArea.defaultProps = {
 	readOnly: false,
 };
 
-TextArea.DefaultComponent = Component
+TextArea.DefaultComponent = Component;
 
 /** @component */
 export default TextArea;

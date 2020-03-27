@@ -61,34 +61,34 @@ const textMixin = css`
 	border-color: transparent;
 	background: transparent;
 	&:focus,
-  &:hover {
-    /* there is a special case for the white version of the button */
-    background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
-    /* check with the non-hovered bg so the font color don't flicker.*/
-    color: ${p => readableColor(p.theme[p.color], p.theme.ebony)};
-  }
+	&:hover {
+		/* there is a special case for the white version of the button */
+		background-color: ${p => lighten(0.2, p.color === 'white' ? p.theme.gray : p.theme[p.color])};
+		/* check with the non-hovered bg so the font color don't flicker.*/
+		color: ${p => readableColor(p.theme[p.color], p.theme.ebony)};
+	}
 `;
 
-const selectMixin = (p) => {
+const selectMixin = p => {
 	switch (p.variant) {
 		case 'toggle':
 		case 'toggle-primary':
-			return roundMixin
+			return roundMixin;
 		case 'toggle-outline':
 		case 'toggle-secondary':
-			return outlineToggleMixin
+			return outlineToggleMixin;
 		case 'secondary':
 		case 'outline':
-			return outlineMixin
+			return outlineMixin;
 		case 'tertiary':
 		case 'text':
-			return textMixin
+			return textMixin;
 		case 'primary':
 		case 'plain':
 		default:
-			return plainMixin
+			return plainMixin;
 	}
-}
+};
 
 /**
  * Par défaut, la taille des boutons est à `small`.
@@ -113,7 +113,7 @@ const Button = styled.button`
 `;
 
 Button.defaultProps = {
-	color: 'ocean',
+	color: 'aqua',
 	variant: 'plain',
 	size: 'small',
 };
@@ -127,7 +127,18 @@ Button.propTypes = {
 	 * the variant of the button
 	 * tertiary === noborder
 	 */
-	variant: PropTypes.oneOf(['plain', 'outline', 'text','toggle', 'primary', 'secondary', 'tertiary', 'toggle-primary', 'toggle-secondary','toggle-outline']),
+	variant: PropTypes.oneOf([
+		'plain',
+		'outline',
+		'text',
+		'toggle',
+		'primary',
+		'secondary',
+		'tertiary',
+		'toggle-primary',
+		'toggle-secondary',
+		'toggle-outline',
+	]),
 	/**
 	 * The size of the button. It defines the font-size of the button.
 	 * @see See [font-size property](https://www.w3schools.com/cssref/pr_font_font-size.asp)

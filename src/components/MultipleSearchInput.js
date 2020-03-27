@@ -4,15 +4,26 @@ import styled from 'styled-components';
 import Input from './Input';
 
 const SelectedList = styled.ul`
-	margin: 0;
-	padding: 0;
+	position: relative;
+	padding-left: 0.25rem;
+	padding-bottom: 0.25rem;
+
+	background: ${p => p.theme.white};
+	border: 1px solid ${p => p.theme.gray};
+	border-radius: 0.25rem;
 	display: flex;
+	flex-wrap: wrap;
+	&:focus-within {
+		border-color: ${p => p.theme.aqua};
+	}
+	margin: 0;
 	list-style: none;
 	& > li {
 		font-size: small;
 		background: ${p => p.theme.aqua};
+		height: 26px;
 		padding: 0.25rem 0.5rem;
-		margin: 0.25rem 0.25rem 0.25rem 0;
+		margin: 0.25rem 0.25rem 0 0;
 		box-shadow: ${p => p.theme.boxShadow};
 		color: ${p => p.theme.white};
 		border-radius: 0.25rem;
@@ -52,25 +63,10 @@ const DataList = styled.ul`
 	}
 `;
 
-// This input fakes a @medeo/component Input
-// It wraps around the selected list of tags and the actual text input
-const Relative = styled.div`
-	position: relative;
-	padding-left: 0.25rem;
-
-	background: ${p => p.theme.white};
-	border: 1px solid ${p => p.theme.gray};
-	border-radius: 0.25rem;
-	display: flex;
-	flex-wrap: wrap;
-	&:focus-within {
-		border-color: ${p => p.theme.aqua};
-	}
-`;
-
 // This is the inner that holds the query, it is wrapped by the Relative Component above
 const CustomInput = styled(Input.DefaultComponent)`
 	padding-left: 0;
+	padding-bottom: 0.25rem;
 	font-size: medium;
 	border-color: transparent;
 	&:hover,
@@ -233,14 +229,12 @@ const MultipleSearchInput = ({
 		<div>
 			<Label>{label}</Label>
 			{/*<pre>{JSON.stringify(state, null, 2)}</pre>*/}
-			<Relative>
-				<SelectedList>
-					{state.selected.map((item, i) => (
-						<li key={i} onClick={() => dispatch({ type: 'deselect', payload: i })}>
-							{extract(item)}&nbsp;&times;
-						</li>
-					))}
-				</SelectedList>
+			<SelectedList>
+				{state.selected.map((item, i) => (
+					<li key={i} onClick={() => dispatch({ type: 'deselect', payload: i })}>
+						{extract(item)}&nbsp;&times;
+					</li>
+				))}
 				<CustomInput type="text" value={state.query} onChange={handleChange} />
 				{/* display the datalist if the user types in the input */}
 				{state.query !== '' && (
@@ -251,7 +245,7 @@ const MultipleSearchInput = ({
 						<DefaultDataListItem query={state.query} onClick={handleClick} />
 					</DataList>
 				)}
-			</Relative>
+			</SelectedList>
 		</div>
 	);
 };

@@ -29,14 +29,27 @@ const SelectedList = styled.ul`
 		border-radius: 0.25rem;
 		display: flex;
 		align-items: center;
-
+		&:active,
+		&:focus {
+			background: ${p => p.theme.gray};
+			outline: none;
+		}
 		&:hover {
 			background: ${p => p.theme.gray};
 			cursor: pointer;
 		}
 	}
 `;
-
+const Fallback = styled.li`
+	color: ${p => p.theme.ebony} !important;
+	&:active,
+	&:hover,
+	&:focus {
+		background: transparent !important;
+		outline: none !important;
+		cursor: default !important;
+	}
+`;
 const DataList = styled.ul`
 	z-index: 1;
 	margin-top: 0.25rem;
@@ -77,6 +90,7 @@ const CustomInput = styled(Input.DefaultComponent)`
 
 const initialState = {
 	query: '',
+	shown: false,
 	current: [],
 	// the datalist set can be static or dynamic, in the case it is static
 	// we don't want the datalist to be reset to [] every time the user selects
@@ -96,6 +110,8 @@ const reducer = (state, action) => {
 			// reset the query input and add the payload to the selected list of item
 			return {
 				...state,
+				// hide the datalist once an option is selected
+				shown: false,
 				current: state.default
 					// nasty filter, it makes sure the datalist is not repopulated with
 					// option previously selected
@@ -123,6 +139,17 @@ const reducer = (state, action) => {
 				...state,
 				current: action.payload,
 			};
+		case 'click':
+			return {
+				...state,
+				shown: true,
+			};
+		case 'blur': {
+			return {
+				...state,
+				shown: false,
+			};
+		}
 		case 'change':
 			// When the user types in the input the query change, update the query state
 			return {
@@ -130,6 +157,8 @@ const reducer = (state, action) => {
 				// remove datalist if the user delete characters
 				current: action.payload.length < state.query.length ? state.default : state.current,
 				query: action.payload,
+				// show the list only if the user is typing in
+				shown: action.payload.length > 0,
 			};
 		default:
 			return state;
@@ -164,7 +193,7 @@ const reducer = (state, action) => {
 const MultipleSearchInput = ({
 	defaultDatalist,
 	datalist = defaultDatalist,
-
+	fallback,
 	extract,
 
 	onInputChange,
@@ -211,6 +240,22 @@ const MultipleSearchInput = ({
 		});
 	}, [state.selected.length]);
 
+	// handleBlur checks if the active element is a child of this Component
+	// if not it will dispatch the blur action which will hide the options display
+	const handleBlur = e => {
+		const { currentTarget } = e;
+
+		// Check the newly focused element in the next tick of the event loop
+		setTimeout(() => {
+			console.log(document.activeElement);
+			// Check if the new activeElement is a child of the original container
+			if (!currentTarget.contains(document.activeElement)) {
+				// You can invoke a callback or add custom logic here
+				dispatch({ type: 'blur' });
+			}
+		}, 0);
+	};
+
 	const handleChange = e => {
 		// something goes wrong when trying to access e.target.value multiple time,
 		// this is why we deconstruct it this variable
@@ -225,8 +270,13 @@ const MultipleSearchInput = ({
 	const handleClick = item => {
 		return dispatch({ type: 'select', payload: item });
 	};
+
+	// if there is no available option and the user has not typed yet
+	// display the fallback message (default being: no option available)
+	const shouldDisplayList = state.current.length > 0 || state.query !== '';
+
 	return (
-		<div>
+		<div onBlur={handleBlur}>
 			<Label>{label}</Label>
 			{/*<pre>{JSON.stringify(state, null, 2)}</pre>*/}
 			<SelectedList>
@@ -235,14 +285,29 @@ const MultipleSearchInput = ({
 						{extract(item)}&nbsp;&times;
 					</li>
 				))}
-				<CustomInput type="text" value={state.query} onChange={handleChange} />
-				{/* display the datalist if the user types in the input */}
-				{state.query !== '' && (
+				<CustomInput
+					type="text"
+					value={state.query}
+					onClick={() => dispatch({ type: 'click' })}
+					onChange={handleChange}
+				/>
+				{/* display the datalist */}
+				{state.shown === true && (
 					<DataList>
-						{state.current.map((item, i) => (
-							<DataListItem key={i} onClick={handleClick} item={item} />
-						))}
-						<DefaultDataListItem query={state.query} onClick={handleClick} />
+						{shouldDisplayList === true ? (
+							state.current.map((item, i) => (
+								<DataListItem key={i} onClick={handleClick} item={item} tabIndex={0} />
+							))
+						) : (
+							<Fallback>{fallback}</Fallback>
+						)}
+						{/*
+						 * if the user click on the component, and the query is empty it will show a blank line
+						 * we can prevent that with the following condition
+						 */}
+						{state.query !== '' && (
+							<DefaultDataListItem query={state.query} onClick={handleClick} tabIndex={0} />
+						)}
 					</DataList>
 				)}
 			</SelectedList>
@@ -253,10 +318,19 @@ const MultipleSearchInput = ({
 MultipleSearchInput.defaultProps = {
 	defaultDatalist: [],
 	defaultValue: [],
+	fallback: 'No option available',
 	extract: i => i,
 	onChange: () => {},
 	onInputChange: () => {},
-	DataListItem: ({ item, onClick }) => <li onClick={() => onClick(item)}>{item}</li>,
-	DefaultDataListItem: ({ query, onClick }) => <li onClick={() => onClick(query)}>{query}</li>,
+	DataListItem: ({ item, onClick, ...rest }) => (
+		<li onClick={() => onClick(item)} {...rest}>
+			{item}
+		</li>
+	),
+	DefaultDataListItem: ({ query, onClick, ...rest }) => (
+		<li onClick={() => onClick(query)} {...rest}>
+			{query}
+		</li>
+	),
 };
 export default MultipleSearchInput;

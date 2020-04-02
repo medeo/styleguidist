@@ -10,8 +10,6 @@ const Component = styled.div`
 	align-items: center;
 `;
 
-
-
 const TabName = styled.li`
 	padding: 0.5rem 0;
 	border-bottom-width: ${props => (props.tabFocused ? '2px' : '0px')};
@@ -38,14 +36,13 @@ const TabBar = styled.ul`
 	display: flex;
 	flex-direction: row;
 	margin: 0;
-	padding:0;
+	padding: 0;
 	justify-content: center;
 	align-items: center;
 	& > ${TabName}:not(:last-child) {
 		margin-right: 2rem;
 	}
 `;
-
 
 TabName.defaultProps = {
 	color: 'aqua',
@@ -62,11 +59,9 @@ const TabContent = styled.div`
 	justify-content: ${p => p.position};
 `;
 
-const Tab = ({ label, activeTab, onClickTabItem, color, size, space, bold }) => {
+const Tab = ({ label, activeTab, onClickTabItem, index, color, size, space, bold }) => {
 	let tabFocused = false;
-
-	if (activeTab === label) tabFocused = true;
-
+	if (activeTab === index) tabFocused = true;
 	return (
 		<TabName
 			bold={bold}
@@ -74,7 +69,7 @@ const Tab = ({ label, activeTab, onClickTabItem, color, size, space, bold }) => 
 			size={size}
 			color={color}
 			tabFocused={tabFocused}
-			onClick={() => onClickTabItem(label)}
+			onClick={onClickTabItem}
 		>
 			{label}
 		</TabName>
@@ -82,12 +77,12 @@ const Tab = ({ label, activeTab, onClickTabItem, color, size, space, bold }) => 
 };
 
 const Tabs = ({ children, color, size, border, position, space, bold }) => {
-	const [activeTab, setActiveTab] = useState(children[0].props.label);
+	const [activeTab, setActiveTab] = useState(children[0].props.index);
 	return (
 		<Component>
 			<TabBar border={border} space={space} position={position}>
 				{children.map(child => {
-					const { label } = child.props;
+					const { index, label } = child.props;
 					return (
 						<Tab
 							bold={bold}
@@ -95,18 +90,19 @@ const Tabs = ({ children, color, size, border, position, space, bold }) => {
 							size={size}
 							color={color}
 							label={label}
-							key={label}
+							key={index}
+							index={index}
 							activeTab={activeTab}
-							onClickTabItem={label => setActiveTab(label)}
+							onClickTabItem={() => setActiveTab(index)}
 						/>
 					);
 				})}
 			</TabBar>
-				{children.map(child => {
-					const { label } = child.props;
-					if (label !== activeTab) return undefined;
-					return child.props.children;
-				})}
+			{children.map(child => {
+				const { index } = child.props;
+				if (index !== activeTab) return undefined;
+				return child.props.children;
+			})}
 		</Component>
 	);
 };

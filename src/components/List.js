@@ -44,7 +44,7 @@ List.propTypes = {
 	/**
 	 * anything renderable, it will be displayed if **items** is empty
 	 */
-	fallback: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+	fallback: PropTypes.any//PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
 	/**
 	 * define whether the list should use list-style

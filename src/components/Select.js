@@ -20,11 +20,15 @@ const Option = styled.li`
 	flex: 1;
 	list-style: none;
 	line-height: 1.5;
-	${p =>
-		p.active === true &&
-		css`
-			background: ${p.theme.cream};
-		`}
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 100%
+		${p =>
+			p.active === true &&
+			css`
+				background: ${p.theme.cream};
+			`};
 `;
 
 const List = styled.ul`
@@ -32,8 +36,22 @@ const List = styled.ul`
 	text-align: center;
 	box-sizing: border-box;
 	max-height: 10rem;
-	overflow: scroll;
+	overflow-y: auto;
 	width: 100%;
+
+	::-webkit-scrollbar {
+		width: 0.5rem;
+	}
+
+	::-webkit-scrollbar-track {
+		background: ${p => p.theme.cream};
+		border-radius: 0.5rem;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: ${p => p.theme.nevada};
+		border-radius: 0.5rem;
+	}
 `;
 const Div = styled.div`
 	display: flex;
@@ -55,6 +73,12 @@ const Div = styled.div`
 	&:focus-within {
 		border-color: ${p => p.theme.aqua};
 	}
+`;
+
+// This List Wrapper is required to offset the scrollbar on the List
+const ListWrapper = styled.div`
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 `;
 
 const Component = styled.div`
@@ -88,22 +112,28 @@ const Component = styled.div`
 				margin-left: 0.25rem;
 			}
 		`}
-	${List} {
+	${ListWrapper} {
+		padding-right: 1rem;
 		z-index: 1;
-		padding: 0.125rem 0;
-		font-family: 'Inter', sans-serif;
-		font-weight: 500;
-		margin: 0;
-		text-align: left;
 		background: white;
 		opacity: 1;
-		display: block;
-		color: black;
 		border: 1px solid ${p => p.theme.aqua};
 		border-top-width: 0;
 		border-radius: 0 0 0.25rem 0.25rem;
-		list-style: none;
+		display: block;
+		left: 0;
+		right: 0;
 		position: absolute;
+	}
+	${List} {
+		padding: 0;
+		font-family: 'Inter', sans-serif;
+		font-weight: 500;
+		margin: 0;
+		display: block;
+		text-align: left;
+		color: black;
+		list-style: none;
 		${Option} {
 			padding: 0.25rem 0.5rem;
 			margin: 0.25rem 0.5rem;
@@ -327,21 +357,23 @@ const Select = ({
 				{readOnly === false && <FontAwesomeIcon icon={faCaretDown} />}
 			</Div>
 			{state.open === true && readOnly === false && (
-				<List>
-					{state.filtered.length > 0 ? (
-						React.Children.map(state.filtered, (c, i) => {
-							if (c.props.value == null)
-								console.warn('value prop  is not set in Select option !!!', c);
-							return React.cloneElement(c, {
-								...c.props,
-								active: state.index === i,
-								onMouseDown: () => onMouseDown(c),
-							});
-						})
-					) : (
-						<li aria-disabled>{fallback}</li>
-					)}
-				</List>
+				<ListWrapper>
+					<List>
+						{state.filtered.length > 0 ? (
+							React.Children.map(state.filtered, (c, i) => {
+								if (c.props.value == null)
+									console.warn('value prop  is not set in Select option !!!', c);
+								return React.cloneElement(c, {
+									...c.props,
+									active: state.index === i,
+									onMouseDown: () => onMouseDown(c),
+								});
+							})
+						) : (
+							<li aria-disabled>{fallback}</li>
+						)}
+					</List>
+				</ListWrapper>
 			)}
 		</Component>
 	);

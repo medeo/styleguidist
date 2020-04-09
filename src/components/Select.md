@@ -6,7 +6,20 @@
     </Select>
 </div>
 ```
+```jsx
+import Form from './Form';
+import Input from './Input';
 
+<div>
+    <Form.Row>
+    <Input type="text" label="coucou"/>   
+	<Select onChange={e => console.log(e.target.options)} label="Genre" >
+        <Select.Option value="test">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</Select.Option>
+        <Select.Option  value="2">tsttests</Select.Option>
+    </Select>
+    </Form.Row>
+</div>
+```
 ## with defaultValue
 ```jsx
 import Span from './Span';

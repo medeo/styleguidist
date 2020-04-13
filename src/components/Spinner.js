@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
 const Spinner = styled.div`
-	margin: auto;
-	border: 8px solid ${p => p.theme.aqua};
+	border: 0.125rem solid ${p => p.theme[p.color]};
 	border-radius: 50%;
-	border-top: 8px solid white;
-	width: 5rem;
-	height: 5rem;
-	animation: spin 5s linear infinite;
+	border-top-color: transparent;
+	width: 1rem;
+	height: 1rem;
+	animation: spin 500ms linear infinite;
 
 	@keyframes spin {
 		0% {
@@ -18,5 +17,9 @@ const Spinner = styled.div`
 		}
 	}
 `;
+
+Spinner.defaultProps = {
+	color: 'aqua',
+};
 
 export default Spinner;

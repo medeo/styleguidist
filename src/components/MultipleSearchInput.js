@@ -318,7 +318,7 @@ const MultipleSearchInput = ({
 MultipleSearchInput.defaultProps = {
 	defaultDatalist: [],
 	defaultValue: [],
-	fallback: 'No option available',
+	fallback: 'Aucune option disponible',
 	extract: i => i,
 	onChange: () => {},
 	onInputChange: () => {},

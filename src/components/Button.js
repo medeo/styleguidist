@@ -101,7 +101,7 @@ const selectMixin = p => {
 const Button = styled.button`
 	/* we need to specify the width and the display to avoid misalignment */
 	/* Especially when applying this style to a Link via the 'as' prop */
-	border-width: 1px;
+	border: 1px solid transparent;
 	display: inline-block;
 
 	font-weight: ${p => p.theme.bold};

@@ -4,11 +4,6 @@ import { lighten, mix, readableColor } from 'polished';
 import clickableMixin from '../mixins/clickable';
 
 const outlineMixin = css`
-	/* we need to specify the width and the display to avoid misalignment */
-	/* Especially when applying this style to a Link via the 'as' prop */
-	border-width: 1px;
-	display: inline-block;
-
 	background-color: transparent;
 	text-transform: uppercase;
 	border-style: solid;
@@ -104,6 +99,11 @@ const selectMixin = p => {
  * @author medeo
  */
 const Button = styled.button`
+	/* we need to specify the width and the display to avoid misalignment */
+	/* Especially when applying this style to a Link via the 'as' prop */
+	border-width: 1px;
+	display: inline-block;
+
 	font-weight: ${p => p.theme.bold};
 	// the two following lines are useful when using the Button style in a <a> anchor
 	line-height: 1.2rem;

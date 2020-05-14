@@ -4,6 +4,11 @@ import { lighten, mix, readableColor } from 'polished';
 import clickableMixin from '../mixins/clickable';
 
 const outlineMixin = css`
+	/* we need to specify the width and the display to avoid misalignment */
+	/* Especially when applying this style to a Link via the 'as' prop */
+	border-width: 1px;
+	display: inline-block;
+
 	background-color: transparent;
 	text-transform: uppercase;
 	border-style: solid;

@@ -79,6 +79,13 @@ const Group = styled.div`
 	}
 `;
 
+const Row = styled.div`
+	display: flex;
+	& > input {
+		flex: 1;
+	}
+`;
+
 const selectDisplay = p => {
 	if (p.readOnly === false) {
 		return css`
@@ -102,6 +109,11 @@ const selectDisplay = p => {
 		`;
 	}
 };
+
+const Affix = styled.span`
+	padding: 0.5rem;
+	align-self: center;
+`;
 
 const RadioGroup = styled.label`
 	padding: 0.5rem;
@@ -138,10 +150,13 @@ const Input = styled(props => {
 			</RadioGroup>
 		);
 	}
-
+	console.log(rest.suffix);
 	return (
 		<Group className={props.className}>
-			<Component id={id} onChange={onChange} {...rest} />
+			<Row>
+				<Component id={id} onChange={onChange} {...rest} />
+				{rest.suffix && <Affix>{rest.suffix}</Affix>}
+			</Row>
 			<Label htmlFor={id}>{label}</Label>
 		</Group>
 	);

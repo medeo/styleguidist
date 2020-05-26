@@ -6,7 +6,6 @@ import Input from './Input';
 const SelectedList = styled.ul`
 	position: relative;
 	padding-left: 0.25rem;
-	padding-bottom: 0.25rem;
 
 	background: ${p => p.theme.white};
 	border: 1px solid ${p => p.theme.gray};
@@ -79,7 +78,7 @@ const DataList = styled.ul`
 // This is the inner that holds the query, it is wrapped by the Relative Component above
 const CustomInput = styled(Input.DefaultComponent)`
 	padding-left: 0;
-	padding-bottom: 0.25rem;
+	//padding-bottom: 0;
 	font-size: medium;
 	border-color: transparent;
 	&:hover,

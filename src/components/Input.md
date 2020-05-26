@@ -41,6 +41,10 @@ import Select from './Select';
         <Input label="Disabled input" disabled />
         <Input label="Disabled input" disabled />
       </Form.Row>
+      <Form.Row>
+        <Input label="input with suffix" suffix="€" />
+      </Form.Row>
+
 </Form>
 ```
 

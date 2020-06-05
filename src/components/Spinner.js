@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-const Spinner = styled.div`
+// spinner should be accessible
+// according to https://sap.github.io/techne/loading-spinner.html
+// there are two aria attributes that we can use:
+// 1. aria-busy
+// 2. aria-label
+const Spinner = styled.div.attrs({ 'aria-busy': true, 'aria-label': 'loading' })`
+	display: inline-block;
 	border: 0.125rem solid ${p => p.theme[p.color]};
 	border-radius: 50%;
 	border-top-color: transparent;

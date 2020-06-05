@@ -150,7 +150,7 @@ const Input = styled(props => {
 			</RadioGroup>
 		);
 	}
-	console.log(rest.suffix);
+
 	return (
 		<Group className={props.className}>
 			<Row>

@@ -185,6 +185,12 @@ const reducer = (state, action) => {
 				...state,
 				value: action.payload,
 			};
+		case 'valueChange':
+			return {
+				...state,
+				current: state.filtered.find(o => o.value === action.payload),
+				value: action.payload,
+			};
 		case 'up':
 			return {
 				...state,
@@ -285,6 +291,11 @@ const Select = ({
 			dispatch({ type: 'defaultValueChange', payload: defaultValue });
 		}
 	}, [defaultValue]);
+	useEffect(() => {
+		if (value != null) {
+			dispatch({ type: 'valueChange', payload: value });
+		}
+	}, [value]);
 
 	const onMouseDown = index => {
 		dispatch({ type: 'click', payload: index });

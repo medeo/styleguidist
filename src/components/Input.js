@@ -35,10 +35,40 @@ const Component = styled.input`
 	${p => (p.type !== 'date' ? 'line-height: 1.5;' : '')}
 `;
 
+const requiredMixin = css`
+	${Label}::after {
+		display: inline;
+		content: '*';
+		margin-left: 0.25rem;
+		color: ${p => p.theme.aqua};
+	}
+`;
+
+/**
+ * Group is exported from the input component,
+ * this allows radios or checkboxes to be gathered inside one component
+ */
 const Group = styled.div`
 	display: flex;
-	flex: 1;
-	flex-direction: column-reverse;
+	flex-wrap: wrap-reverse;
+	flex-direction: row-reverse;
+	justify-content: flex-end;
+	// flex-direction is flipped to allow to style the label with '~' (sibling operator)
+	// we want the direction to be row even though label should be on top of the component
+	// we use the flex-wrap property to allow multiple row to be defined.
+	// label should take the entire space and force the other components to go on the next row
+
+	// we have the following layout:
+	// <--                    label: 100%													 -->
+	// <-- affix= 0 0 2rem | input= flex:1 | affix= flex: 0 0 2rem -->
+
+	& > input {
+		flex: 1;
+	}
+	
+	& > ${Label} {
+		flex: 0 0 100%;
+	}
 
 	// read-only invalid and focus are pasted here in case we are using Input.DefaultComponent outside of this file
 	// c.f. Select. Button is read-only all the time
@@ -51,19 +81,9 @@ const Group = styled.div`
 		${invalidMixin}
 	}
 
-	& input:required:not(:read-only) ~ label::after {
-		dislay: inline;
-		content: '*';
-		margin-left: 0.25rem;
-		color: ${p => p.theme.aqua};
-	}
+	${p => p.required === true && requiredMixin}
+	& input:required:not(:read-only) ~ ${requiredMixin}
 
-	& input:required ~ label::after {
-		display: inline;
-		content: '*';
-		color: ${p => p.theme.aqua};
-		margin-left: 0.25rem;
-	}
 	& input:disabled {
 		${disabledMixin}
 	}
@@ -71,19 +91,8 @@ const Group = styled.div`
 		outline: none;
 		border-color: ${p => p.theme.aqua};
 	}
-	& > input {
-		flex: 1;
-	}
-	& > ${Label} {
-		flex: 1;
-	}
-`;
 
-const Row = styled.div`
-	display: flex;
-	& > input {
-		flex: 1;
-	}
+
 `;
 
 const selectDisplay = p => {
@@ -113,6 +122,9 @@ const selectDisplay = p => {
 const Affix = styled.span`
 	padding: 0.5rem;
 	align-self: center;
+	justify-content: center;
+	flex-grow: 0;
+	flex-shrink: 0;
 `;
 
 const RadioGroup = styled.label`
@@ -153,10 +165,9 @@ const Input = styled(props => {
 
 	return (
 		<Group className={props.className}>
-			<Row>
-				<Component id={id} onChange={onChange} {...rest} />
-				{rest.suffix && <Affix>{rest.suffix}</Affix>}
-			</Row>
+			{rest.suffix && <Affix>{rest.suffix}</Affix>}
+			<Component id={id} onChange={onChange} {...rest} />
+			{rest.prefix && <Affix>{rest.prefix}</Affix>}
 			<Label htmlFor={id}>{label}</Label>
 		</Group>
 	);
@@ -172,6 +183,15 @@ Input.defaultProps = {
 };
 
 Input.DefaultComponent = Component;
+
+Input.Group = ({ label, children, required }) => {
+	return (
+		<Group required={required}>
+			{children}
+			<Label>{label}</Label>
+		</Group>
+	);
+};
 
 /** @component */
 export default Input;

@@ -19,11 +19,15 @@ import Select from './Select';
       <Input label="Disabled input" disabled />
     </Form.Row>
     <Form.Row>
-      <Label>Le patient fume t'il ?</Label>
-      <div style={{ display: "flex"}}>
-        <Input label="Réponse A" name="name" id="rep1" type="radio" value="1" label="Oui" />
-        <Input label="Réponse B" name="name" id="rep2" type="radio" value="2" label="Non" defaultChecked />
-      </div>
+        <Input.Group label="Le patient fume t'il ?">
+          <Input label="Réponse A" name="name" id="rep1" type="radio" value="1" label="Oui" />
+          <Input label="Réponse B" name="name" id="rep2" type="radio" value="2" label="Non" defaultChecked />
+        </Input.Group>
+       <Input.Group label="Le patient vomit t'il ?" required>
+          <Input label="Réponse A" name="name" id="rep1.1" type="radio" value="1" label="Oui" />
+          <Input label="Réponse B" name="name" id="rep2.1" type="radio" value="2" label="Non" defaultChecked />
+          <Input label="Réponse C" name="name" id="rep3.1" type="radio" value="2" label="Peut-etre"  />
+        </Input.Group>
     </Form.Row>
     <Form.Row>
         <Select id="country" label="Genre" defaultValue="female">
@@ -33,8 +37,7 @@ import Select from './Select';
         <Input label="Disabled input" disabled />
       </Form.Row>
  <Form.Row>
-
-        <Select id="country" label="Genre" defaultValue="female">
+        <Select id="country" label="Genre (required)" defaultValue="female" required>
           <Select.Option value="male">Homme</Select.Option>
           <Select.Option value="female">Femme</Select.Option>
         </Select>
@@ -43,6 +46,10 @@ import Select from './Select';
       </Form.Row>
       <Form.Row>
         <Input label="input with suffix" suffix="€" />
+      </Form.Row>
+    <Form.Row>
+        <Input label="input with suffix" prefix="@" required/>
+        <Input label="input with suffix" suffix="mmHg" />
       </Form.Row>
 
 </Form>

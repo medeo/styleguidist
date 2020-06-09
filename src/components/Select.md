@@ -6,6 +6,21 @@
     </Select>
 </div>
 ```
+
+```jsx
+import Button from './Button';
+const [value, setValue] = React.useState("2")
+;<div>
+    <Button onClick={()=> setValue("test")}>changeValue</Button>
+    <pre>{JSON.stringify(value, null, 2)}</pre>
+	<Select value={value} label="Genre" onChange={e=>console.log(e.target.value)} >
+        <Select.Option value="test">test</Select.Option>
+        <Select.Option  value="2">tsttests</Select.Option>
+    </Select>
+</div>
+```
+
+
 ```jsx
 import Form from './Form';
 import Input from './Input';

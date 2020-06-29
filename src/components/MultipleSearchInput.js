@@ -1,5 +1,6 @@
 import Label from './Label';
 import React, { useEffect } from 'react';
+import { useUpdateEffect } from 'react-use';
 import styled from 'styled-components';
 import Input from './Input';
 
@@ -224,8 +225,9 @@ const MultipleSearchInput = ({
 	}, [datalist]);
 
 	// calls the onChange handler everytime the selection is updated
-	useEffect(() => {
-		if (state.selected.length === 0) return;
+	useUpdateEffect(() => {
+		// ☝️ same as useEffect but will ignore the call upon mounting
+		// this will allow to call onChange even if the list is empty.
 
 		// fakes the structure of an event sent by a <select multiple/> element
 		// instead of populating value, it stores the info in selectedOptions
@@ -246,7 +248,6 @@ const MultipleSearchInput = ({
 
 		// Check the newly focused element in the next tick of the event loop
 		setTimeout(() => {
-			console.log(document.activeElement);
 			// Check if the new activeElement is a child of the original container
 			if (!currentTarget.contains(document.activeElement)) {
 				// You can invoke a callback or add custom logic here

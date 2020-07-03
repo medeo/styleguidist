@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import Label from './Label';
+import requiredMixin from '../mixins/required';
 
 const invalidMixin = css`
 	border-color: ${p => p.theme.scarlett};
@@ -33,15 +34,6 @@ const Component = styled.input`
 	font-weight: ${p => p.theme.normal};
 	font-family: 'Inter', sans-serif;
 	${p => (p.type !== 'date' ? 'line-height: 1.5;' : '')}
-`;
-
-const requiredMixin = css`
-	${Label}::after {
-		display: inline;
-		content: '*';
-		margin-left: 0.25rem;
-		color: ${p => p.theme.aqua};
-	}
 `;
 
 /**

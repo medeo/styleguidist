@@ -7,6 +7,7 @@ const Label = styled.label`
 	color: ${p => p.theme.nevada};
 	display: block;
 	margin-bottom: ${p => p.theme.spacing.small};
+	${p => p.required === true && requiredMixin}
 `;
 
 const RadioLabel = styled.label`

@@ -11,7 +11,7 @@ import { modularScale } from 'polished/lib/index';
 const palette = {
 	//text colors
 	ebony: '#1F2933',
-//	nevada: '#616E7C',
+	//	nevada: '#616E7C',
 	nevada: '#98a5b2',
 	cream: '#d5dce3',
 	// primary colors
@@ -64,8 +64,8 @@ const fontWeights = {
 	lighter: 400,
 };
 
-
-const boxShadow = '0 .5rem 1.5rem 0 rgba(32, 67, 102, 0.06)'
+const boxShadow = '0 .5rem 1.5rem 0 rgba(32, 67, 102, 0.06)';
+const boxShadowCloser = '0 .5rem 1.5rem 0 rgba(32, 67, 102, 0.18)';
 
 /**
  * Le theme est généré ici à l'aide de différentes propriétés.
@@ -92,7 +92,8 @@ const theme = {
 	...fontSizes,
 	...fontWeights,
 	spacing,
-	boxShadow
+	boxShadow,
+	boxShadowCloser,
 };
 
 export default theme;

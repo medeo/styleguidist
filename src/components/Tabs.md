@@ -1,5 +1,5 @@
 ```jsx
-      <Tabs color="emerald" size="larger" border={true} position="flex-start" space="large" bold={false}>
+      <Tabs color="emerald" size="larger" border={true} tabPosition="flex-start" contentPosition="center" width="100%" space="large" bold={false}>
         <div index={1} label="Tab1">
             String only 
         </div>
@@ -23,7 +23,7 @@
         </div>
       </Tabs>
 
-      <Tabs color="scarlett" size="small" border={false} position="flex-end" space="small">
+      <Tabs color="scarlett" size="small" border={false} tabPosition="center" contentPosition="flex-start" space="small">
         <div index={1} label="Tab1">
             String only 
         </div>

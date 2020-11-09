@@ -12,7 +12,7 @@ const Component = styled.div`
 
 const TabName = styled.li`
 	padding: 0.5rem 0;
-	border-bottom-width: ${props => (props.tabFocused ? '2px' : '0px')};
+	border-bottom-width: ${props => (props.tabFocused ? '1px' : '0px')};
 	border-bottom-color: ${p => p.theme[p.color]};
 	font-size: ${p => p.theme[p.size]};
 	border-bottom-style: solid;
@@ -37,7 +37,7 @@ const TabBar = styled.ul`
 	flex-direction: row;
 	margin: 0;
 	padding: 0;
-	justify-content: center;
+	justify-content: ${p => p.tabPosition};
 	align-items: center;
 	& > ${TabName}:not(:last-child) {
 		margin-right: 2rem;
@@ -56,7 +56,8 @@ TabName.propTypes = {
 };
 const TabContent = styled.div`
 	display: flex;
-	justify-content: ${p => p.position};
+	justify-content: ${p => p.contentPosition};
+	width: ${p => p.width};
 `;
 
 const Tab = ({ label, activeTab, onClickTabItem, index, color, size, space, bold }) => {
@@ -76,11 +77,11 @@ const Tab = ({ label, activeTab, onClickTabItem, index, color, size, space, bold
 	);
 };
 
-const Tabs = ({ children, color, size, border, position, space, bold }) => {
+const Tabs = ({ children, color, size, border, contentPosition, tabPosition, width, space, bold }) => {
 	const [activeTab, setActiveTab] = useState(children[0].props.index);
 	return (
 		<Component>
-			<TabBar border={border} space={space} position={position}>
+			<TabBar border={border} space={space} tabPosition={tabPosition}>
 				{children.map(child => {
 					const { index, label } = child.props;
 					return (
@@ -101,7 +102,7 @@ const Tabs = ({ children, color, size, border, position, space, bold }) => {
 			{children.map(child => {
 				const { index } = child.props;
 				if (index !== activeTab) return undefined;
-				return child.props.children;
+				return <TabContent contentPosition={contentPosition} width={width}>{child.props.children}</TabContent>
 			})}
 		</Component>
 	);
@@ -117,11 +118,12 @@ TabName.defaultProps = {
 TabBar.defaultProps = {
 	border: false,
 	space: 'medium',
-	position: 'center',
+	tabPosition: 'center',
 };
 
 TabContent.defaultProps = {
-	position: 'center',
+	contentPosition: 'center',
+	width: '100%'
 };
 
 TabName.propTypes = {
@@ -141,7 +143,8 @@ TabContent.propTypes = {
 	/**
 	 * the position of the tab
 	 */
-	position: PropTypes.oneOf(['center', 'flex-start', 'flex-end']),
+	contentPosition: PropTypes.oneOf(['center', 'flex-start', 'flex-end']),
+	width: PropTypes.any
 };
 
 export default Tabs;

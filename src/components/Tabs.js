@@ -11,7 +11,6 @@ const Component = styled.div`
 `;
 
 const TabName = styled.li`
-	padding: 0.5rem 0;
 	border-bottom-width: ${props => (props.tabFocused ? '2px' : '0px')};
 	border-bottom-color: ${p => p.theme[p.color]};
 	font-size: ${p => p.theme[p.size]};

@@ -12,7 +12,7 @@ const Component = styled.div`
 
 const TabName = styled.li`
 	padding: 0.5rem 0;
-	border-bottom-width: ${props => (props.tabFocused ? '1px' : '0px')};
+	border-bottom-width: ${props => (props.tabFocused ? '2px' : '0px')};
 	border-bottom-color: ${p => p.theme[p.color]};
 	font-size: ${p => p.theme[p.size]};
 	border-bottom-style: solid;
@@ -141,7 +141,7 @@ TabName.propTypes = {
 
 TabContent.propTypes = {
 	/**
-	 * the position of the tab
+	 * Position and width of the children of the tab
 	 */
 	contentPosition: PropTypes.oneOf(['center', 'flex-start', 'flex-end']),
 	width: PropTypes.any

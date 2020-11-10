@@ -140,7 +140,7 @@ TabContent.propTypes = {
 	/**
 	 * width of the children of the tab
 	 */
-	width: PropTypes.arrayOf(PropTypes.any)
+	width: PropTypes.any
 };
 
 export default Tabs;

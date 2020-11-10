@@ -100,7 +100,7 @@ const Tabs = ({ children, color, size, border,  position, width, space, bold }) 
 			{children.map(child => {
 				const { index } = child.props;
 				if (index !== activeTab) return undefined;
-				return <TabContent key={index} width={width}>{child.props.children}</TabContent>
+				return <TabContent key={index + 1} width={width}>{child.props.children}</TabContent>
 			})}
 		</Component>
 	);

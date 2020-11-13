@@ -75,7 +75,7 @@ const Tab = ({ label, activeTab, onClickTabItem, index, color, size, space, bold
 	);
 };
 
-const Tabs = ({ children, color, size, border,  position, width, space, bold }) => {
+const Tabs = ({ children, color, size, border, position, width, space, bold }) => {
 	const [activeTab, setActiveTab] = useState(children[0].props.index);
 	return (
 		<Component>
@@ -100,7 +100,11 @@ const Tabs = ({ children, color, size, border,  position, width, space, bold }) 
 			{children.map(child => {
 				const { index } = child.props;
 				if (index !== activeTab) return undefined;
-				return <TabContent key={index + 1} width={width}>{child.props.children}</TabContent>
+				return (
+					<TabContent key={index + 1} width={width}>
+						{child.props.children}
+					</TabContent>
+				);
 			})}
 		</Component>
 	);
@@ -120,7 +124,7 @@ TabBar.defaultProps = {
 };
 
 TabContent.defaultProps = {
-	width: 'auto'
+	width: 'auto',
 };
 
 TabName.propTypes = {
@@ -140,7 +144,7 @@ TabContent.propTypes = {
 	/**
 	 * width of the children of the tab
 	 */
-	width: PropTypes.any
+	width: PropTypes.any,
 };
 
 export default Tabs;

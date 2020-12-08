@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import clickableMixin from '../mixins/clickable';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { transparentize } from 'polished';
 
 const Table = styled.table`

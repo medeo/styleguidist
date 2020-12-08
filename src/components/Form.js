@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const Form = styled.form``;
 Form.Row = styled.div`

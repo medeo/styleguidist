@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { transparentize, darken } from 'polished';
 import Span from './Span';
 

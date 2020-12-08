@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useOnClickOutsideBoundingBox } from '../hooks';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Button from './Button';
 
 export const DialogContext = React.createContext();

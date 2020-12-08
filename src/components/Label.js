@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { transparentize } from 'polished';
 const Label = styled.label`
 	font-size: ${p => p.theme.small};

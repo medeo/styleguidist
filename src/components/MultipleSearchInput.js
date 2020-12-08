@@ -1,6 +1,6 @@
 import Label from './Label';
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Input from './Input';
 import { useUpdateEffect } from 'react-use';
 

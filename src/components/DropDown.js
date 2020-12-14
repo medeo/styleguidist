@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef, useLayoutEffect } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components/macro';
+import { css } from 'styled-components';
 import List from './List';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

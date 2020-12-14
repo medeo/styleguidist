@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 // spinner should be accessible
 // according to https://sap.github.io/techne/loading-spinner.html

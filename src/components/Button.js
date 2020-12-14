@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components/macro';
+import { css } from 'styled-components';
 import { lighten, mix, readableColor } from 'polished';
 import clickableMixin from '../mixins/clickable';
 

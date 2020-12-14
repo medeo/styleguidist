@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect, useRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components/macro';
+import { css } from 'styled-components';
 import fuzzy from 'fuzzy';
 import Input from './Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
